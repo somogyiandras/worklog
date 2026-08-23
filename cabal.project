@@ -1,0 +1,7 @@
+packages: .
+
+documentation: True
+haddock-executables: True
+haddock-hyperlink-source: True
+
+haddock-output-dir: doc
