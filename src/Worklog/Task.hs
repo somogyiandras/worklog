@@ -35,7 +35,7 @@ data Status
 -- | Very important attribute.
 data Deadline
     = NoDeadline -- ^ For tasks without deadline
-    | Deadline Day -- ^ Deadline in Modified Julian Day
+    | Deadline Day -- ^ Deadline
     deriving (Eq, Show)
 
 data Task = Task
@@ -59,11 +59,14 @@ hasDeadline :: Task -> Bool
 hasDeadline task =
     case taskDeadline task of
         NoDeadline -> False
-        Deadline - -> True
+        Deadline _ -> True
 
 isImportant :: Task -> Bool
 isImportant task = taskPriority task >= Important
 
+-- | Not closed and high priority task?
 needsAttention :: Task -> Bool
 needsAttention task = not (isFinished task) && isImportant task
+
+
 

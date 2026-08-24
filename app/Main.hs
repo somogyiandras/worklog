@@ -4,8 +4,8 @@
 --      - Sort them (status, dead-line, priority)
 module Main where
 
-import           Worklog.Task
-import Data.Time.Calendar
+import              Worklog.Task
+import              Data.Time.Calendar
 
 main :: IO ()
 main = do

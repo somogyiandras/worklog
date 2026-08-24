@@ -1,9 +1,11 @@
-module Main (main) where
+module Main where
 
-import Worklog.Task
+import Test.Tasty
+import qualified Worklog.TaskSpec as Task
 
 main :: IO ()
 main =
-    if isFinished $ Task 1 "Teszt" Normal Closed NoDeadline
-        then putStrLn "OK"
-        else error "isFinished test failed"
+    defaultMain $
+        testGroup "worklog"
+            [ Task.tests
+            ]
