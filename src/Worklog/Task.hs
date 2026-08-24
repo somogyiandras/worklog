@@ -9,6 +9,9 @@ module Worklog.Task
     -- * Functions
     isOpen,
     isFinished,
+    hasDeadline,
+    isImportant,
+    needsAttention
 )
 where
 
@@ -51,4 +54,16 @@ isOpen task = taskStatus task == Open
 isFinished :: Task -> Bool
 isFinished (Task _ _ _ Closed _)  = True
 isFinished _                      = False
+
+hasDeadline :: Task -> Bool
+hasDeadline task =
+    case taskDeadline task of
+        NoDeadline -> False
+        Deadline - -> True
+
+isImportant :: Task -> Bool
+isImportant task = taskPriority task >= Important
+
+needsAttention :: Task -> Bool
+needsAttention task = not (isFinished task) && isImportant task
 
