@@ -1,6 +1,7 @@
 modul TaskAnalysis
 (
-  countByPriority
+    countByPriority
+  , countActiveByPriority
 )
 where
 
@@ -12,3 +13,6 @@ countByPriority :: [Task] -> Map Priority Int
 countByPriority = foldr count M.empty
     where
       count task = M.insertWith (+) (taskPriority task) 1
+
+countActiveByPriority :: [Task] -> Map Priority Int
+countActiveByPriority = countByPriority . filter (not . isFinished)
