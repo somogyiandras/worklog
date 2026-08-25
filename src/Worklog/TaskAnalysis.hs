@@ -1,4 +1,4 @@
-modul TaskAnalysis
+modul Worklog.TaskAnalysis
 (
     countByPriority
   , countActiveByPriority
