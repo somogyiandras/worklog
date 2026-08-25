@@ -80,5 +80,5 @@ summaryText :: Summary -> String
 summaryText (Summary s) = s
 
 setSummary :: Summary -> Task -> Task
-setSummary su (Task id title priority status deadline _) = Task id title priority status deadline su
+setSummary su (Task iD title priority status deadline _) = Task iD title priority status deadline su
 
