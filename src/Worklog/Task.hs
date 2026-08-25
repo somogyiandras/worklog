@@ -58,8 +58,7 @@ isOpen task = taskStatus task == Open
 
 -- | Checks for finished task
 isFinished :: Task -> Bool
-isFinished (Task _ _ _ Closed _)  = True
-isFinished _                      = False
+isFinished task = taskStatus task == Closed
 
 hasDeadline :: Task -> Bool
 hasDeadline task =
