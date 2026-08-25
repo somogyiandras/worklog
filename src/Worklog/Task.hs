@@ -5,7 +5,9 @@ module Worklog.Task
     Status (..),
     Priority (..),
     Deadline (..),
-    Task (..),
+    Task,
+    taskId, taskTitle, taskPriority, taskStatus, taskDeadline,
+    mkSummary, summaryText, setSummary,
     -- * Functions
     isOpen,
     isFinished,
@@ -16,6 +18,9 @@ module Worklog.Task
 where
 
 import Data.Time.Calendar
+
+newtype Summary = Summary String
+    deriving (Eq, Show)
 
 data Priority
     = ForgetIt
@@ -44,6 +49,7 @@ data Task = Task
     , taskPriority  :: Priority
     , taskStatus    :: Status
     , taskDeadline  :: Deadline
+    , taskSummary   :: Summary
     }
     deriving (Eq, Show)
 
@@ -68,5 +74,12 @@ isImportant task = taskPriority task >= Important
 needsAttention :: Task -> Bool
 needsAttention task = not (isFinished task) && isImportant task
 
+mkSummary :: String -> Summary
+mkSummary = Summary
 
+summaryText :: Summary -> String
+summaryText (Summary s) = s
+
+setSummary :: Summary -> Task -> Task
+setSummary su (Task id title priority status deadline _) = Task id title priority status deadline su
 
