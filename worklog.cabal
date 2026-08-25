@@ -18,7 +18,9 @@ common warnings
 
 library
     import:           warnings
-    exposed-modules:  Worklog.Task
+    exposed-modules:  
+                      Worklog.Task
+                    , Worklog.TaskAnalysis
     -- other-modules:
     -- other-extensions:
     build-depends:    base ^>=4.21.0.0
@@ -32,11 +34,9 @@ executable worklog
     -- other-modules:
     -- other-extensions:
     build-depends:
-        base ^>=4.21.0.0,
-        worklog,
-        time
-
-
+                      base ^>=4.21.0.0
+                    , worklog
+                    , time
     hs-source-dirs:   app
     default-language: GHC2021
 
@@ -44,13 +44,13 @@ test-suite worklog-test
     import:           warnings
     default-language: GHC2021
     other-modules:
-        Worklog.TaskSpec
+                      Worklog.TaskSpec
     -- other-extensions:
     type:             exitcode-stdio-1.0
     hs-source-dirs:   test
     main-is:          Main.hs
     build-depends:
-        base ^>=4.21.0.0,
-        worklog,
-        tasty,
-        tasty-hunit
+                      base ^>=4.21.0.0
+                    , worklog
+                    , tasty
+                    , tasty-hunit
