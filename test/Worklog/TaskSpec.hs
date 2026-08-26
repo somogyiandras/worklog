@@ -24,7 +24,7 @@ testStatus =
             isFinished taskClosed @?= True
 
         , testCase "isFinished Open" $
-            isFinished taskReviewed @?= False
+            isFinished taskOpen @?= False
 
         , testCase "isOpen Open" $
             isOpen taskOpen @?= True
