@@ -1,6 +1,6 @@
 packages: .
 
-documentation: True
+documentation: False
 haddock-executables: True
 haddock-hyperlink-source: True
 

@@ -1,57 +1,68 @@
 -- | Task logic
 module Worklog.Task
-(
-    -- * Types
+  ( -- * Types
     Status (..),
     Priority (..),
     Deadline (..),
-    Task,
-    taskId, taskTitle, taskPriority, taskStatus, taskDeadline,
-    mkSummary, summaryText, setSummary,
+    Task (..),
+
     -- * Functions
+    initTask,
     isOpen,
     isFinished,
     hasDeadline,
     isImportant,
-    needsAttention
-)
+    needsAttention,
+    closeTask, openTask,
+    mkSummary,
+    summaryText,
+    emptySummary,
+  )
 where
 
 import Data.Time.Calendar
 
 newtype Summary = Summary String
-    deriving (Eq, Show)
+  deriving (Eq, Show)
 
 data Priority
-    = ForgetIt
-    | Postpone
-    | Normal
-    | Important
-    | VeryImportant
-    deriving (Eq, Ord, Show)
+  = ForgetIt
+  | Postpone
+  | Normal
+  | Important
+  | VeryImportant
+  deriving (Eq, Ord, Show)
 
 data Status
-    = Open      -- ^ task is under work
-    | Reviewed  -- ^ task is reviewed by others, it is ready to
-                -- make the decision
-    | Closed    -- ^ task is closed, there is no work with it
-    deriving (Eq, Show)
+  = -- | task is under work
+    Open
+  | -- | task is reviewed by others, it is ready to
+    -- make the decision
+    Reviewed
+  | -- | task is closed, there is no work with it
+    Closed
+  deriving (Eq, Show)
 
 -- | Very important attribute.
 data Deadline
-    = NoDeadline -- ^ For tasks without deadline
-    | Deadline Day -- ^ Deadline
-    deriving (Eq, Show)
+  = -- | For tasks without deadline
+    NoDeadline
+  | -- | Deadline
+    Deadline Day
+  deriving (Eq, Show)
 
 data Task = Task
-    { taskId        :: Int
-    , taskTitle     :: String
-    , taskPriority  :: Priority
-    , taskStatus    :: Status
-    , taskDeadline  :: Deadline
-    , taskSummary   :: Summary
-    }
-    deriving (Eq, Show)
+  { taskId :: Int,
+    taskTitle :: String,
+    taskPriority :: Priority,
+    taskStatus :: Status,
+    taskDeadline :: Deadline,
+    taskSummary :: Summary
+  }
+  deriving (Eq, Show)
+
+initTask :: Task
+initTask = Task 0 "TaskTitle" Normal Open NoDeadline emptySummary
 
 isOpen :: Task -> Bool
 isOpen task = taskStatus task == Open
@@ -60,16 +71,23 @@ isOpen task = taskStatus task == Open
 isFinished :: Task -> Bool
 isFinished task = taskStatus task == Closed
 
+closeTask :: Task -> Task
+closeTask (Task i t p _ d s) = Task i t p Closed d s
+
+openTask :: Task -> Task
+openTask (Task i t p _ d s) = Task i t p Open d s
+
+
 hasDeadline :: Task -> Bool
 hasDeadline task =
-    case taskDeadline task of
-        NoDeadline -> False
-        Deadline _ -> True
+  case taskDeadline task of
+    NoDeadline -> False
+    Deadline _ -> True
 
 isImportant :: Task -> Bool
 isImportant task = taskPriority task >= Important
 
--- | Not closed and high priority task?
+-- | Not closed and high priority task
 needsAttention :: Task -> Bool
 needsAttention task = not (isFinished task) && isImportant task
 
@@ -79,6 +97,5 @@ mkSummary = Summary
 summaryText :: Summary -> String
 summaryText (Summary s) = s
 
-setSummary :: Summary -> Task -> Task
-setSummary su (Task iD title priority status deadline _) = Task iD title priority status deadline su
-
+emptySummary :: Summary
+emptySummary = mkSummary ""
