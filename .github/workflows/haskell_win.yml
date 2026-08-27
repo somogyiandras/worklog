@@ -5,7 +5,7 @@ on:
   
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
       - name: Checkout
@@ -18,11 +18,17 @@ jobs:
           cabal-version: '3.12'
 
       - name: Build
-        run: cabal build all
+        run: cabal build exe:worklog
+
+      - name: Prepare executable
+        shell: pwsh
+        run: |
+          $exe = cabal list-bin exe:worklog
+          Copy-Item $exe ./worklog.exe
 
       - name: Upload executable
         uses: actions/upload-artifact@v4
         with:
-          name: Main
-          path: D:\\a\\worklog\\worklog\\dist-newstyle\\build\\x86_64-windows\\ghc-9.12.4\\worklog-0.2.0.2\\x\\worklog\\build\\worklog\\worklog.exe
+          name: worklog-windows-x86_64
+          path: worklog.exe
           retention-days: 20

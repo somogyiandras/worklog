@@ -43,25 +43,7 @@ data Priority
   | Normal
   | Important
   | VeryImportant
-  deriving (Eq, Ord, Show)
-
-instance Enum Priority where
-  toEnum i
-    | i < 0 = ForgetIt
-    | i == 0 = ForgetIt
-    | i == 1 = Postpone
-    | i == 2 = Normal
-    | i == 3 = Important
-    | i == 4 = VeryImportant
-    | otherwise = VeryImportant
-
-  fromEnum p
-    | p == ForgetIt = 0
-    | p == Postpone = 1
-    | p == Normal = 2
-    | p == Important = 3
-    | p == VeryImportant = 4
-    | otherwise = 0
+  deriving (Eq, Ord, Show, Enum, Bounded)
 
 isImportant :: Task -> Bool
 isImportant task = taskPriority task >= Important
@@ -74,10 +56,14 @@ setTaskPriority :: Priority -> Task -> Task
 setTaskPriority p task = task {taskPriority = p}
 
 promoteTask :: Task -> Task
-promoteTask task = task { taskPriority = succ $ taskPriority task }
+promoteTask task
+  | taskPriority task == maxBound = task
+  | otherwise = task {taskPriority = succ $ taskPriority task}
 
 demoteTask :: Task -> Task
-demoteTask task = task { taskPriority = pred $ taskPriority task }
+demoteTask task
+  | taskPriority task == minBound = task
+  | otherwise = task {taskPriority = pred $ taskPriority task}
 
 data Status
   = -- | task is under work

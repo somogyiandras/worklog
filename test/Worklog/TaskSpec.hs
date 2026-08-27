@@ -13,8 +13,8 @@ tests =
   testGroup
     "Worklog.Task"
     [ initialization
-    -- , testStatus
-    -- , testPriority
+     , testStatus
+     , testPriority
     ]
 
 initialization :: TestTree
@@ -37,9 +37,12 @@ initialization =
         openTask (closeTask (mkTask 0 "Test task")) @?= mkTask 0 "Test task"
     ]
 
-{-
 testStatus :: TestTree
 testStatus =
+    let taskClosed = closeTask $ mkTask 1 "Closed"
+        taskOpen = mkTask 2 "Open"
+        taskReviewed = (mkTask 3 "Reviewed") { taskStatus = Reviewed }
+    in
     testGroup "\tStatus functions:"
         [ testCase "isFinished Closed" $
             isFinished taskClosed @?= True
@@ -59,6 +62,9 @@ testStatus =
 
 testPriority :: TestTree
 testPriority =
+    let taskImportant = promoteTask $ mkTask 1 "Important"
+        taskOpen = mkTask 2 "Open"
+    in
     testGroup "\tPriority functions:"
         [ testCase "isImportant Normal" $
             isImportant taskOpen @?= False
@@ -66,4 +72,3 @@ testPriority =
         , testCase "checking compare:" $
             (taskPriority taskImportant >= taskPriority taskOpen) @?= True
         ]
--}
