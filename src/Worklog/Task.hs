@@ -1,22 +1,34 @@
 -- | Task logic
 module Worklog.Task
-  ( -- * Types
-    Status (..),
-    Priority (..),
-    Deadline (..),
-    Task (..),
+  ( -- * Task and its attributes
+    Task,
+    taskId, taskTitle, taskPriority, taskStatus, taskDeadline,
+    mkTask,
 
-    -- * Functions
-    initTask,
+    -- ** Status of task
+    Status (..),
     isOpen,
     isFinished,
-    hasDeadline,
+
+    -- ** Priority
+    Priority (..),
     isImportant,
     needsAttention,
+    setTaskPriority,
+    promoteTask,
+    demoteTask,
+
+    -- ** Deadlines
+    Deadline (..),
+    hasDeadline,
+    setDeadline,
+
+    -- * Functions
     closeTask, openTask,
     mkSummary,
     summaryText,
     emptySummary,
+    getSummary, setSummary
   )
 where
 
@@ -33,6 +45,40 @@ data Priority
   | VeryImportant
   deriving (Eq, Ord, Show)
 
+instance Enum Priority where
+  toEnum i
+    | i < 0 = ForgetIt
+    | i == 0 = ForgetIt
+    | i == 1 = Postpone
+    | i == 2 = Normal
+    | i == 3 = Important
+    | i == 4 = VeryImportant
+    | otherwise = VeryImportant
+
+  fromEnum p
+    | p == ForgetIt = 0
+    | p == Postpone = 1
+    | p == Normal = 2
+    | p == Important = 3
+    | p == VeryImportant = 4
+    | otherwise = 0
+
+isImportant :: Task -> Bool
+isImportant task = taskPriority task >= Important
+
+-- | Not closed and high priority task
+needsAttention :: Task -> Bool
+needsAttention task = not (isFinished task) && isImportant task
+
+setTaskPriority :: Priority -> Task -> Task
+setTaskPriority p task = task {taskPriority = p}
+
+promoteTask :: Task -> Task
+promoteTask task = task { taskPriority = succ $ taskPriority task }
+
+demoteTask :: Task -> Task
+demoteTask task = task { taskPriority = pred $ taskPriority task }
+
 data Status
   = -- | task is under work
     Open
@@ -43,6 +89,19 @@ data Status
     Closed
   deriving (Eq, Show)
 
+isOpen :: Task -> Bool
+isOpen task = taskStatus task == Open
+
+-- | Checks for finished task
+isFinished :: Task -> Bool
+isFinished task = taskStatus task == Closed
+
+closeTask :: Task -> Task
+closeTask task = task {taskStatus = Closed}
+
+openTask :: Task -> Task
+openTask task = task {taskStatus = Open}
+
 -- | Very important attribute.
 data Deadline
   = -- | For tasks without deadline
@@ -51,6 +110,22 @@ data Deadline
     Deadline Day
   deriving (Eq, Show)
 
+hasDeadline :: Task -> Bool
+hasDeadline task =
+  case taskDeadline task of
+    NoDeadline -> False
+    Deadline _ -> True
+
+setDeadline :: Deadline -> Task -> Task
+setDeadline day task = task {taskDeadline = day}
+
+-- | The Task data type contains the parameters of the case
+-- correspondent to the workfile. Some title, a longer summary,
+-- priority and status, and of course deadline.
+--
+-- The summary field currently implemented as Pandoc Block.
+--
+-- The task has an ID.
 data Task = Task
   { taskId :: Int,
     taskTitle :: String,
@@ -61,35 +136,18 @@ data Task = Task
   }
   deriving (Eq, Show)
 
-initTask :: Task
-initTask = Task 0 "TaskTitle" Normal Open NoDeadline emptySummary
+-- | mkTask id title creates an open task with normal priority,
+-- no deadline and empty summary.
+mkTask :: Int -> String -> Task
+mkTask iD title = Task
+  { taskId = iD,
+    taskTitle = title,
+    taskPriority = Normal,
+    taskStatus = Open,
+    taskDeadline = NoDeadline,
+    taskSummary = emptySummary
+  }
 
-isOpen :: Task -> Bool
-isOpen task = taskStatus task == Open
-
--- | Checks for finished task
-isFinished :: Task -> Bool
-isFinished task = taskStatus task == Closed
-
-closeTask :: Task -> Task
-closeTask (Task i t p _ d s) = Task i t p Closed d s
-
-openTask :: Task -> Task
-openTask (Task i t p _ d s) = Task i t p Open d s
-
-
-hasDeadline :: Task -> Bool
-hasDeadline task =
-  case taskDeadline task of
-    NoDeadline -> False
-    Deadline _ -> True
-
-isImportant :: Task -> Bool
-isImportant task = taskPriority task >= Important
-
--- | Not closed and high priority task
-needsAttention :: Task -> Bool
-needsAttention task = not (isFinished task) && isImportant task
 
 mkSummary :: String -> Summary
 mkSummary = Summary
@@ -99,3 +157,9 @@ summaryText (Summary s) = s
 
 emptySummary :: Summary
 emptySummary = mkSummary ""
+
+setSummary :: Summary -> Task -> Task
+setSummary s task = task {taskSummary = s}
+
+getSummary :: Task -> Summary
+getSummary task = taskSummary task

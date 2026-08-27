@@ -1,8 +1,8 @@
 cabal-version:      3.0
 name:               worklog
-version:            0.1.0.0
-synopsis:           Manages work files. Creates summary from work files.
--- description:
+version:            0.2.0.2
+synopsis:           Simple workfile management application
+description:        Manages work files. Creates summary, filter, change attributes and run the application which handles the workfiles. Use simple project framework with additional files related to the workfile.
 license:            BSD-3-Clause
 license-file:       LICENSE
 author:             Somogyi András
@@ -12,6 +12,9 @@ category:           work managment
 build-type:         Simple
 extra-doc-files:    CHANGELOG.md
 -- extra-source-files:
+source-repository head
+  type:     git
+  location: git//github.com/somogyiandras/worklog.git
 
 common warnings
     ghc-options: -Wall
@@ -24,8 +27,8 @@ library
     -- other-modules:
     -- other-extensions:
     build-depends:    base ^>=4.21.0.0
-                    , time
-                    , containers
+                    , time < 1.16.0.1
+                    , containers < 0.8
     hs-source-dirs:   src
     default-language: GHC2021
 
@@ -37,7 +40,7 @@ executable worklog
     build-depends:
                       base ^>=4.21.0.0
                     , worklog
-                    , time
+                    , time < 1.16.0.1
     hs-source-dirs:   app
     default-language: GHC2021
 

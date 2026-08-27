@@ -7,13 +7,6 @@ import Test.Tasty
 import Test.Tasty.HUnit
 import Worklog.Task
 
-taskClosed = Task 1 "Closed task" Normal Closed NoDeadline
-
-taskOpen = Task 2 "Open task" Normal Open NoDeadline
-
-taskReviewed = Task 3 "Reviewed task" Normal Reviewed NoDeadline
-
-taskImportant = Task 4 "Important task" Important Open NoDeadline
 
 tests :: TestTree
 tests =
@@ -29,19 +22,19 @@ initialization =
   testGroup
     "Task initialization and setting functions"
     [ testCase "Is taskId zero?" $
-        taskId initTask @?= 0,
+        taskId (mkTask 0 "Test task") @?= 0,
       testCase "is it open?" $
-        taskStatus initTask @?= Open,
+        taskStatus (mkTask 0 "Test task") @?= Open,
       testCase "is it normal priority?" $
-        taskPriority initTask @?= Normal,
+        taskPriority (mkTask 0 "Test task") @?= Normal,
       testCase "has not it deadline?" $
-        taskDeadline initTask @?= NoDeadline,
+        taskDeadline (mkTask 0 "Test task") @?= NoDeadline,
       testCase "has it empty summary?" $
-        taskSummary initTask @?= emptySummary,
+        getSummary (mkTask 0 "Test task") @?= emptySummary,
       testCase "Can I close?" $
-        taskStatus (closeTask initTask) @?= Closed,
+        taskStatus (closeTask (mkTask 0 "Test task")) @?= Closed,
       testCase "Does opening and closing is id?" $
-        openTask (closeTask initTask) @?= initTask
+        openTask (closeTask (mkTask 0 "Test task")) @?= mkTask 0 "Test task"
     ]
 
 {-
