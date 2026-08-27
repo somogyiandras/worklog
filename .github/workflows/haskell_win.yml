@@ -24,5 +24,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Main
-          path: worklog.exe
+          path: D:\\a\\worklog\\worklog\\dist-newstyle\\build\\x86_64-windows\\ghc-9.12.4\\worklog-0.2.0.2\\x\\worklog\\build\\worklog\\worklog.exe
           retention-days: 20
