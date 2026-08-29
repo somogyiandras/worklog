@@ -5,14 +5,14 @@ module Worklog.TaskAnalysis
 )
 where
 
-import           Worklog.Task
+import           Worklog.Case
 import           Data.Map.Strict (Map)
 import qualified Data.Map.Strict as M
 
-countByPriority :: [Task] -> Map Priority Int
+countByPriority :: [Case] -> Map Priority Int
 countByPriority = foldr count M.empty
     where
-      count task = M.insertWith (+) (taskPriority task) 1
+      count cas = M.insertWith (+) (casePriority cas) 1
 
-countActiveByPriority :: [Task] -> Map Priority Int
+countActiveByPriority :: [Case] -> Map Priority Int
 countActiveByPriority = countByPriority . filter (not . isArchived)

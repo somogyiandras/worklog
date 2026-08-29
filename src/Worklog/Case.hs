@@ -2,13 +2,16 @@
 module Worklog.Case
   ( -- * Task and its attributes
     Case,
-    caseId, caseTitle, casePriority, caseStatus, caseDeadline,
+    caseId, caseTitle, casePriority, caseDeadline,
     newCase,
 
     -- ** Status of task
     Status (..),
     isOnDesk,
     isArchived,
+    isDeferred,
+    getDefferedDay,
+    deferrCase,
 
     -- ** Priority
     Priority (..),
@@ -25,7 +28,7 @@ module Worklog.Case
 
     -- ** Flags
     CaseFlag (..),
-    hasFlag, addFlag, removeFlag,
+    anyFlag, hasFlag, addFlag, removeFlag,
 
     -- * Functions
     closeCase, openCase,
@@ -87,7 +90,18 @@ isOnDesk cas = caseStatus cas == OnDesk
 isArchived :: Case -> Bool
 isArchived cas = caseStatus cas == Archived
 
--- Close the case, file, document, and send it to the archives
+isDeferred :: Case -> Bool
+isDeferred Case {caseStatus = Deferred _} = True
+isDeferred _ = False
+
+getDefferedDay :: Case -> Maybe Day
+getDefferedDay Case {caseStatus = Deferred day} = Just day
+getDefferedDay _ = Nothing
+
+deferrCase :: Case -> Day -> Case
+deferrCase cas day = cas { caseStatus = Deferred day }
+
+-- Close the case, file, document, and send it to the archives.
 closeCase :: Case -> Case
 closeCase cas = cas {caseStatus = Archived}
 
@@ -125,32 +139,34 @@ data CaseFlag
     -- fixes are neccessary
     deriving (Eq, Ord, Show)
 
+anyFlag :: Case -> Bool
+anyFlag = Set.null . caseFlags
+
 hasFlag :: CaseFlag -> Case -> Bool
-hasFlag flag = Set.member flag . taskFlags
+hasFlag flag = Set.member flag . caseFlags
 
 addFlag :: CaseFlag -> Case -> Case
-addFlag flag cas = cas {taskFlags = Set.insert flag (taskFlags cas)}
+addFlag flag cas = cas {caseFlags = Set.insert flag (caseFlags cas)}
 
 removeFlag :: CaseFlag -> Case -> Case
-removeFlag flag cas = cas {taskFlags = Set.delete flag (taskFlags cas)}
+removeFlag flag cas = cas {caseFlags = Set.delete flag (caseFlags cas)}
 
-
-
--- | The Task data type contains the parameters of the case
+-- | The Case data type contains the parameters of the case
 -- correspondent to the workfile. Some title, a longer summary,
--- priority and status, and of course deadline.
+-- priority and status, and of course deadline. The caseFlags
+-- attributes 
 --
--- The summary field currently implemented as Pandoc Block.
+-- The summary field currently will be implemented as Pandoc Block.
 --
--- The task has an ID.
+-- The case has an ID.
 data Case = Case
   { caseId :: Int,
     caseTitle :: String,
     casePriority :: Priority,
     caseStatus :: Status,
     caseDeadline :: Deadline,
-    taskSummary :: Summary,
-    taskFlags :: Set CaseFlag
+    caseSummary :: Summary,
+    caseFlags :: Set CaseFlag
   }
   deriving (Eq, Show)
 
@@ -163,8 +179,8 @@ newCase iD title = Case
     casePriority = Normal,
     caseStatus = OnDesk,
     caseDeadline = NoDeadline,
-    taskSummary = emptySummary,
-    taskFlags = Set.empty
+    caseSummary = emptySummary,
+    caseFlags = Set.empty
   }
 
 
@@ -178,7 +194,7 @@ emptySummary :: Summary
 emptySummary = mkSummary ""
 
 setSummary :: Summary -> Case -> Case
-setSummary s cas = cas {taskSummary = s}
+setSummary s cas = cas {caseSummary = s}
 
 getSummary :: Case -> Summary
-getSummary = taskSummary 
+getSummary = caseSummary 

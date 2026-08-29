@@ -5,46 +5,46 @@
 </span><span id="line-5"></span><span class="hs-special">)</span><span>
 </span><span id="line-6"></span><span class="hs-keyword">where</span><span>
 </span><span id="line-7"></span><span>
-</span><span id="line-8"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><a href="Worklog.Task.html"><span class="hs-identifier">Worklog.Task</span></a></span><span>
+</span><span id="line-8"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><a href="Worklog.Case.html"><span class="hs-identifier">Worklog.Case</span></a></span><span>
 </span><span id="line-9"></span><span class="hs-keyword">import</span><span>           </span><span class="annot"><span class="hs-identifier">Data.Map.Strict</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">Map</span></span><span class="hs-special">)</span><span>
 </span><span id="line-10"></span><span class="hs-keyword">import</span><span> </span><span class="hs-keyword">qualified</span><span> </span><span class="annot"><span class="hs-identifier">Data.Map.Strict</span></span><span> </span><span class="hs-keyword">as</span><span> </span><span class="annot"><span class="hs-identifier">M</span></span><span>
 </span><span id="line-11"></span><span>
-</span><span id="line-12"></span><span class="annot"><a href="Worklog.TaskAnalysis.html#countByPriority"><span class="hs-identifier hs-type">countByPriority</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="Worklog.Task.html#Task"><span class="hs-identifier hs-type">Task</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Map</span></span><span> </span><span class="annot"><a href="Worklog.Task.html#Priority"><span class="hs-identifier hs-type">Priority</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
-</span><span id="line-13"></span><span id="countByPriority"><span class="annot"><span class="annottext">countByPriority :: [Task] -&gt; Map Priority Int
-</span><a href="Worklog.TaskAnalysis.html#countByPriority"><span class="hs-identifier hs-var hs-var">countByPriority</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(Task -&gt; Map Priority Int -&gt; Map Priority Int)
--&gt; Map Priority Int -&gt; [Task] -&gt; Map Priority Int
+</span><span id="line-12"></span><span class="annot"><a href="Worklog.TaskAnalysis.html#countByPriority"><span class="hs-identifier hs-type">countByPriority</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Map</span></span><span> </span><span class="annot"><a href="Worklog.Case.html#Priority"><span class="hs-identifier hs-type">Priority</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-13"></span><span id="countByPriority"><span class="annot"><span class="annottext">countByPriority :: [Case] -&gt; Map Priority Int
+</span><a href="Worklog.TaskAnalysis.html#countByPriority"><span class="hs-identifier hs-var hs-var">countByPriority</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(Case -&gt; Map Priority Int -&gt; Map Priority Int)
+-&gt; Map Priority Int -&gt; [Case] -&gt; Map Priority Int
 forall a b. (a -&gt; b -&gt; b) -&gt; b -&gt; [a] -&gt; b
 forall (t :: * -&gt; *) a b.
 Foldable t =&gt;
 (a -&gt; b -&gt; b) -&gt; b -&gt; t a -&gt; b
-</span><span class="hs-identifier hs-var">foldr</span></span><span> </span><span class="annot"><span class="annottext">Task -&gt; Map Priority Int -&gt; Map Priority Int
-forall {a}. Num a =&gt; Task -&gt; Map Priority a -&gt; Map Priority a
-</span><a href="#local-6989586621679054124"><span class="hs-identifier hs-var">count</span></a></span><span> </span><span class="annot"><span class="annottext">Map Priority Int
+</span><span class="hs-identifier hs-var">foldr</span></span><span> </span><span class="annot"><span class="annottext">Case -&gt; Map Priority Int -&gt; Map Priority Int
+forall {a}. Num a =&gt; Case -&gt; Map Priority a -&gt; Map Priority a
+</span><a href="#local-6989586621679051263"><span class="hs-identifier hs-var">count</span></a></span><span> </span><span class="annot"><span class="annottext">Map Priority Int
 forall k a. Map k a
 </span><span class="hs-identifier hs-var">M.empty</span></span><span>
 </span><span id="line-14"></span><span>    </span><span class="hs-keyword">where</span><span>
-</span><span id="line-15"></span><span>      </span><span id="local-6989586621679054124"><span class="annot"><span class="annottext">count :: Task -&gt; Map Priority a -&gt; Map Priority a
-</span><a href="#local-6989586621679054124"><span class="hs-identifier hs-var hs-var">count</span></a></span></span><span> </span><span id="local-6989586621679054131"><span class="annot"><span class="annottext">Task
-</span><a href="#local-6989586621679054131"><span class="hs-identifier hs-var">task</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(a -&gt; a -&gt; a) -&gt; Priority -&gt; a -&gt; Map Priority a -&gt; Map Priority a
+</span><span id="line-15"></span><span>      </span><span id="local-6989586621679051263"><span class="annot"><span class="annottext">count :: Case -&gt; Map Priority a -&gt; Map Priority a
+</span><a href="#local-6989586621679051263"><span class="hs-identifier hs-var hs-var">count</span></a></span></span><span> </span><span id="local-6989586621679051270"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051270"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(a -&gt; a -&gt; a) -&gt; Priority -&gt; a -&gt; Map Priority a -&gt; Map Priority a
 forall k a. Ord k =&gt; (a -&gt; a -&gt; a) -&gt; k -&gt; a -&gt; Map k a -&gt; Map k a
 </span><span class="hs-identifier hs-var">M.insertWith</span></span><span> </span><span class="annot"><span class="annottext">a -&gt; a -&gt; a
 forall a. Num a =&gt; a -&gt; a -&gt; a
-</span><span class="hs-operator hs-var">(+)</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Task -&gt; Priority
-</span><a href="Worklog.Task.html#taskPriority"><span class="hs-identifier hs-var">taskPriority</span></a></span><span> </span><span class="annot"><span class="annottext">Task
-</span><a href="#local-6989586621679054131"><span class="hs-identifier hs-var">task</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">a
+</span><span class="hs-operator hs-var">(+)</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Case -&gt; Priority
+</span><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051270"><span class="hs-identifier hs-var">cas</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">a
 </span><span class="hs-number">1</span></span><span>
 </span><span id="line-16"></span><span>
-</span><span id="line-17"></span><span class="annot"><a href="Worklog.TaskAnalysis.html#countActiveByPriority"><span class="hs-identifier hs-type">countActiveByPriority</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="Worklog.Task.html#Task"><span class="hs-identifier hs-type">Task</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Map</span></span><span> </span><span class="annot"><a href="Worklog.Task.html#Priority"><span class="hs-identifier hs-type">Priority</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
-</span><span id="line-18"></span><span id="countActiveByPriority"><span class="annot"><span class="annottext">countActiveByPriority :: [Task] -&gt; Map Priority Int
-</span><a href="Worklog.TaskAnalysis.html#countActiveByPriority"><span class="hs-identifier hs-var hs-var">countActiveByPriority</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Task] -&gt; Map Priority Int
-</span><a href="Worklog.TaskAnalysis.html#countByPriority"><span class="hs-identifier hs-var">countByPriority</span></a></span><span> </span><span class="annot"><span class="annottext">([Task] -&gt; Map Priority Int)
--&gt; ([Task] -&gt; [Task]) -&gt; [Task] -&gt; Map Priority Int
+</span><span id="line-17"></span><span class="annot"><a href="Worklog.TaskAnalysis.html#countActiveByPriority"><span class="hs-identifier hs-type">countActiveByPriority</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Map</span></span><span> </span><span class="annot"><a href="Worklog.Case.html#Priority"><span class="hs-identifier hs-type">Priority</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-18"></span><span id="countActiveByPriority"><span class="annot"><span class="annottext">countActiveByPriority :: [Case] -&gt; Map Priority Int
+</span><a href="Worklog.TaskAnalysis.html#countActiveByPriority"><span class="hs-identifier hs-var hs-var">countActiveByPriority</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Case] -&gt; Map Priority Int
+</span><a href="Worklog.TaskAnalysis.html#countByPriority"><span class="hs-identifier hs-var">countByPriority</span></a></span><span> </span><span class="annot"><span class="annottext">([Case] -&gt; Map Priority Int)
+-&gt; ([Case] -&gt; [Case]) -&gt; [Case] -&gt; Map Priority Int
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">(Task -&gt; Bool) -&gt; [Task] -&gt; [Task]
+</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">(Case -&gt; Bool) -&gt; [Case] -&gt; [Case]
 forall a. (a -&gt; Bool) -&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">filter</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Bool -&gt; Bool
-</span><span class="hs-identifier hs-var">not</span></span><span> </span><span class="annot"><span class="annottext">(Bool -&gt; Bool) -&gt; (Task -&gt; Bool) -&gt; Task -&gt; Bool
+</span><span class="hs-identifier hs-var">not</span></span><span> </span><span class="annot"><span class="annottext">(Bool -&gt; Bool) -&gt; (Case -&gt; Bool) -&gt; Case -&gt; Bool
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
-</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Task -&gt; Bool
-</span><a href="Worklog.Task.html#isArchived"><span class="hs-identifier hs-var">isArchived</span></a></span><span class="hs-special">)</span><span>
+</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Case -&gt; Bool
+</span><a href="Worklog.Case.html#isArchived"><span class="hs-identifier hs-var">isArchived</span></a></span><span class="hs-special">)</span><span>
 </span><span id="line-19"></span></pre></body></html>

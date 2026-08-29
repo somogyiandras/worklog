@@ -7,25 +7,28 @@ import Test.Tasty
 import Test.Tasty.HUnit
 import Worklog.Case
 import Data.Time.Calendar (fromGregorian)
+import Data.Function ((&))
 
 
 tests :: TestTree
 tests =
   testGroup
     "Worklog.Task"
-    [ initialization
-     , testStatus
-     , testPriority
+    [ initialization,
+      testStatus,
+      testPriority,
+      testFlag,
+      testDays
     ]
 
 initialization :: TestTree
 initialization =
   testGroup
-    "Task initialization and setting functions"
+    "\tTask initialization and setting functions"
     [ testCase "Is caseId zero?" $
         caseId (newCase 0 "Test case") @?= 0,
       testCase "is it open?" $
-        caseStatus (newCase 0 "Test case") @?= OnDesk,
+        isOnDesk (newCase 0 "Test case") @?= True,
       testCase "is it normal priority?" $
         casePriority (newCase 0 "Test case") @?= Normal,
       testCase "has not it deadline?" $
@@ -33,7 +36,7 @@ initialization =
       testCase "has it empty summary?" $
         getSummary (newCase 0 "Test case") @?= emptySummary,
       testCase "Can I close?" $
-        caseStatus (closeCase (newCase 0 "Test case")) @?= Archived,
+       isArchived (closeCase (newCase 0 "Test case")) @?= True,
       testCase "Does opening and closing is id?" $
         openCase (closeCase (newCase 0 "Test case")) @?= newCase 0 "Test case"
     ]
@@ -42,34 +45,66 @@ testStatus :: TestTree
 testStatus =
     let caseClosed = closeCase $ newCase 1 "Archived"
         caseOnDesk = newCase 2 "OnDesk"
-        caseDeferred = (newCase 3 "Deferred") { caseStatus = Deferred (fromGregorian 2026 11 10)}
+        caseDeferred = deferrCase (newCase 3 "Deferred") (fromGregorian 2026 11 10)
     in
-    testGroup "\tStatus functions:"
+    testGroup "\n\tStatus functions:"
         [ testCase "isArchived Archived" $
             isArchived caseClosed @?= True
 
-        , testCase "isArchived OnDesk" $
+        , testCase "not isArchived OnDesk" $
             isArchived caseOnDesk @?= False
 
         , testCase "isOnDesk OnDesk" $
             isOnDesk caseOnDesk @?= True
 
-        , testCase "isOnDesk Archived" $
+        , testCase "not isOnDesk Archived" $
             isOnDesk caseClosed @?= False
 
-        , testCase "isOnDesk Reviewed" $
+        , testCase "not isOnDesk Deferred" $
             isOnDesk caseDeferred @?= False
         ]
 
 testPriority :: TestTree
 testPriority =
-    let caseImportant = promoteCase $ newCase 1 "Important"
-        caseOnDesk = newCase 2 "OnDesk"
-    in
-    testGroup "\tPriority functions:"
+  let caseImportant = promoteCase $ newCase 1 "Important"
+      caseOnDesk = newCase 2 "OnDesk"
+   in testGroup
+        "\n\tPriority functions:"
         [ testCase "isImportant Normal" $
-            isImportant caseOnDesk @?= False
-
-        , testCase "checking compare:" $
+            isImportant caseOnDesk @?= False,
+          testCase "checking compare:" $
             (casePriority caseImportant >= casePriority caseOnDesk) @?= True
+        ]
+
+testFlag :: TestTree
+testFlag =
+    let caseDoubleFlag =
+          newCase 1 "Outgoing is under approval but boss has to decide" &
+          addFlag NeedsManager &
+          addFlag ApprovalPending
+        caseDoubleWaiting = 
+          newCase 2 "Add Waiting two times" &
+          addFlag Waiting &
+          addFlag Waiting
+    in
+    testGroup "\n\tFlag functions:"
+        [ testCase "New case does not wait" $
+            hasFlag Waiting (newCase 2 "") @?= False,
+          testCase "But this waits" $
+            hasFlag Waiting (addFlag Waiting $ newCase 3 "") @?= True,
+          testCase "Two flag present" $
+            hasFlag NeedsManager caseDoubleFlag && hasFlag ApprovalPending caseDoubleFlag @?= True,
+          testCase "Is flag unique?" $
+            (caseDoubleWaiting & removeFlag Waiting & hasFlag Waiting) @?= False
+        ]
+
+testDays :: TestTree
+testDays =
+    let caseDeferred = newCase 1 "Case deffered until 2027-12-31" & deferrCase $ fromGregorian 2027 12 31
+    in
+    testGroup "\n\tDate related functions:"
+        [ testCase "Case deferred?" $
+            isDeferred caseDeferred @?= True,
+          testCase "Deferred until 2027-12-31?" $
+            getDefferedDay caseDeferred == Just (fromGregorian 2027 12 31) @?= True
         ]

@@ -1,6 +1,6 @@
 cabal-version:      3.12
 name:               worklog
-version:            0.2.0.2
+version:            0.2.1.0
 synopsis:           Simple workfile management application
 description:        Manages work files. Creates summary, filter, change attributes and run the application which handles the workfiles. Use simple project framework with additional files related to the workfile.
 license:            BSD-3-Clause
