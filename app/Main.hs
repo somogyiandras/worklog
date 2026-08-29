@@ -5,10 +5,10 @@
 module Main where
 
 -- import Data.Time.Calendar
-import Worklog.Task
+import Worklog.Case
 
 main :: IO ()
 main = do
-  let task = mkTask 1 "First task"
-  print task
-  print $ isOpen task
+  let cas = newCase 1 "First case"
+  print cas
+  print $ isOnDesk cas

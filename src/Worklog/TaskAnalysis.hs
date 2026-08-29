@@ -15,4 +15,4 @@ countByPriority = foldr count M.empty
       count task = M.insertWith (+) (taskPriority task) 1
 
 countActiveByPriority :: [Task] -> Map Priority Int
-countActiveByPriority = countByPriority . filter (not . isFinished)
+countActiveByPriority = countByPriority . filter (not . isArchived)

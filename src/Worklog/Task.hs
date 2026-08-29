@@ -7,8 +7,8 @@ module Worklog.Task
 
     -- ** Status of task
     Status (..),
-    isOpen,
-    isFinished,
+    isOnDesk,
+    isArchived,
 
     -- ** Priority
     Priority (..),
@@ -23,6 +23,10 @@ module Worklog.Task
     hasDeadline,
     setDeadline,
 
+    -- ** Flags
+    TaskFlag (..),
+    hasFlag, addFlag, removeFlag,
+
     -- * Functions
     closeTask, openTask,
     mkSummary,
@@ -33,6 +37,8 @@ module Worklog.Task
 where
 
 import Data.Time.Calendar
+import Data.Set (Set)
+import qualified Data.Set as Set
 
 newtype Summary = Summary String
   deriving (Eq, Show)
@@ -50,7 +56,7 @@ isImportant task = taskPriority task >= Important
 
 -- | Not closed and high priority task
 needsAttention :: Task -> Bool
-needsAttention task = not (isFinished task) && isImportant task
+needsAttention task = not (isArchived task) && isImportant task
 
 setTaskPriority :: Priority -> Task -> Task
 setTaskPriority p task = task {taskPriority = p}
@@ -66,29 +72,30 @@ demoteTask task
   | otherwise = task {taskPriority = pred $ taskPriority task}
 
 data Status
-  = -- | task is under work
-    Open
-  | -- | task is reviewed by others, it is ready to
-    -- make the decision
-    Reviewed
-  | -- | task is closed, there is no work with it
-    Closed
+  = -- | task is on the desk, we work on it
+    OnDesk
+  | -- | task is in the cabinet, waiting for the deadline to come back on desk
+    Deferred Day
+  | -- | task is closed, it is in the archives, hoppefully never comes back
+    Archived
   deriving (Eq, Show)
 
-isOpen :: Task -> Bool
-isOpen task = taskStatus task == Open
+isOnDesk :: Task -> Bool
+isOnDesk task = taskStatus task == OnDesk
 
 -- | Checks for finished task
-isFinished :: Task -> Bool
-isFinished task = taskStatus task == Closed
+isArchived :: Task -> Bool
+isArchived task = taskStatus task == Archived
 
+-- Close the task, file, document, and send it to the archives
 closeTask :: Task -> Task
-closeTask task = task {taskStatus = Closed}
+closeTask task = task {taskStatus = Archived}
 
+-- Put the task on the desk, open it and start working on it.
 openTask :: Task -> Task
-openTask task = task {taskStatus = Open}
+openTask task = task {taskStatus = OnDesk}
 
--- | Very important attribute.
+-- | the deadline of the task
 data Deadline
   = -- | For tasks without deadline
     NoDeadline
@@ -105,6 +112,30 @@ hasDeadline task =
 setDeadline :: Deadline -> Task -> Task
 setDeadline day task = task {taskDeadline = day}
 
+-- | Flags are attributes of the task.
+data TaskFlag
+    = Waiting
+    -- ^ The task is waiting for someone, something.
+    -- Work cannot continue, until it has not arrived.
+    | NeedsManager
+    -- ^ The task needs decision from the boss.
+    | ApprovalPending
+    -- There is at least one outgoing document under approval.
+    -- Sometimes it needs attention, whether it has finished, or
+    -- fixes are neccessary
+    deriving (Eq, Ord, Show)
+
+hasFlag :: TaskFlag -> Task -> Bool
+hasFlag flag = Set.member flag . taskFlags
+
+addFlag :: TaskFlag -> Task -> Task
+addFlag flag task = task {taskFlags = Set.insert flag (taskFlags task)}
+
+removeFlag :: TaskFlag -> Task -> Task
+removeFlag flag task = task {taskFlags = Set.delete flag (taskFlags task)}
+
+
+
 -- | The Task data type contains the parameters of the case
 -- correspondent to the workfile. Some title, a longer summary,
 -- priority and status, and of course deadline.
@@ -118,7 +149,8 @@ data Task = Task
     taskPriority :: Priority,
     taskStatus :: Status,
     taskDeadline :: Deadline,
-    taskSummary :: Summary
+    taskSummary :: Summary,
+    taskFlags :: Set TaskFlag
   }
   deriving (Eq, Show)
 
@@ -129,9 +161,10 @@ mkTask iD title = Task
   { taskId = iD,
     taskTitle = title,
     taskPriority = Normal,
-    taskStatus = Open,
+    taskStatus = OnDesk,
     taskDeadline = NoDeadline,
-    taskSummary = emptySummary
+    taskSummary = emptySummary,
+    taskFlags = Set.empty
   }
 
 
@@ -148,4 +181,4 @@ setSummary :: Summary -> Task -> Task
 setSummary s task = task {taskSummary = s}
 
 getSummary :: Task -> Summary
-getSummary task = taskSummary task
+getSummary = taskSummary 

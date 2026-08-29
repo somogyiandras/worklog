@@ -1,4 +1,4 @@
-cabal-version:      3.0
+cabal-version:      3.12
 name:               worklog
 version:            0.2.0.2
 synopsis:           Simple workfile management application
@@ -16,36 +16,35 @@ source-repository head
   type:     git
   location: git//github.com/somogyiandras/worklog.git
 
-common warnings
-    ghc-options: -Wall
+common common-settings
+    ghc-options:      -Wall
+    default-language: GHC2021
 
 library
-    import:           warnings
+    import:           common-settings
     exposed-modules:  
-                      Worklog.Task
+                      Worklog.Case
                     , Worklog.TaskAnalysis
     -- other-modules:
     -- other-extensions:
-    build-depends:    base ^>=4.21.0.0
+    build-depends:    base >=4.16 && < 4.22
                     , time < 1.16.0.1
                     , containers < 0.8
     hs-source-dirs:   src
-    default-language: GHC2021
 
 executable worklog
-    import:           warnings
+    import:           common-settings
     main-is:          Main.hs
     -- other-modules:
     -- other-extensions:
     build-depends:
-                      base ^>=4.21.0.0
+                      base >=4.16 && < 4.22
                     , worklog
-                    , time < 1.16.0.1
+                    , time < 1.16
     hs-source-dirs:   app
-    default-language: GHC2021
 
 test-suite worklog-test
-    import:           warnings
+    import:           common-settings
     default-language: GHC2021
     other-modules:
                       Worklog.TaskSpec
@@ -54,7 +53,8 @@ test-suite worklog-test
     hs-source-dirs:   test
     main-is:          Main.hs
     build-depends:
-                      base ^>=4.21.0.0
+                      base >=4.16 && < 4.22
                     , worklog
                     , tasty
                     , tasty-hunit
+                    , time < 1.16

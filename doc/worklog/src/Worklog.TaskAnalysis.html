@@ -19,19 +19,19 @@ Foldable t =&gt;
 (a -&gt; b -&gt; b) -&gt; b -&gt; t a -&gt; b
 </span><span class="hs-identifier hs-var">foldr</span></span><span> </span><span class="annot"><span class="annottext">Task -&gt; Map Priority Int -&gt; Map Priority Int
 forall {a}. Num a =&gt; Task -&gt; Map Priority a -&gt; Map Priority a
-</span><a href="#local-6989586621679050315"><span class="hs-identifier hs-var">count</span></a></span><span> </span><span class="annot"><span class="annottext">Map Priority Int
+</span><a href="#local-6989586621679054124"><span class="hs-identifier hs-var">count</span></a></span><span> </span><span class="annot"><span class="annottext">Map Priority Int
 forall k a. Map k a
 </span><span class="hs-identifier hs-var">M.empty</span></span><span>
 </span><span id="line-14"></span><span>    </span><span class="hs-keyword">where</span><span>
-</span><span id="line-15"></span><span>      </span><span id="local-6989586621679050315"><span class="annot"><span class="annottext">count :: Task -&gt; Map Priority a -&gt; Map Priority a
-</span><a href="#local-6989586621679050315"><span class="hs-identifier hs-var hs-var">count</span></a></span></span><span> </span><span id="local-6989586621679050322"><span class="annot"><span class="annottext">Task
-</span><a href="#local-6989586621679050322"><span class="hs-identifier hs-var">task</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(a -&gt; a -&gt; a) -&gt; Priority -&gt; a -&gt; Map Priority a -&gt; Map Priority a
+</span><span id="line-15"></span><span>      </span><span id="local-6989586621679054124"><span class="annot"><span class="annottext">count :: Task -&gt; Map Priority a -&gt; Map Priority a
+</span><a href="#local-6989586621679054124"><span class="hs-identifier hs-var hs-var">count</span></a></span></span><span> </span><span id="local-6989586621679054131"><span class="annot"><span class="annottext">Task
+</span><a href="#local-6989586621679054131"><span class="hs-identifier hs-var">task</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(a -&gt; a -&gt; a) -&gt; Priority -&gt; a -&gt; Map Priority a -&gt; Map Priority a
 forall k a. Ord k =&gt; (a -&gt; a -&gt; a) -&gt; k -&gt; a -&gt; Map k a -&gt; Map k a
 </span><span class="hs-identifier hs-var">M.insertWith</span></span><span> </span><span class="annot"><span class="annottext">a -&gt; a -&gt; a
 forall a. Num a =&gt; a -&gt; a -&gt; a
 </span><span class="hs-operator hs-var">(+)</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Task -&gt; Priority
 </span><a href="Worklog.Task.html#taskPriority"><span class="hs-identifier hs-var">taskPriority</span></a></span><span> </span><span class="annot"><span class="annottext">Task
-</span><a href="#local-6989586621679050322"><span class="hs-identifier hs-var">task</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679054131"><span class="hs-identifier hs-var">task</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">a
 </span><span class="hs-number">1</span></span><span>
 </span><span id="line-16"></span><span>
 </span><span id="line-17"></span><span class="annot"><a href="Worklog.TaskAnalysis.html#countActiveByPriority"><span class="hs-identifier hs-type">countActiveByPriority</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="Worklog.Task.html#Task"><span class="hs-identifier hs-type">Task</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Map</span></span><span> </span><span class="annot"><a href="Worklog.Task.html#Priority"><span class="hs-identifier hs-type">Priority</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
@@ -46,5 +46,5 @@ forall a. (a -&gt; Bool) -&gt; [a] -&gt; [a]
 </span><span class="hs-identifier hs-var">not</span></span><span> </span><span class="annot"><span class="annottext">(Bool -&gt; Bool) -&gt; (Task -&gt; Bool) -&gt; Task -&gt; Bool
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
 </span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Task -&gt; Bool
-</span><a href="Worklog.Task.html#isFinished"><span class="hs-identifier hs-var">isFinished</span></a></span><span class="hs-special">)</span><span>
+</span><a href="Worklog.Task.html#isArchived"><span class="hs-identifier hs-var">isArchived</span></a></span><span class="hs-special">)</span><span>
 </span><span id="line-19"></span></pre></body></html>
