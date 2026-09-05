@@ -44,7 +44,7 @@
 </span><span id="line-44"></span><span class="hs-keyword">import</span><span> </span><span class="hs-keyword">qualified</span><span> </span><span class="annot"><span class="hs-identifier">Data.Set</span></span><span> </span><span class="hs-keyword">as</span><span> </span><span class="annot"><span class="hs-identifier">Set</span></span><span>
 </span><span id="line-45"></span><span>
 </span><span id="line-46"></span><span class="hs-keyword">newtype</span><span> </span><span id="Summary"><span class="annot"><a href="Worklog.Case.html#Summary"><span class="hs-identifier hs-var">Summary</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Summary"><span class="annot"><a href="Worklog.Case.html#Summary"><span class="hs-identifier hs-var">Summary</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span>
-</span><span id="line-47"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679050853"><span id="local-6989586621679050859"><span class="annot"><span class="annottext">Summary -&gt; Summary -&gt; Bool
+</span><span id="line-47"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679050858"><span id="local-6989586621679050864"><span class="annot"><span class="annottext">Summary -&gt; Summary -&gt; Bool
 (Summary -&gt; Summary -&gt; Bool)
 -&gt; (Summary -&gt; Summary -&gt; Bool) -&gt; Eq Summary
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -52,7 +52,7 @@ $c== :: Summary -&gt; Summary -&gt; Bool
 == :: Summary -&gt; Summary -&gt; Bool
 $c/= :: Summary -&gt; Summary -&gt; Bool
 /= :: Summary -&gt; Summary -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050868"><span id="local-6989586621679050875"><span id="local-6989586621679050879"><span class="annot"><span class="annottext">Int -&gt; Summary -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050873"><span id="local-6989586621679050880"><span id="local-6989586621679050884"><span class="annot"><span class="annottext">Int -&gt; Summary -&gt; ShowS
 [Summary] -&gt; ShowS
 Summary -&gt; String
 (Int -&gt; Summary -&gt; ShowS)
@@ -73,7 +73,7 @@ showList :: [Summary] -&gt; ShowS
 </span><span id="line-52"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="Normal"><span class="annot"><a href="Worklog.Case.html#Normal"><span class="hs-identifier hs-var">Normal</span></a></span></span><span>
 </span><span id="line-53"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="Important"><span class="annot"><a href="Worklog.Case.html#Important"><span class="hs-identifier hs-var">Important</span></a></span></span><span>
 </span><span id="line-54"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="VeryImportant"><span class="annot"><a href="Worklog.Case.html#VeryImportant"><span class="hs-identifier hs-var">VeryImportant</span></a></span></span><span>
-</span><span id="line-55"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679050890"><span id="local-6989586621679050895"><span class="annot"><span class="annottext">Priority -&gt; Priority -&gt; Bool
+</span><span id="line-55"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679050895"><span id="local-6989586621679050900"><span class="annot"><span class="annottext">Priority -&gt; Priority -&gt; Bool
 (Priority -&gt; Priority -&gt; Bool)
 -&gt; (Priority -&gt; Priority -&gt; Bool) -&gt; Eq Priority
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -81,7 +81,7 @@ $c== :: Priority -&gt; Priority -&gt; Bool
 == :: Priority -&gt; Priority -&gt; Bool
 $c/= :: Priority -&gt; Priority -&gt; Bool
 /= :: Priority -&gt; Priority -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050900"><span id="local-6989586621679050904"><span id="local-6989586621679050908"><span id="local-6989586621679050911"><span id="local-6989586621679050914"><span id="local-6989586621679050917"><span id="local-6989586621679050920"><span class="annot"><span class="annottext">Eq Priority
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050905"><span id="local-6989586621679050909"><span id="local-6989586621679050913"><span id="local-6989586621679050916"><span id="local-6989586621679050919"><span id="local-6989586621679050922"><span id="local-6989586621679050925"><span class="annot"><span class="annottext">Eq Priority
 Eq Priority =&gt;
 (Priority -&gt; Priority -&gt; Ordering)
 -&gt; (Priority -&gt; Priority -&gt; Bool)
@@ -118,7 +118,7 @@ $cmax :: Priority -&gt; Priority -&gt; Priority
 max :: Priority -&gt; Priority -&gt; Priority
 $cmin :: Priority -&gt; Priority -&gt; Priority
 min :: Priority -&gt; Priority -&gt; Priority
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Ord</span></span></span></span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050928"><span id="local-6989586621679050930"><span id="local-6989586621679050934"><span class="annot"><span class="annottext">Int -&gt; Priority -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Ord</span></span></span></span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050933"><span id="local-6989586621679050935"><span id="local-6989586621679050939"><span class="annot"><span class="annottext">Int -&gt; Priority -&gt; ShowS
 [Priority] -&gt; ShowS
 Priority -&gt; String
 (Int -&gt; Priority -&gt; ShowS)
@@ -131,7 +131,7 @@ $cshow :: Priority -&gt; String
 show :: Priority -&gt; String
 $cshowList :: [Priority] -&gt; ShowS
 showList :: [Priority] -&gt; ShowS
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050937"><span id="local-6989586621679050944"><span id="local-6989586621679050949"><span id="local-6989586621679050955"><span id="local-6989586621679050958"><span id="local-6989586621679050963"><span id="local-6989586621679050969"><span id="local-6989586621679050972"><span class="annot"><span class="annottext">Int -&gt; Priority
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050942"><span id="local-6989586621679050949"><span id="local-6989586621679050954"><span id="local-6989586621679050960"><span id="local-6989586621679050963"><span id="local-6989586621679050968"><span id="local-6989586621679050974"><span id="local-6989586621679050977"><span class="annot"><span class="annottext">Int -&gt; Priority
 Priority -&gt; Int
 Priority -&gt; [Priority]
 Priority -&gt; Priority
@@ -172,7 +172,7 @@ $cenumFromTo :: Priority -&gt; Priority -&gt; [Priority]
 enumFromTo :: Priority -&gt; Priority -&gt; [Priority]
 $cenumFromThenTo :: Priority -&gt; Priority -&gt; Priority -&gt; [Priority]
 enumFromThenTo :: Priority -&gt; Priority -&gt; Priority -&gt; [Priority]
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Enum</span></span></span></span></span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050980"><span id="local-6989586621679050982"><span class="annot"><span class="annottext">Priority
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Enum</span></span></span></span></span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050985"><span id="local-6989586621679050987"><span class="annot"><span class="annottext">Priority
 Priority -&gt; Priority -&gt; Bounded Priority
 forall a. a -&gt; a -&gt; Bounded a
 $cminBound :: Priority
@@ -183,10 +183,10 @@ maxBound :: Priority
 </span><span id="line-56"></span><span>
 </span><span id="line-57"></span><span class="annot"><a href="Worklog.Case.html#isImportant"><span class="hs-identifier hs-type">isImportant</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span>
 </span><span id="line-58"></span><span id="isImportant"><span class="annot"><span class="annottext">isImportant :: Case -&gt; Bool
-</span><a href="Worklog.Case.html#isImportant"><span class="hs-identifier hs-var hs-var">isImportant</span></a></span></span><span> </span><span id="local-6989586621679050986"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050986"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case -&gt; Priority
+</span><a href="Worklog.Case.html#isImportant"><span class="hs-identifier hs-var hs-var">isImportant</span></a></span></span><span> </span><span id="local-6989586621679050991"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679050991"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case -&gt; Priority
 </span><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050986"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="annot"><span class="annottext">Priority -&gt; Priority -&gt; Bool
+</span><a href="#local-6989586621679050991"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="annot"><span class="annottext">Priority -&gt; Priority -&gt; Bool
 forall a. Ord a =&gt; a -&gt; a -&gt; Bool
 </span><span class="hs-operator hs-var">&gt;=</span></span><span> </span><span class="annot"><span class="annottext">Priority
 </span><a href="Worklog.Case.html#Important"><span class="hs-identifier hs-var">Important</span></a></span><span>
@@ -194,53 +194,53 @@ forall a. Ord a =&gt; a -&gt; a -&gt; Bool
 </span><span id="line-60"></span><span class="annot"><span class="hs-comment">-- | Not closed and high priority case</span></span><span>
 </span><span id="line-61"></span><span class="annot"><a href="Worklog.Case.html#needsAttention"><span class="hs-identifier hs-type">needsAttention</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span>
 </span><span id="line-62"></span><span id="needsAttention"><span class="annot"><span class="annottext">needsAttention :: Case -&gt; Bool
-</span><a href="Worklog.Case.html#needsAttention"><span class="hs-identifier hs-var hs-var">needsAttention</span></a></span></span><span> </span><span id="local-6989586621679050987"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050987"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Bool -&gt; Bool
+</span><a href="Worklog.Case.html#needsAttention"><span class="hs-identifier hs-var hs-var">needsAttention</span></a></span></span><span> </span><span id="local-6989586621679050992"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679050992"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Bool -&gt; Bool
 </span><span class="hs-identifier hs-var">not</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Case -&gt; Bool
 </span><a href="Worklog.Case.html#isArchived"><span class="hs-identifier hs-var">isArchived</span></a></span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050987"><span class="hs-identifier hs-var">cas</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">Bool -&gt; Bool -&gt; Bool
+</span><a href="#local-6989586621679050992"><span class="hs-identifier hs-var">cas</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">Bool -&gt; Bool -&gt; Bool
 </span><span class="hs-operator hs-var">&amp;&amp;</span></span><span> </span><span class="annot"><span class="annottext">Case -&gt; Bool
 </span><a href="Worklog.Case.html#isImportant"><span class="hs-identifier hs-var">isImportant</span></a></span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050987"><span class="hs-identifier hs-var">cas</span></a></span><span>
+</span><a href="#local-6989586621679050992"><span class="hs-identifier hs-var">cas</span></a></span><span>
 </span><span id="line-63"></span><span>
 </span><span id="line-64"></span><span class="annot"><a href="Worklog.Case.html#setCasePriority"><span class="hs-identifier hs-type">setCasePriority</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Priority"><span class="hs-identifier hs-type">Priority</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span>
 </span><span id="line-65"></span><span id="setCasePriority"><span class="annot"><span class="annottext">setCasePriority :: Priority -&gt; Case -&gt; Case
-</span><a href="Worklog.Case.html#setCasePriority"><span class="hs-identifier hs-var hs-var">setCasePriority</span></a></span></span><span> </span><span id="local-6989586621679050990"><span class="annot"><span class="annottext">Priority
-</span><a href="#local-6989586621679050990"><span class="hs-identifier hs-var">p</span></a></span></span><span> </span><span id="local-6989586621679050991"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050991"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050991"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="#local-6989586621679050990"><span class="hs-identifier hs-type">p</span></a></span><span class="hs-special">}</span><span>
+</span><a href="Worklog.Case.html#setCasePriority"><span class="hs-identifier hs-var hs-var">setCasePriority</span></a></span></span><span> </span><span id="local-6989586621679050995"><span class="annot"><span class="annottext">Priority
+</span><a href="#local-6989586621679050995"><span class="hs-identifier hs-var">p</span></a></span></span><span> </span><span id="local-6989586621679050996"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679050996"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679050996"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="#local-6989586621679050995"><span class="hs-identifier hs-type">p</span></a></span><span class="hs-special">}</span><span>
 </span><span id="line-66"></span><span>
 </span><span id="line-67"></span><span class="annot"><a href="Worklog.Case.html#promoteCase"><span class="hs-identifier hs-type">promoteCase</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span>
 </span><span id="line-68"></span><span id="promoteCase"><span class="annot"><span class="annottext">promoteCase :: Case -&gt; Case
-</span><a href="Worklog.Case.html#promoteCase"><span class="hs-identifier hs-var hs-var">promoteCase</span></a></span></span><span> </span><span id="local-6989586621679050992"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050992"><span class="hs-identifier hs-var">cas</span></a></span></span><span>
+</span><a href="Worklog.Case.html#promoteCase"><span class="hs-identifier hs-var hs-var">promoteCase</span></a></span></span><span> </span><span id="local-6989586621679050997"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679050997"><span class="hs-identifier hs-var">cas</span></a></span></span><span>
 </span><span id="line-69"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Case -&gt; Priority
 </span><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050992"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="annot"><span class="annottext">Priority -&gt; Priority -&gt; Bool
+</span><a href="#local-6989586621679050997"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="annot"><span class="annottext">Priority -&gt; Priority -&gt; Bool
 forall a. Eq a =&gt; a -&gt; a -&gt; Bool
 </span><span class="hs-operator hs-var">==</span></span><span> </span><span class="annot"><span class="annottext">Priority
 forall a. Bounded a =&gt; a
 </span><span class="hs-identifier hs-var">maxBound</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050992"><span class="hs-identifier hs-var">cas</span></a></span><span>
+</span><a href="#local-6989586621679050997"><span class="hs-identifier hs-var">cas</span></a></span><span>
 </span><span id="line-70"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Bool
 </span><span class="hs-identifier hs-var">otherwise</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050992"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="hs-identifier hs-type">succ</span></span><span> </span><span class="annot"><span class="hs-operator hs-type">$</span></span><span> </span><span class="annot"><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679050992"><span class="hs-identifier hs-type">cas</span></a></span><span class="hs-special">}</span><span>
+</span><a href="#local-6989586621679050997"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="hs-identifier hs-type">succ</span></span><span> </span><span class="annot"><span class="hs-operator hs-type">$</span></span><span> </span><span class="annot"><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679050997"><span class="hs-identifier hs-type">cas</span></a></span><span class="hs-special">}</span><span>
 </span><span id="line-71"></span><span>
 </span><span id="line-72"></span><span class="annot"><a href="Worklog.Case.html#demoteCase"><span class="hs-identifier hs-type">demoteCase</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span>
 </span><span id="line-73"></span><span id="demoteCase"><span class="annot"><span class="annottext">demoteCase :: Case -&gt; Case
-</span><a href="Worklog.Case.html#demoteCase"><span class="hs-identifier hs-var hs-var">demoteCase</span></a></span></span><span> </span><span id="local-6989586621679050993"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050993"><span class="hs-identifier hs-var">cas</span></a></span></span><span>
+</span><a href="Worklog.Case.html#demoteCase"><span class="hs-identifier hs-var hs-var">demoteCase</span></a></span></span><span> </span><span id="local-6989586621679050998"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679050998"><span class="hs-identifier hs-var">cas</span></a></span></span><span>
 </span><span id="line-74"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Case -&gt; Priority
 </span><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050993"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="annot"><span class="annottext">Priority -&gt; Priority -&gt; Bool
+</span><a href="#local-6989586621679050998"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="annot"><span class="annottext">Priority -&gt; Priority -&gt; Bool
 forall a. Eq a =&gt; a -&gt; a -&gt; Bool
 </span><span class="hs-operator hs-var">==</span></span><span> </span><span class="annot"><span class="annottext">Priority
 forall a. Bounded a =&gt; a
 </span><span class="hs-identifier hs-var">minBound</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050993"><span class="hs-identifier hs-var">cas</span></a></span><span>
+</span><a href="#local-6989586621679050998"><span class="hs-identifier hs-var">cas</span></a></span><span>
 </span><span id="line-75"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Bool
 </span><span class="hs-identifier hs-var">otherwise</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679050993"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="hs-identifier hs-type">pred</span></span><span> </span><span class="annot"><span class="hs-operator hs-type">$</span></span><span> </span><span class="annot"><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679050993"><span class="hs-identifier hs-type">cas</span></a></span><span class="hs-special">}</span><span>
+</span><a href="#local-6989586621679050998"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="hs-identifier hs-type">pred</span></span><span> </span><span class="annot"><span class="hs-operator hs-type">$</span></span><span> </span><span class="annot"><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679050998"><span class="hs-identifier hs-type">cas</span></a></span><span class="hs-special">}</span><span>
 </span><span id="line-76"></span><span>
 </span><span id="line-77"></span><span class="hs-keyword">data</span><span> </span><span id="Status"><span class="annot"><a href="Worklog.Case.html#Status"><span class="hs-identifier hs-var">Status</span></a></span></span><span>
 </span><span id="line-78"></span><span>  </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="hs-comment">-- | case is on the desk, we work on it</span></span><span>
@@ -249,7 +249,7 @@ forall a. Bounded a =&gt; a
 </span><span id="line-81"></span><span>    </span><span id="Deferred"><span class="annot"><a href="Worklog.Case.html#Deferred"><span class="hs-identifier hs-var">Deferred</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Day</span></span><span>
 </span><span id="line-82"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="hs-comment">-- | case is closed, it is in the archives, hoppefully never comes back</span></span><span>
 </span><span id="line-83"></span><span>    </span><span id="Archived"><span class="annot"><a href="Worklog.Case.html#Archived"><span class="hs-identifier hs-var">Archived</span></a></span></span><span>
-</span><span id="line-84"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679050998"><span id="local-6989586621679051004"><span class="annot"><span class="annottext">Status -&gt; Status -&gt; Bool
+</span><span id="line-84"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679051003"><span id="local-6989586621679051009"><span class="annot"><span class="annottext">Status -&gt; Status -&gt; Bool
 (Status -&gt; Status -&gt; Bool)
 -&gt; (Status -&gt; Status -&gt; Bool) -&gt; Eq Status
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -257,7 +257,7 @@ $c== :: Status -&gt; Status -&gt; Bool
 == :: Status -&gt; Status -&gt; Bool
 $c/= :: Status -&gt; Status -&gt; Bool
 /= :: Status -&gt; Status -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679051007"><span id="local-6989586621679051012"><span id="local-6989586621679051016"><span class="annot"><span class="annottext">Int -&gt; Status -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679051012"><span id="local-6989586621679051017"><span id="local-6989586621679051021"><span class="annot"><span class="annottext">Int -&gt; Status -&gt; ShowS
 [Status] -&gt; ShowS
 Status -&gt; String
 (Int -&gt; Status -&gt; ShowS)
@@ -274,10 +274,10 @@ showList :: [Status] -&gt; ShowS
 </span><span id="line-85"></span><span>
 </span><span id="line-86"></span><span class="annot"><a href="Worklog.Case.html#isOnDesk"><span class="hs-identifier hs-type">isOnDesk</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span>
 </span><span id="line-87"></span><span id="isOnDesk"><span class="annot"><span class="annottext">isOnDesk :: Case -&gt; Bool
-</span><a href="Worklog.Case.html#isOnDesk"><span class="hs-identifier hs-var hs-var">isOnDesk</span></a></span></span><span> </span><span id="local-6989586621679051018"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051018"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case -&gt; Status
+</span><a href="Worklog.Case.html#isOnDesk"><span class="hs-identifier hs-var hs-var">isOnDesk</span></a></span></span><span> </span><span id="local-6989586621679051023"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051023"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case -&gt; Status
 </span><a href="Worklog.Case.html#caseStatus"><span class="hs-identifier hs-var">caseStatus</span></a></span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051018"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="annot"><span class="annottext">Status -&gt; Status -&gt; Bool
+</span><a href="#local-6989586621679051023"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="annot"><span class="annottext">Status -&gt; Status -&gt; Bool
 forall a. Eq a =&gt; a -&gt; a -&gt; Bool
 </span><span class="hs-operator hs-var">==</span></span><span> </span><span class="annot"><span class="annottext">Status
 </span><a href="Worklog.Case.html#OnDesk"><span class="hs-identifier hs-var">OnDesk</span></a></span><span>
@@ -285,10 +285,10 @@ forall a. Eq a =&gt; a -&gt; a -&gt; Bool
 </span><span id="line-89"></span><span class="annot"><span class="hs-comment">-- | Checks for finished case</span></span><span>
 </span><span id="line-90"></span><span class="annot"><a href="Worklog.Case.html#isArchived"><span class="hs-identifier hs-type">isArchived</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span>
 </span><span id="line-91"></span><span id="isArchived"><span class="annot"><span class="annottext">isArchived :: Case -&gt; Bool
-</span><a href="Worklog.Case.html#isArchived"><span class="hs-identifier hs-var hs-var">isArchived</span></a></span></span><span> </span><span id="local-6989586621679051020"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051020"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case -&gt; Status
+</span><a href="Worklog.Case.html#isArchived"><span class="hs-identifier hs-var hs-var">isArchived</span></a></span></span><span> </span><span id="local-6989586621679051025"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051025"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case -&gt; Status
 </span><a href="Worklog.Case.html#caseStatus"><span class="hs-identifier hs-var">caseStatus</span></a></span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051020"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="annot"><span class="annottext">Status -&gt; Status -&gt; Bool
+</span><a href="#local-6989586621679051025"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="annot"><span class="annottext">Status -&gt; Status -&gt; Bool
 forall a. Eq a =&gt; a -&gt; a -&gt; Bool
 </span><span class="hs-operator hs-var">==</span></span><span> </span><span class="annot"><span class="annottext">Status
 </span><a href="Worklog.Case.html#Archived"><span class="hs-identifier hs-var">Archived</span></a></span><span>
@@ -306,11 +306,11 @@ forall a. Eq a =&gt; a -&gt; a -&gt; Bool
 </span><span id="line-97"></span><span class="annot"><a href="Worklog.Case.html#getDefferedDay"><span class="hs-identifier hs-type">getDefferedDay</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Day</span></span><span>
 </span><span id="line-98"></span><span id="getDefferedDay"><span class="annot"><span class="annottext">getDefferedDay :: Case -&gt; Maybe Day
 </span><a href="Worklog.Case.html#getDefferedDay"><span class="hs-identifier hs-var hs-var">getDefferedDay</span></a></span></span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><span class="annottext">caseStatus :: Case -&gt; Status
-</span><a href="Worklog.Case.html#caseStatus"><span class="hs-identifier hs-var">caseStatus</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="Worklog.Case.html#Deferred"><span class="hs-identifier hs-type">Deferred</span></a></span><span> </span><span id="local-6989586621679051022"><span class="annot"><span class="annottext">Day
-</span><a href="#local-6989586621679051022"><span class="hs-identifier hs-var">day</span></a></span></span><span class="hs-special">}</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Day -&gt; Maybe Day
+</span><a href="Worklog.Case.html#caseStatus"><span class="hs-identifier hs-var">caseStatus</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="Worklog.Case.html#Deferred"><span class="hs-identifier hs-type">Deferred</span></a></span><span> </span><span id="local-6989586621679051027"><span class="annot"><span class="annottext">Day
+</span><a href="#local-6989586621679051027"><span class="hs-identifier hs-var">day</span></a></span></span><span class="hs-special">}</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Day -&gt; Maybe Day
 forall a. a -&gt; Maybe a
 </span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">Day
-</span><a href="#local-6989586621679051022"><span class="hs-identifier hs-var">day</span></a></span><span>
+</span><a href="#local-6989586621679051027"><span class="hs-identifier hs-var">day</span></a></span><span>
 </span><span id="line-99"></span><span class="annot"><a href="Worklog.Case.html#getDefferedDay"><span class="hs-identifier hs-var">getDefferedDay</span></a></span><span> </span><span class="annot"><span class="annottext">Case
 </span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Maybe Day
 forall a. Maybe a
@@ -318,24 +318,24 @@ forall a. Maybe a
 </span><span id="line-100"></span><span>
 </span><span id="line-101"></span><span class="annot"><a href="Worklog.Case.html#deferrCase"><span class="hs-identifier hs-type">deferrCase</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Day</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span>
 </span><span id="line-102"></span><span id="deferrCase"><span class="annot"><span class="annottext">deferrCase :: Case -&gt; Day -&gt; Case
-</span><a href="Worklog.Case.html#deferrCase"><span class="hs-identifier hs-var hs-var">deferrCase</span></a></span></span><span> </span><span id="local-6989586621679051023"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051023"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span id="local-6989586621679051024"><span class="annot"><span class="annottext">Day
-</span><a href="#local-6989586621679051024"><span class="hs-identifier hs-var">day</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051023"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><a href="Worklog.Case.html#caseStatus"><span class="hs-identifier hs-var">caseStatus</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="Worklog.Case.html#Deferred"><span class="hs-identifier hs-type">Deferred</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679051024"><span class="hs-identifier hs-type">day</span></a></span><span> </span><span class="hs-special">}</span><span>
+</span><a href="Worklog.Case.html#deferrCase"><span class="hs-identifier hs-var hs-var">deferrCase</span></a></span></span><span> </span><span id="local-6989586621679051028"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051028"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span id="local-6989586621679051029"><span class="annot"><span class="annottext">Day
+</span><a href="#local-6989586621679051029"><span class="hs-identifier hs-var">day</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051028"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><a href="Worklog.Case.html#caseStatus"><span class="hs-identifier hs-var">caseStatus</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="Worklog.Case.html#Deferred"><span class="hs-identifier hs-type">Deferred</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679051029"><span class="hs-identifier hs-type">day</span></a></span><span> </span><span class="hs-special">}</span><span>
 </span><span id="line-103"></span><span>
 </span><span id="line-104"></span><span class="hs-comment">-- Close the case, file, document, and send it to the archives.</span><span>
 </span><span id="line-105"></span><span class="annot"><a href="Worklog.Case.html#closeCase"><span class="hs-identifier hs-type">closeCase</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span>
 </span><span id="line-106"></span><span id="closeCase"><span class="annot"><span class="annottext">closeCase :: Case -&gt; Case
-</span><a href="Worklog.Case.html#closeCase"><span class="hs-identifier hs-var hs-var">closeCase</span></a></span></span><span> </span><span id="local-6989586621679051025"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051025"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051025"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#caseStatus"><span class="hs-identifier hs-var">caseStatus</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="Worklog.Case.html#Archived"><span class="hs-identifier hs-type">Archived</span></a></span><span class="hs-special">}</span><span>
+</span><a href="Worklog.Case.html#closeCase"><span class="hs-identifier hs-var hs-var">closeCase</span></a></span></span><span> </span><span id="local-6989586621679051030"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051030"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051030"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#caseStatus"><span class="hs-identifier hs-var">caseStatus</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="Worklog.Case.html#Archived"><span class="hs-identifier hs-type">Archived</span></a></span><span class="hs-special">}</span><span>
 </span><span id="line-107"></span><span>
 </span><span id="line-108"></span><span class="hs-comment">-- Put the task on the desk, open it and start working on it.</span><span>
 </span><span id="line-109"></span><span class="annot"><a href="Worklog.Case.html#openCase"><span class="hs-identifier hs-type">openCase</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span>
 </span><span id="line-110"></span><span id="openCase"><span class="annot"><span class="annottext">openCase :: Case -&gt; Case
-</span><a href="Worklog.Case.html#openCase"><span class="hs-identifier hs-var hs-var">openCase</span></a></span></span><span> </span><span id="local-6989586621679051026"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051026"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051026"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#caseStatus"><span class="hs-identifier hs-var">caseStatus</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="Worklog.Case.html#OnDesk"><span class="hs-identifier hs-type">OnDesk</span></a></span><span class="hs-special">}</span><span>
+</span><a href="Worklog.Case.html#openCase"><span class="hs-identifier hs-var hs-var">openCase</span></a></span></span><span> </span><span id="local-6989586621679051031"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051031"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051031"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#caseStatus"><span class="hs-identifier hs-var">caseStatus</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="Worklog.Case.html#OnDesk"><span class="hs-identifier hs-type">OnDesk</span></a></span><span class="hs-special">}</span><span>
 </span><span id="line-111"></span><span>
 </span><span id="line-112"></span><span class="annot"><span class="hs-comment">-- | the deadline of the task</span></span><span>
 </span><span id="line-113"></span><span class="hs-keyword">data</span><span> </span><span id="Deadline"><span class="annot"><a href="Worklog.Case.html#Deadline"><span class="hs-identifier hs-var">Deadline</span></a></span></span><span>
@@ -343,7 +343,7 @@ forall a. Maybe a
 </span><span id="line-115"></span><span>    </span><span id="NoDeadline"><span class="annot"><a href="Worklog.Case.html#NoDeadline"><span class="hs-identifier hs-var">NoDeadline</span></a></span></span><span>
 </span><span id="line-116"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="hs-comment">-- | Deadline</span></span><span>
 </span><span id="line-117"></span><span>    </span><span id="Deadline"><span class="annot"><a href="Worklog.Case.html#Deadline"><span class="hs-identifier hs-var">Deadline</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Day</span></span><span>
-</span><span id="line-118"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679051030"><span id="local-6989586621679051035"><span class="annot"><span class="annottext">Deadline -&gt; Deadline -&gt; Bool
+</span><span id="line-118"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679051035"><span id="local-6989586621679051040"><span class="annot"><span class="annottext">Deadline -&gt; Deadline -&gt; Bool
 (Deadline -&gt; Deadline -&gt; Bool)
 -&gt; (Deadline -&gt; Deadline -&gt; Bool) -&gt; Eq Deadline
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -351,7 +351,7 @@ $c== :: Deadline -&gt; Deadline -&gt; Bool
 == :: Deadline -&gt; Deadline -&gt; Bool
 $c/= :: Deadline -&gt; Deadline -&gt; Bool
 /= :: Deadline -&gt; Deadline -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679051039"><span id="local-6989586621679051043"><span id="local-6989586621679051047"><span class="annot"><span class="annottext">Int -&gt; Deadline -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679051044"><span id="local-6989586621679051048"><span id="local-6989586621679051052"><span class="annot"><span class="annottext">Int -&gt; Deadline -&gt; ShowS
 [Deadline] -&gt; ShowS
 Deadline -&gt; String
 (Int -&gt; Deadline -&gt; ShowS)
@@ -368,11 +368,11 @@ showList :: [Deadline] -&gt; ShowS
 </span><span id="line-119"></span><span>
 </span><span id="line-120"></span><span class="annot"><a href="Worklog.Case.html#hasDeadline"><span class="hs-identifier hs-type">hasDeadline</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span>
 </span><span id="line-121"></span><span id="hasDeadline"><span class="annot"><span class="annottext">hasDeadline :: Case -&gt; Bool
-</span><a href="Worklog.Case.html#hasDeadline"><span class="hs-identifier hs-var hs-var">hasDeadline</span></a></span></span><span> </span><span id="local-6989586621679051049"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051049"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span>
+</span><a href="Worklog.Case.html#hasDeadline"><span class="hs-identifier hs-var hs-var">hasDeadline</span></a></span></span><span> </span><span id="local-6989586621679051054"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051054"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span>
 </span><span id="line-122"></span><span>  </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="annottext">Case -&gt; Deadline
 </span><a href="Worklog.Case.html#caseDeadline"><span class="hs-identifier hs-var">caseDeadline</span></a></span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051049"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-keyword">of</span><span>
+</span><a href="#local-6989586621679051054"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-keyword">of</span><span>
 </span><span id="line-123"></span><span>    </span><span class="annot"><span class="annottext">Deadline
 </span><a href="Worklog.Case.html#NoDeadline"><span class="hs-identifier hs-var">NoDeadline</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Bool
 </span><span class="hs-identifier hs-var">False</span></span><span>
@@ -382,10 +382,10 @@ showList :: [Deadline] -&gt; ShowS
 </span><span id="line-125"></span><span>
 </span><span id="line-126"></span><span class="annot"><a href="Worklog.Case.html#setDeadline"><span class="hs-identifier hs-type">setDeadline</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Deadline"><span class="hs-identifier hs-type">Deadline</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span>
 </span><span id="line-127"></span><span id="setDeadline"><span class="annot"><span class="annottext">setDeadline :: Deadline -&gt; Case -&gt; Case
-</span><a href="Worklog.Case.html#setDeadline"><span class="hs-identifier hs-var hs-var">setDeadline</span></a></span></span><span> </span><span id="local-6989586621679051050"><span class="annot"><span class="annottext">Deadline
-</span><a href="#local-6989586621679051050"><span class="hs-identifier hs-var">day</span></a></span></span><span> </span><span id="local-6989586621679051051"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051051"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051051"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#caseDeadline"><span class="hs-identifier hs-var">caseDeadline</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="#local-6989586621679051050"><span class="hs-identifier hs-type">day</span></a></span><span class="hs-special">}</span><span>
+</span><a href="Worklog.Case.html#setDeadline"><span class="hs-identifier hs-var hs-var">setDeadline</span></a></span></span><span> </span><span id="local-6989586621679051055"><span class="annot"><span class="annottext">Deadline
+</span><a href="#local-6989586621679051055"><span class="hs-identifier hs-var">day</span></a></span></span><span> </span><span id="local-6989586621679051056"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051056"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051056"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#caseDeadline"><span class="hs-identifier hs-var">caseDeadline</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="#local-6989586621679051055"><span class="hs-identifier hs-type">day</span></a></span><span class="hs-special">}</span><span>
 </span><span id="line-128"></span><span>
 </span><span id="line-129"></span><span class="annot"><span class="hs-comment">-- | Flags are attributes of the task.</span></span><span>
 </span><span id="line-130"></span><span class="hs-keyword">data</span><span> </span><span id="CaseFlag"><span class="annot"><a href="Worklog.Case.html#CaseFlag"><span class="hs-identifier hs-var">CaseFlag</span></a></span></span><span>
@@ -398,7 +398,7 @@ showList :: [Deadline] -&gt; ShowS
 </span><span id="line-137"></span><span>    </span><span class="hs-comment">-- There is at least one outgoing document under approval.</span><span>
 </span><span id="line-138"></span><span>    </span><span class="hs-comment">-- Sometimes it needs attention, whether it has finished, or</span><span>
 </span><span id="line-139"></span><span>    </span><span class="hs-comment">-- fixes are neccessary</span><span>
-</span><span id="line-140"></span><span>    </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679051056"><span id="local-6989586621679051060"><span class="annot"><span class="annottext">CaseFlag -&gt; CaseFlag -&gt; Bool
+</span><span id="line-140"></span><span>    </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679051061"><span id="local-6989586621679051065"><span class="annot"><span class="annottext">CaseFlag -&gt; CaseFlag -&gt; Bool
 (CaseFlag -&gt; CaseFlag -&gt; Bool)
 -&gt; (CaseFlag -&gt; CaseFlag -&gt; Bool) -&gt; Eq CaseFlag
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -406,7 +406,7 @@ $c== :: CaseFlag -&gt; CaseFlag -&gt; Bool
 == :: CaseFlag -&gt; CaseFlag -&gt; Bool
 $c/= :: CaseFlag -&gt; CaseFlag -&gt; Bool
 /= :: CaseFlag -&gt; CaseFlag -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679051066"><span id="local-6989586621679051070"><span id="local-6989586621679051074"><span id="local-6989586621679051077"><span id="local-6989586621679051080"><span id="local-6989586621679051083"><span id="local-6989586621679051086"><span class="annot"><span class="annottext">Eq CaseFlag
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679051071"><span id="local-6989586621679051075"><span id="local-6989586621679051079"><span id="local-6989586621679051082"><span id="local-6989586621679051085"><span id="local-6989586621679051088"><span id="local-6989586621679051091"><span class="annot"><span class="annottext">Eq CaseFlag
 Eq CaseFlag =&gt;
 (CaseFlag -&gt; CaseFlag -&gt; Ordering)
 -&gt; (CaseFlag -&gt; CaseFlag -&gt; Bool)
@@ -443,7 +443,7 @@ $cmax :: CaseFlag -&gt; CaseFlag -&gt; CaseFlag
 max :: CaseFlag -&gt; CaseFlag -&gt; CaseFlag
 $cmin :: CaseFlag -&gt; CaseFlag -&gt; CaseFlag
 min :: CaseFlag -&gt; CaseFlag -&gt; CaseFlag
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Ord</span></span></span></span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679051089"><span id="local-6989586621679051091"><span id="local-6989586621679051095"><span class="annot"><span class="annottext">Int -&gt; CaseFlag -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Ord</span></span></span></span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679051094"><span id="local-6989586621679051096"><span id="local-6989586621679051100"><span class="annot"><span class="annottext">Int -&gt; CaseFlag -&gt; ShowS
 [CaseFlag] -&gt; ShowS
 CaseFlag -&gt; String
 (Int -&gt; CaseFlag -&gt; ShowS)
@@ -460,7 +460,10 @@ showList :: [CaseFlag] -&gt; ShowS
 </span><span id="line-141"></span><span>
 </span><span id="line-142"></span><span class="annot"><a href="Worklog.Case.html#anyFlag"><span class="hs-identifier hs-type">anyFlag</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span>
 </span><span id="line-143"></span><span id="anyFlag"><span class="annot"><span class="annottext">anyFlag :: Case -&gt; Bool
-</span><a href="Worklog.Case.html#anyFlag"><span class="hs-identifier hs-var hs-var">anyFlag</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Set CaseFlag -&gt; Bool
+</span><a href="Worklog.Case.html#anyFlag"><span class="hs-identifier hs-var hs-var">anyFlag</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Bool -&gt; Bool
+</span><span class="hs-identifier hs-var">not</span></span><span> </span><span class="annot"><span class="annottext">(Bool -&gt; Bool) -&gt; (Case -&gt; Bool) -&gt; Case -&gt; Bool
+forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
+</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Set CaseFlag -&gt; Bool
 forall a. Set a -&gt; Bool
 </span><span class="hs-identifier hs-var">Set.null</span></span><span> </span><span class="annot"><span class="annottext">(Set CaseFlag -&gt; Bool) -&gt; (Case -&gt; Set CaseFlag) -&gt; Case -&gt; Bool
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
@@ -469,28 +472,28 @@ forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
 </span><span id="line-144"></span><span>
 </span><span id="line-145"></span><span class="annot"><a href="Worklog.Case.html#hasFlag"><span class="hs-identifier hs-type">hasFlag</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#CaseFlag"><span class="hs-identifier hs-type">CaseFlag</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span>
 </span><span id="line-146"></span><span id="hasFlag"><span class="annot"><span class="annottext">hasFlag :: CaseFlag -&gt; Case -&gt; Bool
-</span><a href="Worklog.Case.html#hasFlag"><span class="hs-identifier hs-var hs-var">hasFlag</span></a></span></span><span> </span><span id="local-6989586621679051100"><span class="annot"><span class="annottext">CaseFlag
-</span><a href="#local-6989586621679051100"><span class="hs-identifier hs-var">flag</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">CaseFlag -&gt; Set CaseFlag -&gt; Bool
+</span><a href="Worklog.Case.html#hasFlag"><span class="hs-identifier hs-var hs-var">hasFlag</span></a></span></span><span> </span><span id="local-6989586621679051105"><span class="annot"><span class="annottext">CaseFlag
+</span><a href="#local-6989586621679051105"><span class="hs-identifier hs-var">flag</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">CaseFlag -&gt; Set CaseFlag -&gt; Bool
 forall a. Ord a =&gt; a -&gt; Set a -&gt; Bool
 </span><span class="hs-identifier hs-var">Set.member</span></span><span> </span><span class="annot"><span class="annottext">CaseFlag
-</span><a href="#local-6989586621679051100"><span class="hs-identifier hs-var">flag</span></a></span><span> </span><span class="annot"><span class="annottext">(Set CaseFlag -&gt; Bool) -&gt; (Case -&gt; Set CaseFlag) -&gt; Case -&gt; Bool
+</span><a href="#local-6989586621679051105"><span class="hs-identifier hs-var">flag</span></a></span><span> </span><span class="annot"><span class="annottext">(Set CaseFlag -&gt; Bool) -&gt; (Case -&gt; Set CaseFlag) -&gt; Case -&gt; Bool
 forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
 </span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Case -&gt; Set CaseFlag
 </span><a href="Worklog.Case.html#caseFlags"><span class="hs-identifier hs-var">caseFlags</span></a></span><span>
 </span><span id="line-147"></span><span>
 </span><span id="line-148"></span><span class="annot"><a href="Worklog.Case.html#addFlag"><span class="hs-identifier hs-type">addFlag</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#CaseFlag"><span class="hs-identifier hs-type">CaseFlag</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span>
 </span><span id="line-149"></span><span id="addFlag"><span class="annot"><span class="annottext">addFlag :: CaseFlag -&gt; Case -&gt; Case
-</span><a href="Worklog.Case.html#addFlag"><span class="hs-identifier hs-var hs-var">addFlag</span></a></span></span><span> </span><span id="local-6989586621679051102"><span class="annot"><span class="annottext">CaseFlag
-</span><a href="#local-6989586621679051102"><span class="hs-identifier hs-var">flag</span></a></span></span><span> </span><span id="local-6989586621679051103"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051103"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051103"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#caseFlags"><span class="hs-identifier hs-var">caseFlags</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Set.insert</span></span><span> </span><span class="annot"><a href="#local-6989586621679051102"><span class="hs-identifier hs-type">flag</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Worklog.Case.html#caseFlags"><span class="hs-identifier hs-var">caseFlags</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679051103"><span class="hs-identifier hs-type">cas</span></a></span><span class="hs-special">)</span><span class="hs-special">}</span><span>
+</span><a href="Worklog.Case.html#addFlag"><span class="hs-identifier hs-var hs-var">addFlag</span></a></span></span><span> </span><span id="local-6989586621679051107"><span class="annot"><span class="annottext">CaseFlag
+</span><a href="#local-6989586621679051107"><span class="hs-identifier hs-var">flag</span></a></span></span><span> </span><span id="local-6989586621679051108"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051108"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051108"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#caseFlags"><span class="hs-identifier hs-var">caseFlags</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Set.insert</span></span><span> </span><span class="annot"><a href="#local-6989586621679051107"><span class="hs-identifier hs-type">flag</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Worklog.Case.html#caseFlags"><span class="hs-identifier hs-var">caseFlags</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679051108"><span class="hs-identifier hs-type">cas</span></a></span><span class="hs-special">)</span><span class="hs-special">}</span><span>
 </span><span id="line-150"></span><span>
 </span><span id="line-151"></span><span class="annot"><a href="Worklog.Case.html#removeFlag"><span class="hs-identifier hs-type">removeFlag</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#CaseFlag"><span class="hs-identifier hs-type">CaseFlag</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span>
 </span><span id="line-152"></span><span id="removeFlag"><span class="annot"><span class="annottext">removeFlag :: CaseFlag -&gt; Case -&gt; Case
-</span><a href="Worklog.Case.html#removeFlag"><span class="hs-identifier hs-var hs-var">removeFlag</span></a></span></span><span> </span><span id="local-6989586621679051105"><span class="annot"><span class="annottext">CaseFlag
-</span><a href="#local-6989586621679051105"><span class="hs-identifier hs-var">flag</span></a></span></span><span> </span><span id="local-6989586621679051106"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051106"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051106"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#caseFlags"><span class="hs-identifier hs-var">caseFlags</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Set.delete</span></span><span> </span><span class="annot"><a href="#local-6989586621679051105"><span class="hs-identifier hs-type">flag</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Worklog.Case.html#caseFlags"><span class="hs-identifier hs-var">caseFlags</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679051106"><span class="hs-identifier hs-type">cas</span></a></span><span class="hs-special">)</span><span class="hs-special">}</span><span>
+</span><a href="Worklog.Case.html#removeFlag"><span class="hs-identifier hs-var hs-var">removeFlag</span></a></span></span><span> </span><span id="local-6989586621679051110"><span class="annot"><span class="annottext">CaseFlag
+</span><a href="#local-6989586621679051110"><span class="hs-identifier hs-var">flag</span></a></span></span><span> </span><span id="local-6989586621679051111"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051111"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051111"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#caseFlags"><span class="hs-identifier hs-var">caseFlags</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Set.delete</span></span><span> </span><span class="annot"><a href="#local-6989586621679051110"><span class="hs-identifier hs-type">flag</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Worklog.Case.html#caseFlags"><span class="hs-identifier hs-var">caseFlags</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679051111"><span class="hs-identifier hs-type">cas</span></a></span><span class="hs-special">)</span><span class="hs-special">}</span><span>
 </span><span id="line-153"></span><span>
 </span><span id="line-154"></span><span class="hs-comment">-- | The Case data type contains the parameters of the case</span><span>
 </span><span id="line-155"></span><span class="hs-comment">-- correspondent to the workfile. Some title, a longer summary,</span><span>
@@ -516,14 +519,14 @@ forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
 </span><span id="line-169"></span><span>    </span><span id="caseFlags"><span class="annot"><span class="annottext">Case -&gt; Set CaseFlag
 </span><a href="Worklog.Case.html#caseFlags"><span class="hs-identifier hs-var hs-var">caseFlags</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Set</span></span><span> </span><span class="annot"><a href="Worklog.Case.html#CaseFlag"><span class="hs-identifier hs-type">CaseFlag</span></a></span><span>
 </span><span id="line-170"></span><span>  </span><span class="hs-special">}</span><span>
-</span><span id="line-171"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679051110"><span id="local-6989586621679051122"><span class="annot"><span class="annottext">Case -&gt; Case -&gt; Bool
+</span><span id="line-171"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679051115"><span id="local-6989586621679051127"><span class="annot"><span class="annottext">Case -&gt; Case -&gt; Bool
 (Case -&gt; Case -&gt; Bool) -&gt; (Case -&gt; Case -&gt; Bool) -&gt; Eq Case
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
 $c== :: Case -&gt; Case -&gt; Bool
 == :: Case -&gt; Case -&gt; Bool
 $c/= :: Case -&gt; Case -&gt; Bool
 /= :: Case -&gt; Case -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679051126"><span id="local-6989586621679051139"><span id="local-6989586621679051143"><span class="annot"><span class="annottext">Int -&gt; Case -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679051131"><span id="local-6989586621679051144"><span id="local-6989586621679051148"><span class="annot"><span class="annottext">Int -&gt; Case -&gt; ShowS
 [Case] -&gt; ShowS
 Case -&gt; String
 (Int -&gt; Case -&gt; ShowS)
@@ -542,15 +545,15 @@ showList :: [Case] -&gt; ShowS
 </span><span id="line-174"></span><span class="hs-comment">-- no deadline and empty summary.</span><span>
 </span><span id="line-175"></span><span class="annot"><a href="Worklog.Case.html#newCase"><span class="hs-identifier hs-type">newCase</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span>
 </span><span id="line-176"></span><span id="newCase"><span class="annot"><span class="annottext">newCase :: Int -&gt; String -&gt; Case
-</span><a href="Worklog.Case.html#newCase"><span class="hs-identifier hs-var hs-var">newCase</span></a></span></span><span> </span><span id="local-6989586621679051145"><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679051145"><span class="hs-identifier hs-var">iD</span></a></span></span><span> </span><span id="local-6989586621679051146"><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679051146"><span class="hs-identifier hs-var">title</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span>
+</span><a href="Worklog.Case.html#newCase"><span class="hs-identifier hs-var hs-var">newCase</span></a></span></span><span> </span><span id="local-6989586621679051150"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679051150"><span class="hs-identifier hs-var">iD</span></a></span></span><span> </span><span id="local-6989586621679051151"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679051151"><span class="hs-identifier hs-var">title</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span>
 </span><span id="line-177"></span><span>  </span><span class="hs-special">{</span><span> </span><span class="annot"><span class="annottext">caseId :: Int
 </span><a href="Worklog.Case.html#caseId"><span class="hs-identifier hs-var">caseId</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
-</span><a href="#local-6989586621679051145"><span class="hs-identifier hs-var">iD</span></a></span><span class="hs-special">,</span><span>
+</span><a href="#local-6989586621679051150"><span class="hs-identifier hs-var">iD</span></a></span><span class="hs-special">,</span><span>
 </span><span id="line-178"></span><span>    </span><span class="annot"><span class="annottext">caseTitle :: String
 </span><a href="Worklog.Case.html#caseTitle"><span class="hs-identifier hs-var">caseTitle</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679051146"><span class="hs-identifier hs-var">title</span></a></span><span class="hs-special">,</span><span>
+</span><a href="#local-6989586621679051151"><span class="hs-identifier hs-var">title</span></a></span><span class="hs-special">,</span><span>
 </span><span id="line-179"></span><span>    </span><span class="annot"><span class="annottext">casePriority :: Priority
 </span><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Priority
 </span><a href="Worklog.Case.html#Normal"><span class="hs-identifier hs-var">Normal</span></a></span><span class="hs-special">,</span><span>
@@ -577,9 +580,9 @@ forall a. Set a
 </span><span id="line-189"></span><span>
 </span><span id="line-190"></span><span class="annot"><a href="Worklog.Case.html#summaryText"><span class="hs-identifier hs-type">summaryText</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Summary"><span class="hs-identifier hs-type">Summary</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span>
 </span><span id="line-191"></span><span id="summaryText"><span class="annot"><span class="annottext">summaryText :: Summary -&gt; String
-</span><a href="Worklog.Case.html#summaryText"><span class="hs-identifier hs-var hs-var">summaryText</span></a></span></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Worklog.Case.html#Summary"><span class="hs-identifier hs-type">Summary</span></a></span><span> </span><span id="local-6989586621679051148"><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679051148"><span class="hs-identifier hs-var">s</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679051148"><span class="hs-identifier hs-var">s</span></a></span><span>
+</span><a href="Worklog.Case.html#summaryText"><span class="hs-identifier hs-var hs-var">summaryText</span></a></span></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Worklog.Case.html#Summary"><span class="hs-identifier hs-type">Summary</span></a></span><span> </span><span id="local-6989586621679051153"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679051153"><span class="hs-identifier hs-var">s</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679051153"><span class="hs-identifier hs-var">s</span></a></span><span>
 </span><span id="line-192"></span><span>
 </span><span id="line-193"></span><span class="annot"><a href="Worklog.Case.html#emptySummary"><span class="hs-identifier hs-type">emptySummary</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Summary"><span class="hs-identifier hs-type">Summary</span></a></span><span>
 </span><span id="line-194"></span><span id="emptySummary"><span class="annot"><span class="annottext">emptySummary :: Summary
@@ -589,10 +592,10 @@ forall a. Set a
 </span><span id="line-195"></span><span>
 </span><span id="line-196"></span><span class="annot"><a href="Worklog.Case.html#setSummary"><span class="hs-identifier hs-type">setSummary</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Summary"><span class="hs-identifier hs-type">Summary</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span>
 </span><span id="line-197"></span><span id="setSummary"><span class="annot"><span class="annottext">setSummary :: Summary -&gt; Case -&gt; Case
-</span><a href="Worklog.Case.html#setSummary"><span class="hs-identifier hs-var hs-var">setSummary</span></a></span></span><span> </span><span id="local-6989586621679051149"><span class="annot"><span class="annottext">Summary
-</span><a href="#local-6989586621679051149"><span class="hs-identifier hs-var">s</span></a></span></span><span> </span><span id="local-6989586621679051150"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051150"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051150"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#caseSummary"><span class="hs-identifier hs-var">caseSummary</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="#local-6989586621679051149"><span class="hs-identifier hs-type">s</span></a></span><span class="hs-special">}</span><span>
+</span><a href="Worklog.Case.html#setSummary"><span class="hs-identifier hs-var hs-var">setSummary</span></a></span></span><span> </span><span id="local-6989586621679051154"><span class="annot"><span class="annottext">Summary
+</span><a href="#local-6989586621679051154"><span class="hs-identifier hs-var">s</span></a></span></span><span> </span><span id="local-6989586621679051155"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051155"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051155"><span class="hs-identifier hs-var">cas</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Case.html#caseSummary"><span class="hs-identifier hs-var">caseSummary</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="#local-6989586621679051154"><span class="hs-identifier hs-type">s</span></a></span><span class="hs-special">}</span><span>
 </span><span id="line-198"></span><span>
 </span><span id="line-199"></span><span class="annot"><a href="Worklog.Case.html#getSummary"><span class="hs-identifier hs-type">getSummary</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#Summary"><span class="hs-identifier hs-type">Summary</span></a></span><span>
 </span><span id="line-200"></span><span id="getSummary"><span class="annot"><span class="annottext">getSummary :: Case -&gt; Summary

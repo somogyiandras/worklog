@@ -24,13 +24,22 @@ library
     import:           common-settings
     exposed-modules:  
                       Worklog.Case
-                    , Worklog.TaskAnalysis
+                    , Worklog.CaseAnalysis
+                    , Worklog.Todo
     -- other-modules:
     -- other-extensions:
     build-depends:    base >=4.16 && < 4.22
                     , time < 1.16.0.1
                     , containers < 0.8
+                    , worklog
     hs-source-dirs:   src
+
+library implementation-internal
+    import:           common-settings
+    exposed-modules:
+                      Worklog.Implementation.Internal
+    hs-source-dirs:   src-internal
+    build-depends:    base >=4.16 && < 4.22
 
 executable worklog
     import:           common-settings
@@ -47,7 +56,7 @@ test-suite worklog-test
     import:           common-settings
     default-language: GHC2021
     other-modules:
-                      Worklog.TaskSpec
+                      Worklog.CaseSpec
     -- other-extensions:
     type:             exitcode-stdio-1.0
     hs-source-dirs:   test

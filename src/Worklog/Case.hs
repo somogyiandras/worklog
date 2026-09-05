@@ -30,6 +30,8 @@ module Worklog.Case
     CaseFlag (..),
     anyFlag, hasFlag, addFlag, removeFlag,
 
+    -- * Other types
+    Warning,
     -- * Functions
     closeCase, openCase,
     mkSummary,
@@ -39,12 +41,11 @@ module Worklog.Case
   )
 where
 
+import Worklog.Implementation.Internal
 import Data.Time.Calendar
 import Data.Set (Set)
 import qualified Data.Set as Set
 
-newtype Summary = Summary String
-  deriving (Eq, Show)
 
 data Priority
   = ForgetIt
@@ -101,9 +102,17 @@ getDefferedDay _ = Nothing
 deferrCase :: Case -> Day -> Case
 deferrCase cas day = cas { caseStatus = Deferred day }
 
--- Close the case, file, document, and send it to the archives.
-closeCase :: Case -> Case
-closeCase cas = cas {caseStatus = Archived}
+type Warning = String
+
+-- Close the case and send it to the archives.
+-- If the case has flags or todo items then it gets back
+-- Left Warning messages
+closeCase :: Case -> Either Warning Case
+closeCase cas
+  | isArchived cas = Left "Case already closed"
+  | isDeferred cas = Left "Case is deferred, not on desk"
+  | anyFlag cas = Left "Case cannot be closed, it has duties"
+  | otherwise = Right $ cas {caseStatus = Archived}
 
 -- Put the task on the desk, open it and start working on it.
 openCase :: Case -> Case
@@ -140,7 +149,7 @@ data CaseFlag
     deriving (Eq, Ord, Show)
 
 anyFlag :: Case -> Bool
-anyFlag = Set.null . caseFlags
+anyFlag = not . Set.null . caseFlags
 
 hasFlag :: CaseFlag -> Case -> Bool
 hasFlag flag = Set.member flag . caseFlags
@@ -184,14 +193,6 @@ newCase iD title = Case
   }
 
 
-mkSummary :: String -> Summary
-mkSummary = Summary
-
-summaryText :: Summary -> String
-summaryText (Summary s) = s
-
-emptySummary :: Summary
-emptySummary = mkSummary ""
 
 setSummary :: Summary -> Case -> Case
 setSummary s cas = cas {caseSummary = s}

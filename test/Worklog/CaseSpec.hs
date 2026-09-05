@@ -1,4 +1,4 @@
-module Worklog.TaskSpec
+module Worklog.CaseSpec
   ( tests,
   )
 where
@@ -88,7 +88,11 @@ testFlag =
           addFlag Waiting
     in
     testGroup "\n\tFlag functions:"
-        [ testCase "New case does not wait" $
+        [ testCase "Has new case any flag?" $
+            anyFlag (newCase 3 "") @?= False,
+          testCase "Add one..." $
+            anyFlag (newCase 3 "" & addFlag Waiting) @?= True,
+          testCase "New case does not wait" $
             hasFlag Waiting (newCase 2 "") @?= False,
           testCase "But this waits" $
             hasFlag Waiting (addFlag Waiting $ newCase 3 "") @?= True,

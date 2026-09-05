@@ -19,19 +19,19 @@ Foldable t =&gt;
 (a -&gt; b -&gt; b) -&gt; b -&gt; t a -&gt; b
 </span><span class="hs-identifier hs-var">foldr</span></span><span> </span><span class="annot"><span class="annottext">Case -&gt; Map Priority Int -&gt; Map Priority Int
 forall {a}. Num a =&gt; Case -&gt; Map Priority a -&gt; Map Priority a
-</span><a href="#local-6989586621679051263"><span class="hs-identifier hs-var">count</span></a></span><span> </span><span class="annot"><span class="annottext">Map Priority Int
+</span><a href="#local-6989586621679051268"><span class="hs-identifier hs-var">count</span></a></span><span> </span><span class="annot"><span class="annottext">Map Priority Int
 forall k a. Map k a
 </span><span class="hs-identifier hs-var">M.empty</span></span><span>
 </span><span id="line-14"></span><span>    </span><span class="hs-keyword">where</span><span>
-</span><span id="line-15"></span><span>      </span><span id="local-6989586621679051263"><span class="annot"><span class="annottext">count :: Case -&gt; Map Priority a -&gt; Map Priority a
-</span><a href="#local-6989586621679051263"><span class="hs-identifier hs-var hs-var">count</span></a></span></span><span> </span><span id="local-6989586621679051270"><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051270"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(a -&gt; a -&gt; a) -&gt; Priority -&gt; a -&gt; Map Priority a -&gt; Map Priority a
+</span><span id="line-15"></span><span>      </span><span id="local-6989586621679051268"><span class="annot"><span class="annottext">count :: Case -&gt; Map Priority a -&gt; Map Priority a
+</span><a href="#local-6989586621679051268"><span class="hs-identifier hs-var hs-var">count</span></a></span></span><span> </span><span id="local-6989586621679051275"><span class="annot"><span class="annottext">Case
+</span><a href="#local-6989586621679051275"><span class="hs-identifier hs-var">cas</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(a -&gt; a -&gt; a) -&gt; Priority -&gt; a -&gt; Map Priority a -&gt; Map Priority a
 forall k a. Ord k =&gt; (a -&gt; a -&gt; a) -&gt; k -&gt; a -&gt; Map k a -&gt; Map k a
 </span><span class="hs-identifier hs-var">M.insertWith</span></span><span> </span><span class="annot"><span class="annottext">a -&gt; a -&gt; a
 forall a. Num a =&gt; a -&gt; a -&gt; a
 </span><span class="hs-operator hs-var">(+)</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Case -&gt; Priority
 </span><a href="Worklog.Case.html#casePriority"><span class="hs-identifier hs-var">casePriority</span></a></span><span> </span><span class="annot"><span class="annottext">Case
-</span><a href="#local-6989586621679051270"><span class="hs-identifier hs-var">cas</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679051275"><span class="hs-identifier hs-var">cas</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">a
 </span><span class="hs-number">1</span></span><span>
 </span><span id="line-16"></span><span>
 </span><span id="line-17"></span><span class="annot"><a href="Worklog.TaskAnalysis.html#countActiveByPriority"><span class="hs-identifier hs-type">countActiveByPriority</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="Worklog.Case.html#Case"><span class="hs-identifier hs-type">Case</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Map</span></span><span> </span><span class="annot"><a href="Worklog.Case.html#Priority"><span class="hs-identifier hs-type">Priority</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>

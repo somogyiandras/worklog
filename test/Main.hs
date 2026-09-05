@@ -1,7 +1,7 @@
 module Main where
 
 import Test.Tasty
-import qualified Worklog.TaskSpec as Task
+import qualified Worklog.CaseSpec as Task
 
 main :: IO ()
 main =
