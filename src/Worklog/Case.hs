@@ -2,7 +2,7 @@
 module Worklog.Case
   ( -- * Task and its attributes
     Case,
-    caseId, caseTitle, casePriority, caseDeadline,
+    caseId, caseTitle, caseDeadline,
     newCase,
 
     -- ** Status of task
@@ -12,14 +12,7 @@ module Worklog.Case
     isDeferred,
     getDefferedDay,
     deferrCase,
-
-    -- ** Priority
-    Priority (..),
-    isImportant,
     needsAttention,
-    setCasePriority,
-    promoteCase,
-    demoteCase,
 
     -- ** Deadlines
     Deadline (..),
@@ -43,34 +36,10 @@ import Data.Time.Calendar
 import Data.Set (Set)
 import qualified Data.Set as Set
 
-
-data Priority
-  = ForgetIt
-  | Postpone
-  | Normal
-  | Important
-  | VeryImportant
-  deriving (Eq, Ord, Show, Enum, Bounded)
-
-isImportant :: Case -> Bool
-isImportant cas = casePriority cas >= Important
-
--- | Not closed and high priority case
+-- | Not closed and contains flag, todo, task, not valid, or other
+-- Todo: create the predicates
 needsAttention :: Case -> Bool
-needsAttention cas = not (isArchived cas) && isImportant cas
-
-setCasePriority :: Priority -> Case -> Case
-setCasePriority p cas = cas {casePriority = p}
-
-promoteCase :: Case -> Case
-promoteCase cas
-  | casePriority cas == maxBound = cas
-  | otherwise = cas {casePriority = succ $ casePriority cas}
-
-demoteCase :: Case -> Case
-demoteCase cas
-  | casePriority cas == minBound = cas
-  | otherwise = cas {casePriority = pred $ casePriority cas}
+needsAttention cas = not (isArchived cas) 
 
 data Status
   = -- | case is on the desk, we work on it
@@ -159,16 +128,14 @@ removeFlag flag cas = cas {caseFlags = Set.delete flag (caseFlags cas)}
 
 -- | The Case data type contains the parameters of the case
 -- correspondent to the workfile. Some title, a longer summary,
--- priority and status, and of course deadline. The caseFlags
--- attributes 
+-- and status, and of course deadline. The caseFlags
+-- attributes sign some important aspects of the case (there are
+-- others working on it, needs revision)
 --
 -- The summary field currently will be implemented as Pandoc Block.
---
--- The case has an ID.
 data Case = Case
   { caseId :: Int,
     caseTitle :: String,
-    casePriority :: Priority,
     caseStatus :: Status,
     caseDeadline :: Deadline,
     caseSummary :: Summary,
@@ -180,13 +147,12 @@ instance HasSummary Case where
   getSummary = caseSummary
   setSummary cas s = cas {caseSummary = s}
 
--- | mkTask id title creates an open task with normal priority,
+-- | mkTask id title creates an open task with
 -- no deadline and empty summary.
 newCase :: Int -> String -> Case
 newCase iD title = Case
   { caseId = iD,
     caseTitle = title,
-    casePriority = Normal,
     caseStatus = OnDesk,
     caseDeadline = NoDeadline,
     caseSummary = emptySummary,

@@ -1,14 +1,17 @@
 module Worklog.CaseAnalysis
 (
-    countByPriority
-  , countActiveByPriority
+    onDesk,
+    inDeferred
+--    countByPriority
+--  , countActiveByPriority
 )
 where
 
 import           Worklog.Case
-import           Data.Map.Strict (Map)
-import qualified Data.Map.Strict as M
+--import           Data.Map.Strict (Map)
+--import qualified Data.Map.Strict as M
 
+{-
 countByPriority :: [Case] -> Map Priority Int
 countByPriority = foldr count M.empty
     where
@@ -16,3 +19,10 @@ countByPriority = foldr count M.empty
 
 countActiveByPriority :: [Case] -> Map Priority Int
 countActiveByPriority = countByPriority . filter (not . isArchived)
+-}
+
+onDesk :: [Case] -> [Case]
+onDesk = filter  isOnDesk
+
+inDeferred :: [Case] -> [Case]
+inDeferred = filter isDeferred

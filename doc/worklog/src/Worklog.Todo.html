@@ -12,7 +12,7 @@
 </span><span id="line-12"></span><span class="hs-keyword">data</span><span> </span><span id="Urgency"><span class="annot"><a href="Worklog.Todo.html#Urgency"><span class="hs-identifier hs-var">Urgency</span></a></span></span><span>
 </span><span id="line-13"></span><span>  </span><span class="hs-glyph">=</span><span> </span><span id="NotSoUrgent"><span class="annot"><a href="Worklog.Todo.html#NotSoUrgent"><span class="hs-identifier hs-var">NotSoUrgent</span></a></span></span><span>
 </span><span id="line-14"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="Urgent"><span class="annot"><a href="Worklog.Todo.html#Urgent"><span class="hs-identifier hs-var">Urgent</span></a></span></span><span>
-</span><span id="line-15"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679051764"><span id="local-6989586621679051769"><span class="annot"><span class="annottext">Urgency -&gt; Urgency -&gt; Bool
+</span><span id="line-15"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679050434"><span id="local-6989586621679050439"><span class="annot"><span class="annottext">Urgency -&gt; Urgency -&gt; Bool
 (Urgency -&gt; Urgency -&gt; Bool)
 -&gt; (Urgency -&gt; Urgency -&gt; Bool) -&gt; Eq Urgency
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -20,7 +20,7 @@ $c== :: Urgency -&gt; Urgency -&gt; Bool
 == :: Urgency -&gt; Urgency -&gt; Bool
 $c/= :: Urgency -&gt; Urgency -&gt; Bool
 /= :: Urgency -&gt; Urgency -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679051775"><span id="local-6989586621679051777"><span id="local-6989586621679051779"><span id="local-6989586621679051783"><span id="local-6989586621679051786"><span id="local-6989586621679051789"><span id="local-6989586621679051792"><span class="annot"><span class="annottext">Eq Urgency
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050445"><span id="local-6989586621679050447"><span id="local-6989586621679050449"><span id="local-6989586621679050453"><span id="local-6989586621679050456"><span id="local-6989586621679050459"><span id="local-6989586621679050462"><span class="annot"><span class="annottext">Eq Urgency
 Eq Urgency =&gt;
 (Urgency -&gt; Urgency -&gt; Ordering)
 -&gt; (Urgency -&gt; Urgency -&gt; Bool)
@@ -57,7 +57,7 @@ $cmax :: Urgency -&gt; Urgency -&gt; Urgency
 max :: Urgency -&gt; Urgency -&gt; Urgency
 $cmin :: Urgency -&gt; Urgency -&gt; Urgency
 min :: Urgency -&gt; Urgency -&gt; Urgency
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Ord</span></span></span></span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679051800"><span id="local-6989586621679051802"><span id="local-6989586621679051806"><span class="annot"><span class="annottext">Int -&gt; Urgency -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Ord</span></span></span></span></span></span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050470"><span id="local-6989586621679050472"><span id="local-6989586621679050476"><span class="annot"><span class="annottext">Int -&gt; Urgency -&gt; ShowS
 [Urgency] -&gt; ShowS
 Urgency -&gt; String
 (Int -&gt; Urgency -&gt; ShowS)
@@ -79,14 +79,14 @@ showList :: [Urgency] -&gt; ShowS
 </span><span id="line-20"></span><span>    </span><span id="todoSummary"><span class="annot"><span class="annottext">Todo -&gt; Summary
 </span><a href="Worklog.Todo.html#todoSummary"><span class="hs-identifier hs-var hs-var">todoSummary</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Summary</span></span><span>
 </span><span id="line-21"></span><span>  </span><span class="hs-special">}</span><span>
-</span><span id="line-22"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679051814"><span id="local-6989586621679051819"><span class="annot"><span class="annottext">Todo -&gt; Todo -&gt; Bool
+</span><span id="line-22"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679050484"><span id="local-6989586621679050489"><span class="annot"><span class="annottext">Todo -&gt; Todo -&gt; Bool
 (Todo -&gt; Todo -&gt; Bool) -&gt; (Todo -&gt; Todo -&gt; Bool) -&gt; Eq Todo
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
 $c== :: Todo -&gt; Todo -&gt; Bool
 == :: Todo -&gt; Todo -&gt; Bool
 $c/= :: Todo -&gt; Todo -&gt; Bool
 /= :: Todo -&gt; Todo -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679051823"><span id="local-6989586621679051830"><span id="local-6989586621679051834"><span class="annot"><span class="annottext">Int -&gt; Todo -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679050493"><span id="local-6989586621679050500"><span id="local-6989586621679050504"><span class="annot"><span class="annottext">Int -&gt; Todo -&gt; ShowS
 [Todo] -&gt; ShowS
 Todo -&gt; String
 (Int -&gt; Todo -&gt; ShowS)
@@ -101,15 +101,15 @@ $cshowList :: [Todo] -&gt; ShowS
 showList :: [Todo] -&gt; ShowS
 </span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
 </span><span id="line-23"></span><span>
-</span><span id="line-24"></span><span class="hs-keyword">instance</span><span> </span><span id="local-6989586621679051839"><span class="annot"><span class="hs-identifier hs-type">HasSummary</span></span><span> </span><span class="annot"><a href="Worklog.Todo.html#Todo"><span class="hs-identifier hs-type">Todo</span></a></span></span><span> </span><span class="hs-keyword">where</span><span>
-</span><span id="line-25"></span><span>  </span><span id="local-6989586621679051843"><span class="annot"><span class="annottext">getSummary :: Todo -&gt; Summary
-</span><a href="#local-6989586621679051843"><span class="hs-identifier hs-var hs-var hs-var">getSummary</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Todo -&gt; Summary
+</span><span id="line-24"></span><span class="hs-keyword">instance</span><span> </span><span id="local-6989586621679050509"><span class="annot"><span class="hs-identifier hs-type">HasSummary</span></span><span> </span><span class="annot"><a href="Worklog.Todo.html#Todo"><span class="hs-identifier hs-type">Todo</span></a></span></span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-25"></span><span>  </span><span id="local-6989586621679050513"><span class="annot"><span class="annottext">getSummary :: Todo -&gt; Summary
+</span><a href="#local-6989586621679050513"><span class="hs-identifier hs-var hs-var hs-var">getSummary</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Todo -&gt; Summary
 </span><a href="Worklog.Todo.html#todoSummary"><span class="hs-identifier hs-var">todoSummary</span></a></span><span>
-</span><span id="line-26"></span><span>  </span><span id="local-6989586621679051845"><span class="annot"><span class="annottext">setSummary :: Todo -&gt; Summary -&gt; Todo
-</span><a href="#local-6989586621679051845"><span class="hs-identifier hs-var hs-var hs-var">setSummary</span></a></span></span><span> </span><span id="local-6989586621679051847"><span class="annot"><span class="annottext">Todo
-</span><a href="#local-6989586621679051847"><span class="hs-identifier hs-var">todo</span></a></span></span><span> </span><span id="local-6989586621679051848"><span class="annot"><span class="annottext">Summary
-</span><a href="#local-6989586621679051848"><span class="hs-identifier hs-var">s</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Todo
-</span><a href="#local-6989586621679051847"><span class="hs-identifier hs-var">todo</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Todo.html#todoSummary"><span class="hs-identifier hs-var">todoSummary</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="#local-6989586621679051848"><span class="hs-identifier hs-type">s</span></a></span><span class="hs-special">}</span><span>
+</span><span id="line-26"></span><span>  </span><span id="local-6989586621679050515"><span class="annot"><span class="annottext">setSummary :: Todo -&gt; Summary -&gt; Todo
+</span><a href="#local-6989586621679050515"><span class="hs-identifier hs-var hs-var hs-var">setSummary</span></a></span></span><span> </span><span id="local-6989586621679050517"><span class="annot"><span class="annottext">Todo
+</span><a href="#local-6989586621679050517"><span class="hs-identifier hs-var">todo</span></a></span></span><span> </span><span id="local-6989586621679050518"><span class="annot"><span class="annottext">Summary
+</span><a href="#local-6989586621679050518"><span class="hs-identifier hs-var">s</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Todo
+</span><a href="#local-6989586621679050517"><span class="hs-identifier hs-var">todo</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Todo.html#todoSummary"><span class="hs-identifier hs-var">todoSummary</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="#local-6989586621679050518"><span class="hs-identifier hs-type">s</span></a></span><span class="hs-special">}</span><span>
 </span><span id="line-27"></span><span>
 </span><span id="line-28"></span><span class="annot"><a href="Worklog.Todo.html#mkTodo"><span class="hs-identifier hs-type">mkTodo</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Todo.html#Urgency"><span class="hs-identifier hs-type">Urgency</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Summary</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Todo.html#Todo"><span class="hs-identifier hs-type">Todo</span></a></span><span>
 </span><span id="line-29"></span><span id="mkTodo"><span class="annot"><span class="annottext">mkTodo :: Urgency -&gt; Summary -&gt; Todo
@@ -118,10 +118,10 @@ showList :: [Todo] -&gt; ShowS
 </span><span id="line-30"></span><span>
 </span><span id="line-31"></span><span class="annot"><a href="Worklog.Todo.html#isUrgent"><span class="hs-identifier hs-type">isUrgent</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Todo.html#Todo"><span class="hs-identifier hs-type">Todo</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span>
 </span><span id="line-32"></span><span id="isUrgent"><span class="annot"><span class="annottext">isUrgent :: Todo -&gt; Bool
-</span><a href="Worklog.Todo.html#isUrgent"><span class="hs-identifier hs-var hs-var">isUrgent</span></a></span></span><span> </span><span id="local-6989586621679051849"><span class="annot"><span class="annottext">Todo
-</span><a href="#local-6989586621679051849"><span class="hs-identifier hs-var">todo</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Todo -&gt; Urgency
+</span><a href="Worklog.Todo.html#isUrgent"><span class="hs-identifier hs-var hs-var">isUrgent</span></a></span></span><span> </span><span id="local-6989586621679050519"><span class="annot"><span class="annottext">Todo
+</span><a href="#local-6989586621679050519"><span class="hs-identifier hs-var">todo</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Todo -&gt; Urgency
 </span><a href="Worklog.Todo.html#todoUrgency"><span class="hs-identifier hs-var">todoUrgency</span></a></span><span> </span><span class="annot"><span class="annottext">Todo
-</span><a href="#local-6989586621679051849"><span class="hs-identifier hs-var">todo</span></a></span><span> </span><span class="annot"><span class="annottext">Urgency -&gt; Urgency -&gt; Bool
+</span><a href="#local-6989586621679050519"><span class="hs-identifier hs-var">todo</span></a></span><span> </span><span class="annot"><span class="annottext">Urgency -&gt; Urgency -&gt; Bool
 forall a. Eq a =&gt; a -&gt; a -&gt; Bool
 </span><span class="hs-operator hs-var">==</span></span><span> </span><span class="annot"><span class="annottext">Urgency
 </span><a href="Worklog.Todo.html#Urgent"><span class="hs-identifier hs-var">Urgent</span></a></span><span>

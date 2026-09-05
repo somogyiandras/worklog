@@ -20,7 +20,6 @@ tests =
     [ initialization,
       testOpenClose,
       testStatus,
-      testPriority,
       testFlag,
       testDays
     ]
@@ -33,8 +32,6 @@ initialization =
         caseId (newCase 0 "Test case") @?= 0,
       testCase "is it open?" $
         isOnDesk (newCase 0 "Test case") @?= True,
-      testCase "is it normal priority?" $
-        casePriority (newCase 0 "Test case") @?= Normal,
       testCase "has not it deadline?" $
         caseDeadline (newCase 0 "Test case") @?= NoDeadline,
       testCase "has it empty summary?" $
@@ -76,18 +73,6 @@ testStatus =
 
         , testCase "not isOnDesk Deferred" $
             isOnDesk caseDeferred @?= False
-        ]
-
-testPriority :: TestTree
-testPriority =
-  let caseImportant = promoteCase $ newCase 1 "Important"
-      caseOnDesk = newCase 2 "OnDesk"
-   in testGroup
-        "\n\tPriority functions:"
-        [ testCase "isImportant Normal" $
-            isImportant caseOnDesk @?= False,
-          testCase "checking compare:" $
-            (casePriority caseImportant >= casePriority caseOnDesk) @?= True
         ]
 
 testFlag :: TestTree
