@@ -3,18 +3,22 @@ module Worklog.CaseSpec
   )
 where
 
+import Worklog.Implementation.Internal
+
 import Test.Tasty
 import Test.Tasty.HUnit
 import Worklog.Case
 import Data.Time.Calendar (fromGregorian)
 import Data.Function ((&))
+import Data.Either (isRight)
 
 
 tests :: TestTree
 tests =
   testGroup
-    "Worklog.Task"
+    "Worklog.Case"
     [ initialization,
+      testOpenClose,
       testStatus,
       testPriority,
       testFlag,
@@ -24,7 +28,7 @@ tests =
 initialization :: TestTree
 initialization =
   testGroup
-    "\tTask initialization and setting functions"
+    "\tCase initialization tests:"
     [ testCase "Is caseId zero?" $
         caseId (newCase 0 "Test case") @?= 0,
       testCase "is it open?" $
@@ -34,16 +38,26 @@ initialization =
       testCase "has not it deadline?" $
         caseDeadline (newCase 0 "Test case") @?= NoDeadline,
       testCase "has it empty summary?" $
-        getSummary (newCase 0 "Test case") @?= emptySummary,
-      testCase "Can I close?" $
-       isArchived (closeCase (newCase 0 "Test case")) @?= True,
-      testCase "Does opening and closing is id?" $
-        openCase (closeCase (newCase 0 "Test case")) @?= newCase 0 "Test case"
+        getSummary (newCase 0 "Test case") @?= emptySummary
+    ]
+
+testOpenClose :: TestTree
+testOpenClose =
+  testGroup
+    "\n\tTest open and close:"
+    [ testCase "Try to close a new case" $
+      isRight (closeCase $ newCase 1 "Archived") @?= True,
+      testCase "Is open . close = id?" $
+      openCase
+        ( case closeCase $ newCase 1 "Test" of
+            Right closed -> closed 
+            Left warning -> newCase 2 warning)
+        == newCase 1 "Test" @?= True
     ]
 
 testStatus :: TestTree
 testStatus =
-    let caseClosed = closeCase $ newCase 1 "Archived"
+    let (Right caseClosed) = closeCase $ newCase 1 "Archived"
         caseOnDesk = newCase 2 "OnDesk"
         caseDeferred = deferrCase (newCase 3 "Deferred") (fromGregorian 2026 11 10)
     in

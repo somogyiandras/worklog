@@ -34,10 +34,7 @@ module Worklog.Case
     Warning,
     -- * Functions
     closeCase, openCase,
-    mkSummary,
-    summaryText,
-    emptySummary,
-    getSummary, setSummary
+    -- getSummary, setSummary
   )
 where
 
@@ -179,6 +176,10 @@ data Case = Case
   }
   deriving (Eq, Show)
 
+instance HasSummary Case where
+  getSummary = caseSummary
+  setSummary cas s = cas {caseSummary = s}
+
 -- | mkTask id title creates an open task with normal priority,
 -- no deadline and empty summary.
 newCase :: Int -> String -> Case
@@ -192,10 +193,10 @@ newCase iD title = Case
     caseFlags = Set.empty
   }
 
-
-
+{-
 setSummary :: Summary -> Case -> Case
 setSummary s cas = cas {caseSummary = s}
 
 getSummary :: Case -> Summary
-getSummary = caseSummary 
+getSummary = caseSummary
+-}
