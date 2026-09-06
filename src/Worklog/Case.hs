@@ -1,9 +1,15 @@
 -- | Domain logic for the individual cases.
 module Worklog.Case
-  ( -- * Task and its attributes
+  ( -- * Case
     Case,
-    caseId, caseTitle, caseDeadline,
     newCase,
+
+    -- ** Read only parameters
+    getCaseId,
+    getCaseTitle,
+
+    -- ** Mutable parameters
+    caseDeadline,
 
     -- ** Status of task
     Status (..),
@@ -23,15 +29,20 @@ module Worklog.Case
     CaseFlag (..),
     anyFlag, hasFlag, addFlag, removeFlag,
 
+    -- ** Todos
+    addTodo,
+
     -- * Other types
     Warning,
     -- * Functions
     closeCase, openCase,
-    -- getSummary, setSummary
+    listCaseTodos
   )
 where
 
 import Worklog.Implementation.Internal
+import Worklog.Todo
+
 import Data.Time.Calendar
 import Data.Set (Set)
 import qualified Data.Set as Set
@@ -139,7 +150,8 @@ data Case = Case
     caseStatus :: Status,
     caseDeadline :: Deadline,
     caseSummary :: Summary,
-    caseFlags :: Set CaseFlag
+    caseFlags :: Set CaseFlag,
+    caseTodos :: [Todo]
   }
   deriving (Eq, Show)
 
@@ -147,8 +159,18 @@ instance HasSummary Case where
   getSummary = caseSummary
   setSummary cas s = cas {caseSummary = s}
 
--- | mkTask id title creates an open task with
+-- | Case Id is read only.
+getCaseId :: Case -> Int
+getCaseId = caseId
+
+-- | Case title is read only.
+getCaseTitle :: Case -> String
+getCaseTitle = caseTitle
+
+-- | newCase id title creates an open task with
 -- no deadline and empty summary.
+-- It is useable only to create a new case, cannot
+-- change parameters after.
 newCase :: Int -> String -> Case
 newCase iD title = Case
   { caseId = iD,
@@ -156,13 +178,12 @@ newCase iD title = Case
     caseStatus = OnDesk,
     caseDeadline = NoDeadline,
     caseSummary = emptySummary,
-    caseFlags = Set.empty
+    caseFlags = Set.empty,
+    caseTodos = []
   }
 
-{-
-setSummary :: Summary -> Case -> Case
-setSummary s cas = cas {caseSummary = s}
+listCaseTodos :: Case -> [Todo]
+listCaseTodos = caseTodos
 
-getSummary :: Case -> Summary
-getSummary = caseSummary
--}
+addTodo :: Todo -> Case -> Case
+addTodo todo cas = cas {caseTodos = listCaseTodos cas ++ [todo]}

@@ -9,6 +9,9 @@ import Test.Tasty
 import Test.Tasty.HUnit
 import Worklog.Todo
 
+testTodo :: Todo
+testTodo = mkTodo NotSoUrgent (mkSummary "Todo")
+
 tests :: TestTree
 tests =
   testGroup
@@ -20,6 +23,8 @@ todoTests :: TestTree
 todoTests =
   testGroup
     "\tTodo tests:"
-    [ testCase "Get summary?" $
-        summaryText (getSummary (mkTodo NotSoUrgent (mkSummary "Todo?"))) == "Todo?" @?= True
+    [ testCase "HasSummary instance - get Summary" $
+        summaryText (getSummary testTodo) @?= "Todo",
+      testCase "HasSummary instance - set Summary" $
+        summaryText (getSummary (testTodo `setSummary` mkSummary "TODO")) @?= "TODO"
     ]

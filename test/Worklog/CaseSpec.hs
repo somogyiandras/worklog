@@ -4,10 +4,11 @@ module Worklog.CaseSpec
 where
 
 import Worklog.Implementation.Internal
+import Worklog.Case
+import Worklog.Todo
 
 import Test.Tasty
 import Test.Tasty.HUnit
-import Worklog.Case
 import Data.Time.Calendar (fromGregorian)
 import Data.Function ((&))
 import Data.Either (isRight)
@@ -21,7 +22,8 @@ tests =
       testOpenClose,
       testStatus,
       testFlag,
-      testDays
+      testDays,
+      testTodos
     ]
 
 initialization :: TestTree
@@ -29,7 +31,7 @@ initialization =
   testGroup
     "\tCase initialization tests:"
     [ testCase "Is caseId zero?" $
-        caseId (newCase 0 "Test case") @?= 0,
+        getCaseId (newCase 0 "Test case") @?= 0,
       testCase "is it open?" $
         isOnDesk (newCase 0 "Test case") @?= True,
       testCase "has not it deadline?" $
@@ -110,4 +112,16 @@ testDays =
             isDeferred caseDeferred @?= True,
           testCase "Deferred until 2027-12-31?" $
             getDefferedDay caseDeferred == Just (fromGregorian 2027 12 31) @?= True
+        ]
+
+testTodos :: TestTree
+testTodos =
+    let caseTodos = newCase 1 "Has no todos"
+        todo = mkTodo NotSoUrgent  $ mkSummary "Todo"
+    in
+    testGroup "\n\tTodo related functions"
+        [ testCase "New case has no todos" $
+            null (listCaseTodos caseTodos) @?= True,
+          testCase "Add a todo" $
+            not (null (listCaseTodos (caseTodos & addTodo todo) )) @?= True
         ]

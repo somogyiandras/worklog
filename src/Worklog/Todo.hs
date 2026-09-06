@@ -1,3 +1,4 @@
+-- | The Todo type ...
 module Worklog.Todo
 (
   Urgency(..),
