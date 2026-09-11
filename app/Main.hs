@@ -9,6 +9,6 @@ import Worklog.Case
 
 main :: IO ()
 main = do
-  let cas = newCase 1 "First case"
+  let cas = newCase "First case"
   print cas
   print $ isOnDesk cas

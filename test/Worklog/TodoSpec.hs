@@ -10,7 +10,7 @@ import Test.Tasty.HUnit
 import Worklog.Todo
 
 testTodo :: Todo
-testTodo = mkTodo NotSoUrgent (mkSummary "Todo")
+testTodo = newTodo NotSoUrgent (mkSummary "Todo")
 
 tests :: TestTree
 tests =

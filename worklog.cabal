@@ -26,11 +26,14 @@ library
                       Worklog.Case
                     , Worklog.CaseAnalysis
                     , Worklog.Todo
+                    , Worklog.Task
+                    , Worklog.Attachment
     -- other-modules:
     -- other-extensions:
     build-depends:    base >=4.16 && < 4.22
                     , time < 1.16.0.1
                     , containers < 0.8
+                    , pandoc >=3.11 && < 3.12
                     , worklog:internals
     hs-source-dirs:   src
 
@@ -58,6 +61,7 @@ test-suite worklog-test
     other-modules:
                       Worklog.CaseSpec
                     , Worklog.TodoSpec
+                    , Worklog.TaskSpec
     -- other-extensions:
     type:             exitcode-stdio-1.0
     hs-source-dirs:   test

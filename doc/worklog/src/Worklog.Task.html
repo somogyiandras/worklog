@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-comment">-- | The Task type introduce a task which is not part of the case.</span><span>
+</span><span id="line-2"></span><span class="hs-comment">-- It is connected,  for example the review of the case assigned a task.</span><span>
+</span><span id="line-3"></span><span class="hs-comment">-- The task can initiate a new case, or it can assist a decision-makig</span><span>
+</span><span id="line-4"></span><span class="hs-comment">-- process in another case. Or it can be a deferred task, something</span><span>
+</span><span id="line-5"></span><span class="hs-comment">-- which needs attention in the future.</span><span>
+</span><span id="line-6"></span><span class="hs-comment">--</span><span>
+</span><span id="line-7"></span><span class="hs-comment">-- The case can be archived, the task remains in the case.</span><span>
+</span><span id="line-8"></span><span class="hs-comment">-- The task will be &#8222;closed&#8221;, if it does not require acticity from .</span><span>
+</span><span id="line-9"></span><span class="hs-comment">-- The closeing condition and time is recorded in the Task.</span><span>
+</span><span id="line-10"></span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Worklog.Task.html"><span class="hs-identifier">Worklog.Task</span></a></span><span>
+</span><span id="line-11"></span><span class="hs-special">(</span><span>
+</span><span id="line-12"></span><span>  </span><span class="annot"><a href="Worklog.Task.html#Task"><span class="hs-identifier">Task</span></a></span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">,</span><span>
+</span><span id="line-13"></span><span>  </span><span class="annot"><a href="Worklog.Task.html#newTask"><span class="hs-identifier">newTask</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-14"></span><span class="hs-special">)</span><span>
+</span><span id="line-15"></span><span class="hs-keyword">where</span><span>
+</span><span id="line-16"></span><span>
+</span><span id="line-17"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Worklog.Implementation.Internal</span></span><span>
+</span><span id="line-18"></span><span>
+</span><span id="line-19"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.Time.Calendar</span></span><span>
+</span><span id="line-20"></span><span>
+</span><span id="line-21"></span><span class="hs-keyword">data</span><span> </span><span id="TaskStatus"><span class="annot"><a href="Worklog.Task.html#TaskStatus"><span class="hs-identifier hs-var">TaskStatus</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Active"><span class="annot"><a href="Worklog.Task.html#Active"><span class="hs-identifier hs-var">Active</span></a></span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="Inactive"><span class="annot"><a href="Worklog.Task.html#Inactive"><span class="hs-identifier hs-var">Inactive</span></a></span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="Deferred"><span class="annot"><a href="Worklog.Task.html#Deferred"><span class="hs-identifier hs-var">Deferred</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Day</span></span><span>
+</span><span id="line-22"></span><span>    </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679125809"><span id="local-6989586621679125816"><span class="annot"><span class="annottext">TaskStatus -&gt; TaskStatus -&gt; Bool
+(TaskStatus -&gt; TaskStatus -&gt; Bool)
+-&gt; (TaskStatus -&gt; TaskStatus -&gt; Bool) -&gt; Eq TaskStatus
+forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
+$c== :: TaskStatus -&gt; TaskStatus -&gt; Bool
+== :: TaskStatus -&gt; TaskStatus -&gt; Bool
+$c/= :: TaskStatus -&gt; TaskStatus -&gt; Bool
+/= :: TaskStatus -&gt; TaskStatus -&gt; Bool
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679125821"><span id="local-6989586621679125827"><span id="local-6989586621679125831"><span class="annot"><span class="annottext">Int -&gt; TaskStatus -&gt; ShowS
+[TaskStatus] -&gt; ShowS
+TaskStatus -&gt; String
+(Int -&gt; TaskStatus -&gt; ShowS)
+-&gt; (TaskStatus -&gt; String)
+-&gt; ([TaskStatus] -&gt; ShowS)
+-&gt; Show TaskStatus
+forall a.
+(Int -&gt; a -&gt; ShowS) -&gt; (a -&gt; String) -&gt; ([a] -&gt; ShowS) -&gt; Show a
+$cshowsPrec :: Int -&gt; TaskStatus -&gt; ShowS
+showsPrec :: Int -&gt; TaskStatus -&gt; ShowS
+$cshow :: TaskStatus -&gt; String
+show :: TaskStatus -&gt; String
+$cshowList :: [TaskStatus] -&gt; ShowS
+showList :: [TaskStatus] -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-23"></span><span>
+</span><span id="line-24"></span><span class="hs-keyword">data</span><span> </span><span id="Task"><span class="annot"><a href="Worklog.Task.html#Task"><span class="hs-identifier hs-var">Task</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Task"><span class="annot"><a href="Worklog.Task.html#Task"><span class="hs-identifier hs-var">Task</span></a></span></span><span>
+</span><span id="line-25"></span><span>  </span><span class="hs-special">{</span><span>
+</span><span id="line-26"></span><span>    </span><span id="taskStatus"><span class="annot"><span class="annottext">Task -&gt; TaskStatus
+</span><a href="Worklog.Task.html#taskStatus"><span class="hs-identifier hs-var hs-var">taskStatus</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Task.html#TaskStatus"><span class="hs-identifier hs-type">TaskStatus</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-27"></span><span>    </span><span id="taskSummary"><span class="annot"><span class="annottext">Task -&gt; Summary
+</span><a href="Worklog.Task.html#taskSummary"><span class="hs-identifier hs-var hs-var">taskSummary</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Summary</span></span><span>
+</span><span id="line-28"></span><span>  </span><span class="hs-special">}</span><span>
+</span><span id="line-29"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679125839"><span id="local-6989586621679125844"><span class="annot"><span class="annottext">Task -&gt; Task -&gt; Bool
+(Task -&gt; Task -&gt; Bool) -&gt; (Task -&gt; Task -&gt; Bool) -&gt; Eq Task
+forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
+$c== :: Task -&gt; Task -&gt; Bool
+== :: Task -&gt; Task -&gt; Bool
+$c/= :: Task -&gt; Task -&gt; Bool
+/= :: Task -&gt; Task -&gt; Bool
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679125848"><span id="local-6989586621679125854"><span id="local-6989586621679125858"><span class="annot"><span class="annottext">Int -&gt; Task -&gt; ShowS
+[Task] -&gt; ShowS
+Task -&gt; String
+(Int -&gt; Task -&gt; ShowS)
+-&gt; (Task -&gt; String) -&gt; ([Task] -&gt; ShowS) -&gt; Show Task
+forall a.
+(Int -&gt; a -&gt; ShowS) -&gt; (a -&gt; String) -&gt; ([a] -&gt; ShowS) -&gt; Show a
+$cshowsPrec :: Int -&gt; Task -&gt; ShowS
+showsPrec :: Int -&gt; Task -&gt; ShowS
+$cshow :: Task -&gt; String
+show :: Task -&gt; String
+$cshowList :: [Task] -&gt; ShowS
+showList :: [Task] -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-30"></span><span>
+</span><span id="line-31"></span><span class="hs-keyword">instance</span><span> </span><span id="local-6989586621679125863"><span id="local-6989586621679125867"><span class="annot"><span class="hs-identifier hs-type">HasSummary</span></span><span> </span><span class="annot"><a href="Worklog.Task.html#Task"><span class="hs-identifier hs-type">Task</span></a></span></span></span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-32"></span><span>  </span><span id="local-6989586621679125870"><span class="annot"><span class="annottext">getSummary :: Task -&gt; Summary
+</span><a href="#local-6989586621679125870"><span class="hs-identifier hs-var hs-var hs-var">getSummary</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Task -&gt; Summary
+</span><a href="Worklog.Task.html#taskSummary"><span class="hs-identifier hs-var">taskSummary</span></a></span><span>
+</span><span id="line-33"></span><span>  </span><span id="local-6989586621679125872"><span class="annot"><span class="annottext">setSummary :: Task -&gt; Summary -&gt; Task
+</span><a href="#local-6989586621679125872"><span class="hs-identifier hs-var hs-var hs-var">setSummary</span></a></span></span><span> </span><span id="local-6989586621679125874"><span class="annot"><span class="annottext">Task
+</span><a href="#local-6989586621679125874"><span class="hs-identifier hs-var">task</span></a></span></span><span> </span><span id="local-6989586621679125875"><span class="annot"><span class="annottext">Summary
+</span><a href="#local-6989586621679125875"><span class="hs-identifier hs-var">s</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Task
+</span><a href="#local-6989586621679125874"><span class="hs-identifier hs-var">task</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Task.html#taskSummary"><span class="hs-identifier hs-var">taskSummary</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="#local-6989586621679125875"><span class="hs-identifier hs-type">s</span></a></span><span class="hs-special">}</span><span>
+</span><span id="line-34"></span><span>
+</span><span id="line-35"></span><span class="hs-comment">-- ToDo: change to Maybe Task. Cannot create Task</span><span>
+</span><span id="line-36"></span><span class="hs-comment">-- with emptySummary</span><span>
+</span><span id="line-37"></span><span class="annot"><a href="Worklog.Task.html#newTask"><span class="hs-identifier hs-type">newTask</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Summary</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Task.html#Task"><span class="hs-identifier hs-type">Task</span></a></span><span>
+</span><span id="line-38"></span><span id="newTask"><span class="annot"><span class="annottext">newTask :: Summary -&gt; Task
+</span><a href="Worklog.Task.html#newTask"><span class="hs-identifier hs-var hs-var">newTask</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">TaskStatus -&gt; Summary -&gt; Task
+</span><a href="Worklog.Task.html#Task"><span class="hs-identifier hs-var">Task</span></a></span><span> </span><span class="annot"><span class="annottext">TaskStatus
+</span><a href="Worklog.Task.html#Active"><span class="hs-identifier hs-var">Active</span></a></span><span>
+</span><span id="line-39"></span><span>
+</span><span id="line-40"></span><span>
+</span><span id="line-41"></span></pre></body></html>

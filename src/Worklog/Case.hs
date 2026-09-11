@@ -5,7 +5,6 @@ module Worklog.Case
     newCase,
 
     -- ** Read only parameters
-    getCaseId,
     getCaseTitle,
 
     -- ** Mutable parameters
@@ -31,17 +30,23 @@ module Worklog.Case
 
     -- ** Todos
     addTodo,
+    listCaseTodos,
+
+    -- ** Tasks
+    addTask,
+    listCaseTasks,
 
     -- * Other types
     Warning,
     -- * Functions
     closeCase, openCase,
-    listCaseTodos
   )
 where
 
 import Worklog.Implementation.Internal
 import Worklog.Todo
+import Worklog.Task
+import Worklog.Attachment
 
 import Data.Time.Calendar
 import Data.Set (Set)
@@ -145,23 +150,21 @@ removeFlag flag cas = cas {caseFlags = Set.delete flag (caseFlags cas)}
 --
 -- The summary field currently will be implemented as Pandoc Block.
 data Case = Case
-  { caseId :: Int,
+  { 
     caseTitle :: String,
     caseStatus :: Status,
     caseDeadline :: Deadline,
     caseSummary :: Summary,
     caseFlags :: Set CaseFlag,
-    caseTodos :: [Todo]
+    caseTodos :: [Todo],
+    caseTasks :: [Task],
+    caseAttachments :: [Attachment]
   }
   deriving (Eq, Show)
 
 instance HasSummary Case where
   getSummary = caseSummary
   setSummary cas s = cas {caseSummary = s}
-
--- | Case Id is read only.
-getCaseId :: Case -> Int
-getCaseId = caseId
 
 -- | Case title is read only.
 getCaseTitle :: Case -> String
@@ -171,19 +174,30 @@ getCaseTitle = caseTitle
 -- no deadline and empty summary.
 -- It is useable only to create a new case, cannot
 -- change parameters after.
-newCase :: Int -> String -> Case
-newCase iD title = Case
-  { caseId = iD,
-    caseTitle = title,
+newCase :: String -> Case
+newCase title = Case
+  { caseTitle = title,
     caseStatus = OnDesk,
     caseDeadline = NoDeadline,
     caseSummary = emptySummary,
     caseFlags = Set.empty,
-    caseTodos = []
+    caseTodos = [],
+    caseTasks = [],
+    caseAttachments = []
   }
 
+-- ToDo: ?set a lista helyett a todo és a task esetén?
+-- nem számít a sorrend, azonban a tárolni kell valahol
+-- a workfileban a sor számát, hogy oda lehessen ugrani
 listCaseTodos :: Case -> [Todo]
 listCaseTodos = caseTodos
 
 addTodo :: Todo -> Case -> Case
 addTodo todo cas = cas {caseTodos = listCaseTodos cas ++ [todo]}
+
+listCaseTasks :: Case -> [Task]
+listCaseTasks = caseTasks
+
+addTask :: Task -> Case -> Case
+addTask task cas = cas {caseTasks = listCaseTasks cas ++ [task]}
+
