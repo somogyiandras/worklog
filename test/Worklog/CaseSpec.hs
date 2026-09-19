@@ -12,7 +12,6 @@ import Test.Tasty
 import Test.Tasty.HUnit
 import Data.Time.Calendar (fromGregorian)
 import Data.Function ((&))
-import Data.Either (isRight)
 
 
 tests :: TestTree
@@ -20,7 +19,7 @@ tests =
   testGroup
     "Worklog.Case"
     [ initialization,
-      testOpenClose,
+      -- testOpenClose,
       testStatus,
       testFlag,
       testDays,
@@ -40,6 +39,8 @@ initialization =
         getSummary (newCase "Test case") @?= emptySummary
     ]
 
+{--
+ -- In this API version there is no way to change the status of Case
 testOpenClose :: TestTree
 testOpenClose =
   testGroup
@@ -53,25 +54,22 @@ testOpenClose =
             Left warning -> newCase warning)
         == newCase "Test" @?= True
     ]
+--}
 
 testStatus :: TestTree
 testStatus =
-    let (Right caseClosed) = closeCase $ newCase "Archived"
-        caseOnDesk = newCase "OnDesk"
-        caseDeferred = deferrCase (newCase "Deferred") (fromGregorian 2026 11 10)
+    let caseOnDesk = newCase "OnDesk"
+        caseDeferred = deferCase (newCase "Deferred") (fromGregorian 2026 11 10)
     in
     testGroup "\n\tStatus functions:"
-        [ testCase "isArchived Archived" $
-            isArchived caseClosed @?= True
+        [ testCase "getState" $
+            getCaseStatus caseDeferred @?= Deferred (fromGregorian 2026 11 10)
 
         , testCase "not isArchived OnDesk" $
             isArchived caseOnDesk @?= False
 
         , testCase "isOnDesk OnDesk" $
             isOnDesk caseOnDesk @?= True
-
-        , testCase "not isOnDesk Archived" $
-            isOnDesk caseClosed @?= False
 
         , testCase "not isOnDesk Deferred" $
             isOnDesk caseDeferred @?= False
@@ -105,13 +103,13 @@ testFlag =
 
 testDays :: TestTree
 testDays =
-    let caseDeferred = newCase "Case deffered until 2027-12-31" & deferrCase $ fromGregorian 2027 12 31
+    let caseDeferred = newCase "Case deffered until 2027-12-31" & deferCase $ fromGregorian 2027 12 31
     in
     testGroup "\n\tDate related functions:"
         [ testCase "Case deferred?" $
             isDeferred caseDeferred @?= True,
           testCase "Deferred until 2027-12-31?" $
-            getDefferedDay caseDeferred == Just (fromGregorian 2027 12 31) @?= True
+            getDeferredDay caseDeferred == Just (fromGregorian 2027 12 31) @?= True
         ]
 
 testTodos :: TestTree

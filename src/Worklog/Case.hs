@@ -12,11 +12,12 @@ module Worklog.Case
 
     -- ** Status of task
     Status (..),
+    getCaseStatus,
     isOnDesk,
     isArchived,
     isDeferred,
-    getDefferedDay,
-    deferrCase,
+    getDeferredDay,
+    deferCase,
     needsAttention,
 
     -- ** Deadlines
@@ -39,8 +40,7 @@ module Worklog.Case
     -- * Other types
     Warning,
     -- * Functions
-    closeCase, openCase,
-  )
+    )
 where
 
 import Worklog.Implementation.Internal
@@ -66,6 +66,9 @@ data Status
     Archived
   deriving (Eq, Show)
 
+getCaseStatus :: Case -> Status
+getCaseStatus = caseStatus
+
 isOnDesk :: Case -> Bool
 isOnDesk cas = caseStatus cas == OnDesk
 
@@ -77,28 +80,33 @@ isDeferred :: Case -> Bool
 isDeferred Case {caseStatus = Deferred _} = True
 isDeferred _ = False
 
-getDefferedDay :: Case -> Maybe Day
-getDefferedDay Case {caseStatus = Deferred day} = Just day
-getDefferedDay _ = Nothing
+getDeferredDay :: Case -> Maybe Day
+getDeferredDay Case {caseStatus = Deferred day} = Just day
+getDeferredDay _ = Nothing
 
-deferrCase :: Case -> Day -> Case
-deferrCase cas day = cas { caseStatus = Deferred day }
+deferCase :: Case -> Day -> Case
+deferCase cas day = cas { caseStatus = Deferred day }
 
 type Warning = String
 
+
+-- The status of the case is burnt in the workfile. In
+-- this version of the API does not provide opening and
+-- closing a case, the case must be create with the status.
 -- Close the case and send it to the archives.
 -- If the case has flags or todo items then it gets back
 -- Left Warning messages
-closeCase :: Case -> Either Warning Case
+{-- closeCase :: Case -> Either Warning Case
 closeCase cas
   | isArchived cas = Left "Case already closed"
   | isDeferred cas = Left "Case is deferred, not on desk"
   | anyFlag cas = Left "Case cannot be closed, it has duties"
   | otherwise = Right $ cas {caseStatus = Archived}
+--}
 
 -- Put the task on the desk, open it and start working on it.
-openCase :: Case -> Case
-openCase cas = cas {caseStatus = OnDesk}
+-- openCase :: Case -> Case
+-- openCase cas = cas {caseStatus = OnDesk}
 
 -- | the deadline of the task
 data Deadline
