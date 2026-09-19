@@ -129,7 +129,7 @@ testTodos =
 testTasks :: TestTree
 testTasks =
     let caseTasks = newCase "Has no todos"
-        todo = mkTask $ mkSummary "Task"
+        todo = newTask $ mkSummary "Task"
     in
     testGroup "\n\tTask related functions"
         [ testCase "New case has no todos" $
