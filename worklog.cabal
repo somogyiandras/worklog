@@ -28,6 +28,7 @@ library
                     , Worklog.Todo
                     , Worklog.Task
                     , Worklog.Attachment
+                    , Worklog.FileManager
     -- other-modules:
     -- other-extensions:
     build-depends:    base >=4.16 && < 4.22
@@ -35,6 +36,8 @@ library
                     , containers < 0.8
                     , pandoc >=3.11 && < 3.12
                     , worklog:internals
+                    , directory >=1.2.3 && <1.4
+                    , filepath >=1.1 && <1.6
     hs-source-dirs:   src
 
 library internals
@@ -62,6 +65,7 @@ test-suite worklog-test
                       Worklog.CaseSpec
                     , Worklog.TodoSpec
                     , Worklog.TaskSpec
+                    , Worklog.FilesSpec
     -- other-extensions:
     type:             exitcode-stdio-1.0
     hs-source-dirs:   test
@@ -73,6 +77,10 @@ test-suite worklog-test
                     , tasty
                     , tasty-hunit
                     , time < 1.16
+                    , temporary ^>=1.3
+                    , filepath >=1.1 && <1.6
+                    , directory >=1.2.3 && <1.4
+
 
 test-suite internals-test
     import:           common-settings
