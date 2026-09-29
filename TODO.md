@@ -87,12 +87,12 @@ errors must go to standard error so that pipelines are not corrupted.
 Create a small module responsible only for locating workfiles. Do not mix Markdown
 parsing into this module.
 
-- [ ] Create `Worklog.Scan` (or similarly focused module).
-- [ ] Implement recursive directory traversal.
-- [ ] Select files by extension.
-- [ ] Defaults:
-  - [ ] directory: `.`
-  - [ ] extension: `wmd`
+- [x] Create `Worklog.Scan` (or similarly focused module).
+- [x] Implement recursive directory traversal.
+- [x] Select files by extension.
+- [x] Defaults:
+  - [x] directory: `.`
+  - [x] extension: `wmd`
 - [ ] Decide one canonical CLI representation for the extension (`wmd`); the scanner may
       accept a leading dot as a convenience, but internally normalize it.
 - [ ] Return paths in deterministic order.

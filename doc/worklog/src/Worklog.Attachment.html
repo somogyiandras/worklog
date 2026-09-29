@@ -22,7 +22,7 @@
 </span><span id="line-22"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="Outgoing"><span class="annot"><a href="Worklog.Attachment.html#Outgoing"><span class="hs-identifier hs-var">Outgoing</span></a></span></span><span> </span><span class="annot"><a href="Worklog.Attachment.html#OutgoingDocType"><span class="hs-identifier hs-type">OutgoingDocType</span></a></span><span>
 </span><span id="line-23"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="Internal"><span class="annot"><a href="Worklog.Attachment.html#Internal"><span class="hs-identifier hs-var">Internal</span></a></span></span><span> </span><span class="annot"><a href="Worklog.Attachment.html#InternalDocType"><span class="hs-identifier hs-type">InternalDocType</span></a></span><span>
 </span><span id="line-24"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="GeneralDoc"><span class="annot"><a href="Worklog.Attachment.html#GeneralDoc"><span class="hs-identifier hs-var">GeneralDoc</span></a></span></span><span>
-</span><span id="line-25"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679125580"><span id="local-6989586621679125591"><span class="annot"><span class="annottext">AttachmentKind -&gt; AttachmentKind -&gt; Bool
+</span><span id="line-25"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679126693"><span id="local-6989586621679126704"><span class="annot"><span class="annottext">AttachmentKind -&gt; AttachmentKind -&gt; Bool
 (AttachmentKind -&gt; AttachmentKind -&gt; Bool)
 -&gt; (AttachmentKind -&gt; AttachmentKind -&gt; Bool) -&gt; Eq AttachmentKind
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -30,7 +30,7 @@ $c== :: AttachmentKind -&gt; AttachmentKind -&gt; Bool
 == :: AttachmentKind -&gt; AttachmentKind -&gt; Bool
 $c/= :: AttachmentKind -&gt; AttachmentKind -&gt; Bool
 /= :: AttachmentKind -&gt; AttachmentKind -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679125596"><span id="local-6989586621679125608"><span id="local-6989586621679125612"><span class="annot"><span class="annottext">Int -&gt; AttachmentKind -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679126709"><span id="local-6989586621679126721"><span id="local-6989586621679126725"><span class="annot"><span class="annottext">Int -&gt; AttachmentKind -&gt; ShowS
 [AttachmentKind] -&gt; ShowS
 AttachmentKind -&gt; String
 (Int -&gt; AttachmentKind -&gt; ShowS)
@@ -53,7 +53,7 @@ showList :: [AttachmentKind] -&gt; ShowS
 </span><span id="line-30"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="Report"><span class="annot"><a href="Worklog.Attachment.html#Report"><span class="hs-identifier hs-var">Report</span></a></span></span><span>
 </span><span id="line-31"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="Assessment"><span class="annot"><a href="Worklog.Attachment.html#Assessment"><span class="hs-identifier hs-var">Assessment</span></a></span></span><span>
 </span><span id="line-32"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="OtherIncoming"><span class="annot"><a href="Worklog.Attachment.html#OtherIncoming"><span class="hs-identifier hs-var">OtherIncoming</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span>
-</span><span id="line-33"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679125622"><span id="local-6989586621679125629"><span class="annot"><span class="annottext">IncomingDocType -&gt; IncomingDocType -&gt; Bool
+</span><span id="line-33"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679126735"><span id="local-6989586621679126742"><span class="annot"><span class="annottext">IncomingDocType -&gt; IncomingDocType -&gt; Bool
 (IncomingDocType -&gt; IncomingDocType -&gt; Bool)
 -&gt; (IncomingDocType -&gt; IncomingDocType -&gt; Bool)
 -&gt; Eq IncomingDocType
@@ -62,7 +62,7 @@ $c== :: IncomingDocType -&gt; IncomingDocType -&gt; Bool
 == :: IncomingDocType -&gt; IncomingDocType -&gt; Bool
 $c/= :: IncomingDocType -&gt; IncomingDocType -&gt; Bool
 /= :: IncomingDocType -&gt; IncomingDocType -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679125633"><span id="local-6989586621679125639"><span id="local-6989586621679125642"><span class="annot"><span class="annottext">Int -&gt; IncomingDocType -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679126746"><span id="local-6989586621679126752"><span id="local-6989586621679126755"><span class="annot"><span class="annottext">Int -&gt; IncomingDocType -&gt; ShowS
 [IncomingDocType] -&gt; ShowS
 IncomingDocType -&gt; String
 (Int -&gt; IncomingDocType -&gt; ShowS)
@@ -84,7 +84,7 @@ showList :: [IncomingDocType] -&gt; ShowS
 </span><span id="line-37"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="Order"><span class="annot"><a href="Worklog.Attachment.html#Order"><span class="hs-identifier hs-var">Order</span></a></span></span><span>
 </span><span id="line-38"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="Letter"><span class="annot"><a href="Worklog.Attachment.html#Letter"><span class="hs-identifier hs-var">Letter</span></a></span></span><span>
 </span><span id="line-39"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="OtherOutgoing"><span class="annot"><a href="Worklog.Attachment.html#OtherOutgoing"><span class="hs-identifier hs-var">OtherOutgoing</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span>
-</span><span id="line-40"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679125650"><span id="local-6989586621679125656"><span class="annot"><span class="annottext">OutgoingDocType -&gt; OutgoingDocType -&gt; Bool
+</span><span id="line-40"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679126763"><span id="local-6989586621679126769"><span class="annot"><span class="annottext">OutgoingDocType -&gt; OutgoingDocType -&gt; Bool
 (OutgoingDocType -&gt; OutgoingDocType -&gt; Bool)
 -&gt; (OutgoingDocType -&gt; OutgoingDocType -&gt; Bool)
 -&gt; Eq OutgoingDocType
@@ -93,7 +93,7 @@ $c== :: OutgoingDocType -&gt; OutgoingDocType -&gt; Bool
 == :: OutgoingDocType -&gt; OutgoingDocType -&gt; Bool
 $c/= :: OutgoingDocType -&gt; OutgoingDocType -&gt; Bool
 /= :: OutgoingDocType -&gt; OutgoingDocType -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679125659"><span id="local-6989586621679125664"><span id="local-6989586621679125667"><span class="annot"><span class="annottext">Int -&gt; OutgoingDocType -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679126772"><span id="local-6989586621679126777"><span id="local-6989586621679126780"><span class="annot"><span class="annottext">Int -&gt; OutgoingDocType -&gt; ShowS
 [OutgoingDocType] -&gt; ShowS
 OutgoingDocType -&gt; String
 (Int -&gt; OutgoingDocType -&gt; ShowS)
@@ -113,7 +113,7 @@ showList :: [OutgoingDocType] -&gt; ShowS
 </span><span id="line-42"></span><span class="hs-keyword">data</span><span> </span><span id="InternalDocType"><span class="annot"><a href="Worklog.Attachment.html#InternalDocType"><span class="hs-identifier hs-var">InternalDocType</span></a></span></span><span>
 </span><span id="line-43"></span><span>  </span><span class="hs-glyph">=</span><span> </span><span id="InternalNote"><span class="annot"><a href="Worklog.Attachment.html#InternalNote"><span class="hs-identifier hs-var">InternalNote</span></a></span></span><span>
 </span><span id="line-44"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="InternalMemo"><span class="annot"><a href="Worklog.Attachment.html#InternalMemo"><span class="hs-identifier hs-var">InternalMemo</span></a></span></span><span>
-</span><span id="line-45"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679125672"><span id="local-6989586621679125676"><span class="annot"><span class="annottext">InternalDocType -&gt; InternalDocType -&gt; Bool
+</span><span id="line-45"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679126785"><span id="local-6989586621679126789"><span class="annot"><span class="annottext">InternalDocType -&gt; InternalDocType -&gt; Bool
 (InternalDocType -&gt; InternalDocType -&gt; Bool)
 -&gt; (InternalDocType -&gt; InternalDocType -&gt; Bool)
 -&gt; Eq InternalDocType
@@ -122,7 +122,7 @@ $c== :: InternalDocType -&gt; InternalDocType -&gt; Bool
 == :: InternalDocType -&gt; InternalDocType -&gt; Bool
 $c/= :: InternalDocType -&gt; InternalDocType -&gt; Bool
 /= :: InternalDocType -&gt; InternalDocType -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679125679"><span id="local-6989586621679125681"><span id="local-6989586621679125684"><span class="annot"><span class="annottext">Int -&gt; InternalDocType -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679126792"><span id="local-6989586621679126794"><span id="local-6989586621679126797"><span class="annot"><span class="annottext">Int -&gt; InternalDocType -&gt; ShowS
 [InternalDocType] -&gt; ShowS
 InternalDocType -&gt; String
 (Int -&gt; InternalDocType -&gt; ShowS)
@@ -140,7 +140,7 @@ showList :: [InternalDocType] -&gt; ShowS
 </span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
 </span><span id="line-46"></span><span>
 </span><span id="line-47"></span><span class="hs-keyword">newtype</span><span> </span><span id="DocumentID"><span class="annot"><a href="Worklog.Attachment.html#DocumentID"><span class="hs-identifier hs-var">DocumentID</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="DocumentID"><span class="annot"><a href="Worklog.Attachment.html#DocumentID"><span class="hs-identifier hs-var">DocumentID</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span>
-</span><span id="line-48"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679125688"><span id="local-6989586621679125693"><span class="annot"><span class="annottext">DocumentID -&gt; DocumentID -&gt; Bool
+</span><span id="line-48"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679126801"><span id="local-6989586621679126806"><span class="annot"><span class="annottext">DocumentID -&gt; DocumentID -&gt; Bool
 (DocumentID -&gt; DocumentID -&gt; Bool)
 -&gt; (DocumentID -&gt; DocumentID -&gt; Bool) -&gt; Eq DocumentID
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -148,7 +148,7 @@ $c== :: DocumentID -&gt; DocumentID -&gt; Bool
 == :: DocumentID -&gt; DocumentID -&gt; Bool
 $c/= :: DocumentID -&gt; DocumentID -&gt; Bool
 /= :: DocumentID -&gt; DocumentID -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679125700"><span id="local-6989586621679125705"><span id="local-6989586621679125709"><span class="annot"><span class="annottext">Int -&gt; DocumentID -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679126813"><span id="local-6989586621679126818"><span id="local-6989586621679126822"><span class="annot"><span class="annottext">Int -&gt; DocumentID -&gt; ShowS
 [DocumentID] -&gt; ShowS
 DocumentID -&gt; String
 (Int -&gt; DocumentID -&gt; ShowS)
@@ -168,7 +168,7 @@ showList :: [DocumentID] -&gt; ShowS
 </span><span id="line-50"></span><span class="hs-keyword">type</span><span> </span><span id="DocumentSubjet"><span class="annot"><a href="Worklog.Attachment.html#DocumentSubjet"><span class="hs-identifier hs-var">DocumentSubjet</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span>
 </span><span id="line-51"></span><span>
 </span><span id="line-52"></span><span class="hs-keyword">newtype</span><span> </span><span id="RelativePath"><span class="annot"><a href="Worklog.Attachment.html#RelativePath"><span class="hs-identifier hs-var">RelativePath</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="RelativePath"><span class="annot"><a href="Worklog.Attachment.html#RelativePath"><span class="hs-identifier hs-var">RelativePath</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">FilePath</span></span><span>
-</span><span id="line-53"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679125715"><span id="local-6989586621679125720"><span class="annot"><span class="annottext">RelativePath -&gt; RelativePath -&gt; Bool
+</span><span id="line-53"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679126828"><span id="local-6989586621679126833"><span class="annot"><span class="annottext">RelativePath -&gt; RelativePath -&gt; Bool
 (RelativePath -&gt; RelativePath -&gt; Bool)
 -&gt; (RelativePath -&gt; RelativePath -&gt; Bool) -&gt; Eq RelativePath
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -176,7 +176,7 @@ $c== :: RelativePath -&gt; RelativePath -&gt; Bool
 == :: RelativePath -&gt; RelativePath -&gt; Bool
 $c/= :: RelativePath -&gt; RelativePath -&gt; Bool
 /= :: RelativePath -&gt; RelativePath -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679125726"><span id="local-6989586621679125731"><span id="local-6989586621679125735"><span class="annot"><span class="annottext">Int -&gt; RelativePath -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679126839"><span id="local-6989586621679126844"><span id="local-6989586621679126848"><span class="annot"><span class="annottext">Int -&gt; RelativePath -&gt; ShowS
 [RelativePath] -&gt; ShowS
 RelativePath -&gt; String
 (Int -&gt; RelativePath -&gt; ShowS)
@@ -208,7 +208,7 @@ showList :: [RelativePath] -&gt; ShowS
 </span><span id="line-63"></span><span>    </span><span id="attachmentSubject"><span class="annot"><span class="annottext">Attachment -&gt; String
 </span><a href="Worklog.Attachment.html#attachmentSubject"><span class="hs-identifier hs-var hs-var">attachmentSubject</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Attachment.html#DocumentSubjet"><span class="hs-identifier hs-type">DocumentSubjet</span></a></span><span>
 </span><span id="line-64"></span><span>  </span><span class="hs-special">}</span><span>
-</span><span id="line-65"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679125744"><span id="local-6989586621679125756"><span class="annot"><span class="annottext">Attachment -&gt; Attachment -&gt; Bool
+</span><span id="line-65"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679126857"><span id="local-6989586621679126869"><span class="annot"><span class="annottext">Attachment -&gt; Attachment -&gt; Bool
 (Attachment -&gt; Attachment -&gt; Bool)
 -&gt; (Attachment -&gt; Attachment -&gt; Bool) -&gt; Eq Attachment
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -216,7 +216,7 @@ $c== :: Attachment -&gt; Attachment -&gt; Bool
 == :: Attachment -&gt; Attachment -&gt; Bool
 $c/= :: Attachment -&gt; Attachment -&gt; Bool
 /= :: Attachment -&gt; Attachment -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679125762"><span id="local-6989586621679125775"><span id="local-6989586621679125779"><span class="annot"><span class="annottext">Int -&gt; Attachment -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679126875"><span id="local-6989586621679126888"><span id="local-6989586621679126892"><span class="annot"><span class="annottext">Int -&gt; Attachment -&gt; ShowS
 [Attachment] -&gt; ShowS
 Attachment -&gt; String
 (Int -&gt; Attachment -&gt; ShowS)
@@ -236,33 +236,33 @@ showList :: [Attachment] -&gt; ShowS
 </span><span id="line-67"></span><span class="annot"><a href="Worklog.Attachment.html#newAttachment"><span class="hs-identifier hs-type">newAttachment</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Attachment.html#AttachmentKind"><span class="hs-identifier hs-type">AttachmentKind</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="annot"><a href="Worklog.Attachment.html#RelativePath"><span class="hs-identifier hs-type">RelativePath</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="hs-special">[</span><span class="annot"><a href="Worklog.Attachment.html#DocumentID"><span class="hs-identifier hs-type">DocumentID</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Attachment.html#DocumentSubjet"><span class="hs-identifier hs-type">DocumentSubjet</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Attachment.html#Attachment"><span class="hs-identifier hs-type">Attachment</span></a></span><span>
 </span><span id="line-68"></span><span id="newAttachment"><span class="annot"><span class="annottext">newAttachment :: AttachmentKind
 -&gt; Maybe RelativePath -&gt; Maybe [DocumentID] -&gt; String -&gt; Attachment
-</span><a href="Worklog.Attachment.html#newAttachment"><span class="hs-identifier hs-var hs-var">newAttachment</span></a></span></span><span> </span><span id="local-6989586621679125783"><span class="annot"><span class="annottext">AttachmentKind
-</span><a href="#local-6989586621679125783"><span class="hs-identifier hs-var">akind</span></a></span></span><span> </span><span id="local-6989586621679125784"><span class="annot"><span class="annottext">Maybe RelativePath
-</span><a href="#local-6989586621679125784"><span class="hs-identifier hs-var">mpath</span></a></span></span><span> </span><span id="local-6989586621679125785"><span class="annot"><span class="annottext">Maybe [DocumentID]
-</span><a href="#local-6989586621679125785"><span class="hs-identifier hs-var">maI</span></a></span></span><span> </span><span id="local-6989586621679125786"><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679125786"><span class="hs-identifier hs-var">sub</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">AttachmentKind
+</span><a href="Worklog.Attachment.html#newAttachment"><span class="hs-identifier hs-var hs-var">newAttachment</span></a></span></span><span> </span><span id="local-6989586621679126896"><span class="annot"><span class="annottext">AttachmentKind
+</span><a href="#local-6989586621679126896"><span class="hs-identifier hs-var">akind</span></a></span></span><span> </span><span id="local-6989586621679126897"><span class="annot"><span class="annottext">Maybe RelativePath
+</span><a href="#local-6989586621679126897"><span class="hs-identifier hs-var">mpath</span></a></span></span><span> </span><span id="local-6989586621679126898"><span class="annot"><span class="annottext">Maybe [DocumentID]
+</span><a href="#local-6989586621679126898"><span class="hs-identifier hs-var">maI</span></a></span></span><span> </span><span id="local-6989586621679126899"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679126899"><span class="hs-identifier hs-var">sub</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">AttachmentKind
 -&gt; Maybe RelativePath
 -&gt; Maybe [DocumentID]
 -&gt; Maybe MimeType
 -&gt; String
 -&gt; Attachment
 </span><a href="Worklog.Attachment.html#Attachment"><span class="hs-identifier hs-var">Attachment</span></a></span><span> </span><span class="annot"><span class="annottext">AttachmentKind
-</span><a href="#local-6989586621679125783"><span class="hs-identifier hs-var">akind</span></a></span><span> </span><span class="annot"><span class="annottext">Maybe RelativePath
-</span><a href="#local-6989586621679125784"><span class="hs-identifier hs-var">mpath</span></a></span><span> </span><span class="annot"><span class="annottext">Maybe [DocumentID]
-</span><a href="#local-6989586621679125785"><span class="hs-identifier hs-var">maI</span></a></span><span> </span><span class="annot"><span class="annottext">Maybe MimeType
-</span><a href="#local-6989586621679125787"><span class="hs-identifier hs-var">mimetype</span></a></span><span> </span><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679125786"><span class="hs-identifier hs-var">sub</span></a></span><span> </span><span class="hs-keyword">where</span><span>
-</span><span id="line-69"></span><span>  </span><span id="local-6989586621679125787"><span class="annot"><span class="annottext">mimetype :: Maybe MimeType
-</span><a href="#local-6989586621679125787"><span class="hs-identifier hs-var hs-var">mimetype</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="annottext">Maybe RelativePath
-</span><a href="#local-6989586621679125784"><span class="hs-identifier hs-var">mpath</span></a></span><span> </span><span class="hs-keyword">of</span><span>
+</span><a href="#local-6989586621679126896"><span class="hs-identifier hs-var">akind</span></a></span><span> </span><span class="annot"><span class="annottext">Maybe RelativePath
+</span><a href="#local-6989586621679126897"><span class="hs-identifier hs-var">mpath</span></a></span><span> </span><span class="annot"><span class="annottext">Maybe [DocumentID]
+</span><a href="#local-6989586621679126898"><span class="hs-identifier hs-var">maI</span></a></span><span> </span><span class="annot"><span class="annottext">Maybe MimeType
+</span><a href="#local-6989586621679126900"><span class="hs-identifier hs-var">mimetype</span></a></span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679126899"><span class="hs-identifier hs-var">sub</span></a></span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-69"></span><span>  </span><span id="local-6989586621679126900"><span class="annot"><span class="annottext">mimetype :: Maybe MimeType
+</span><a href="#local-6989586621679126900"><span class="hs-identifier hs-var hs-var">mimetype</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="annottext">Maybe RelativePath
+</span><a href="#local-6989586621679126897"><span class="hs-identifier hs-var">mpath</span></a></span><span> </span><span class="hs-keyword">of</span><span>
 </span><span id="line-70"></span><span>    </span><span class="annot"><span class="annottext">Maybe RelativePath
 </span><span class="hs-identifier hs-var">Nothing</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Maybe MimeType
 forall a. Maybe a
 </span><span class="hs-identifier hs-var">Nothing</span></span><span>
-</span><span id="line-71"></span><span>    </span><span class="annot"><span class="hs-identifier hs-type">Just</span></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Worklog.Attachment.html#RelativePath"><span class="hs-identifier hs-type">RelativePath</span></a></span><span> </span><span id="local-6989586621679125788"><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679125788"><span class="hs-identifier hs-var">fpath</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">String -&gt; Maybe MimeType
+</span><span id="line-71"></span><span>    </span><span class="annot"><span class="hs-identifier hs-type">Just</span></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Worklog.Attachment.html#RelativePath"><span class="hs-identifier hs-type">RelativePath</span></a></span><span> </span><span id="local-6989586621679126901"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679126901"><span class="hs-identifier hs-var">fpath</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">String -&gt; Maybe MimeType
 </span><span class="hs-identifier hs-var">getMimeType</span></span><span> </span><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679125788"><span class="hs-identifier hs-var">fpath</span></a></span><span>
+</span><a href="#local-6989586621679126901"><span class="hs-identifier hs-var">fpath</span></a></span><span>
 </span><span id="line-72"></span><span>
 </span><span id="line-73"></span><span>
 </span><span id="line-74"></span><span>
