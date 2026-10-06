@@ -96,7 +96,7 @@ parsing into this module.
 - [ ] Decide one canonical CLI representation for the extension (`wmd`); the scanner may
       accept a leading dot as a convenience, but internally normalize it.
 - [ ] Return paths in deterministic order.
-- [ ] Keep the source path outside `Case`; path is application/index state, not a domain
+- [x] Keep the source path outside `Case`; path is application/index state, not a domain
       attribute of a case.
 - [ ] Add focused tests for extension matching and recursive discovery.
 - [ ] Add Cabal dependencies needed by this step (`directory`, `filepath`) only when used.
