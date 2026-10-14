@@ -1,6 +1,4 @@
--- | The file handling utilities of the Worklog.
--- This module will find, list, maybe change
--- the workfiles.
+-- | Filesystem utilities for discovering workfiles recursively.
 module Worklog.FileManager
   (
     listDirsRecursively,

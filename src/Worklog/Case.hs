@@ -1,4 +1,4 @@
--- | Domain logic for the individual cases.
+-- | Domain types and operations for individual cases.
 module Worklog.Case
   ( -- * Case
     Case,
@@ -52,17 +52,17 @@ import Data.Time.Calendar
 import Data.Set (Set)
 import qualified Data.Set as Set
 
--- | Not closed and contains flag, todo, task, not valid, or other
--- Todo: create the predicates
+-- | Indicates whether a case requires attention.
+-- Currently, every non-archived case is considered to need attention.
 needsAttention :: Case -> Bool
 needsAttention cas = not (isArchived cas) 
 
 data Status
-  = -- | case is on the desk, we work on it
+  = -- | The case is actively being worked on.
     OnDesk
-  | -- | case is in the cabinet, waiting for the deadline to come back on desk
+  | -- | The case is deferred until the specified date.
     Deferred Day
-  | -- | case is closed, it is in the archives, hoppefully never comes back
+  | -- | The case has been closed and archived.
     Archived
   deriving (Eq, Show)
 
@@ -72,7 +72,7 @@ getCaseStatus = caseStatus
 isOnDesk :: Case -> Bool
 isOnDesk cas = caseStatus cas == OnDesk
 
--- | Checks for finished case
+-- | Returns 'True' for archived cases.
 isArchived :: Case -> Bool
 isArchived cas = caseStatus cas == Archived
 
@@ -108,9 +108,9 @@ closeCase cas
 -- openCase :: Case -> Case
 -- openCase cas = cas {caseStatus = OnDesk}
 
--- | the deadline of the task
+-- | An optional case deadline.
 data Deadline
-  = -- | For tasks without deadline
+  = -- | No deadline has been assigned.
     NoDeadline
   | -- | Deadline
     Deadline Day
@@ -125,17 +125,14 @@ hasDeadline cas =
 setDeadline :: Deadline -> Case -> Case
 setDeadline day cas = cas {caseDeadline = day}
 
--- | Flags are attributes of the task.
+-- | Flags indicating conditions that affect a case.
 data CaseFlag
     = Waiting
-    -- ^ The task is waiting for someone, something.
-    -- Work cannot continue, until it has not arrived.
+    -- ^ Work is waiting for an external response or event.
     | NeedsManager
-    -- ^ The task needs decision from the boss.
+    -- ^ A manager's decision is required.
     | ApprovalPending
-    -- There is at least one outgoing document under approval.
-    -- Sometimes it needs attention, whether it has finished, or
-    -- fixes are neccessary
+    -- ^ At least one outgoing document is awaiting approval.
     deriving (Eq, Ord, Show)
 
 anyFlag :: Case -> Bool
@@ -150,13 +147,10 @@ addFlag flag cas = cas {caseFlags = Set.insert flag (caseFlags cas)}
 removeFlag :: CaseFlag -> Case -> Case
 removeFlag flag cas = cas {caseFlags = Set.delete flag (caseFlags cas)}
 
--- | The Case data type contains the parameters of the case
--- correspondent to the workfile. Some title, a longer summary,
--- and status, and of course deadline. The caseFlags
--- attributes sign some important aspects of the case (there are
--- others working on it, needs revision)
+-- | Represents a case described by a workfile, including its title,
+-- status, deadline, summary, flags, and associated work items.
 --
--- The summary field currently will be implemented as Pandoc Block.
+-- The summary representation may later be changed to Pandoc blocks.
 data Case = Case
   { 
   -- todo: The metadata from the workfile must be preserved
@@ -175,15 +169,13 @@ instance HasSummary Case where
   getSummary = caseSummary
   setSummary cas s = cas {caseSummary = s}
 
--- | Case title is read only.
+-- | Returns the case title without exposing a setter.
 getCaseTitle :: Case -> String
 getCaseTitle = caseTitle
 
--- | newCase id title creates an open task with
--- no deadline and empty summary.
--- It is useable only to create a new case, cannot
--- change parameters after.
--- This function is for tests only. In the public API it will be deleted.
+-- | Creates an on-desk case with no deadline or associated items.
+-- This temporary constructor is intended for tests and may be removed
+-- from the public API once validated parsing is available.
 newCase :: String -> Case
 newCase title = Case
   { caseTitle = title,

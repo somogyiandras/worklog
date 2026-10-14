@@ -1,7 +1,5 @@
--- | Simple workfile managment application.
--- Features:
---      - List workfiles in working directory
---      - Sort them (status, dead-line, priority)
+-- | Command-line entry point for discovering workfiles and displaying
+-- their parsed titles.
 module Main where
 
 -- import Data.Time.Calendar

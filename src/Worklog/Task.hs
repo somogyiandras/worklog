@@ -1,12 +1,7 @@
--- | The Task type introduce a task which is not part of the case.
--- It is connected,  for example the review of the case assigned a task.
--- The task can initiate a new case, or it can assist a decision-makig
--- process in another case. Or it can be a deferred task, something
--- which needs attention in the future.
---
--- The case can be archived, the task remains in the case.
--- The task will be „closed”, if it does not require acticity from .
--- The closeing condition and time is recorded in the Task.
+-- | Defines tasks associated with cases but distinct from immediate
+-- case-specific to-do items. A task may represent a review, support a
+-- decision, initiate another case, or be deferred for later attention.
+-- Tasks may remain associated with a case after it has been archived.
 module Worklog.Task
 (
   Task(..),

@@ -1,10 +1,6 @@
--- | The Todo type introduce a case specific task or to-do.
--- It is connected to the case, it is neccessary to accomplish to
--- reach some advance in the case. For example: to call or email somebody
--- or find or review a document, before the appropriate decision is made.
---
--- Very important, that Todo lives only in the case, and obviously
--- a case cannot be archived if it has Todo.
+-- | Defines case-specific to-do items needed to move a case forward,
+-- such as contacting someone or reviewing a document.
+-- Outstanding to-do items should be resolved before archiving a case.
 module Worklog.Todo
 (
   Todo(..),
@@ -16,16 +12,15 @@ where
 
 import Worklog.Implementation.Internal
 
--- | A Todo can be Urgent, which means that it must be executed
--- as soon as possible, today, or tomorrow.
--- NotSoUrgent Todos can be postponed for a while.
+-- | Indicates whether a to-do item requires prompt attention.
+-- 'Urgent' items should generally be handled today or tomorrow;
+-- 'NotSoUrgent' items can be postponed.
 data Urgency
   = NotSoUrgent
   | Urgent
   deriving (Eq, Ord, Show)
 
--- | Very simple type, Urgency and a Summary type to hold
--- the todo's matter.
+-- | A to-do item with its urgency and summary.
 data Todo = Todo
   {
     todoUrgency :: Urgency,
