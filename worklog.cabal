@@ -29,12 +29,14 @@ library
                     , Worklog.Task
                     , Worklog.Attachment
                     , Worklog.FileManager
+                    , Worklog.Reader
     -- other-modules:
     -- other-extensions:
     build-depends:    base >=4.16 && < 4.22
                     , time < 1.16.0.1
+                    , text ^>= 2.1.2 
                     , containers < 0.8
-                    , pandoc >=3.11 && < 3.12
+                    , pandoc >=3.12
                     , worklog:internals
                     , directory >=1.2.3 && <1.4
                     , filepath >=1.1 && <1.6

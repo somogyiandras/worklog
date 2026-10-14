@@ -93,13 +93,13 @@ parsing into this module.
 - [x] Defaults:
   - [x] directory: `.`
   - [x] extension: `wmd`
-- [ ] Decide one canonical CLI representation for the extension (`wmd`); the scanner may
+- [x] Decide one canonical CLI representation for the extension (`wmd`); the scanner may
       accept a leading dot as a convenience, but internally normalize it.
 - [ ] Return paths in deterministic order.
 - [x] Keep the source path outside `Case`; path is application/index state, not a domain
       attribute of a case.
-- [ ] Add focused tests for extension matching and recursive discovery.
-- [ ] Add Cabal dependencies needed by this step (`directory`, `filepath`) only when used.
+- [x] Add focused tests for extension matching and recursive discovery.
+- [x] Add Cabal dependencies needed by this step (`directory`, `filepath`) only when used.
 
 ### 2. Define the minimal workfile parser
 

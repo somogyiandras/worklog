@@ -7,7 +7,9 @@ module Main where
 -- import Data.Time.Calendar
 import Worklog.FileManager
 import Worklog.Case
+import Worklog.Reader
 import Options.Applicative
+import Data.Maybe (fromMaybe)
 import System.Directory (makeRelativeToCurrentDirectory)
 
 main :: IO ()
@@ -15,11 +17,17 @@ main = do
   let cas = newCase "First case"
   print cas
   print $ isOnDesk cas
+
   options <- execParser opts
   files <- findWorkFiles options
-  files' <- traverse makeRelativeToCurrentDirectory files
-  mapM_ putStrLn files'
+  panDocs <- traverse getDoc files
+  mapM_ (putStrLn . (fromMaybe "No title!" . getTitle )) panDocs 
 
+  {-
+  mapM_
+    (\ (panDoc, path) -> putStrLn (fromMaybe "No title!" (getTitle panDoc) <> " | " <> path))
+    (zip panDocs files)
+  -}
 fileOptions :: Parser FileOptions
 fileOptions =
   FileOptions

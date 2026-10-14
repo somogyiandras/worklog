@@ -29,7 +29,7 @@ filesTests =
           let subdir = dir </> "empty"
           createDirectory subdir
 
-          result <- findWorkFiles defaultFileOptions
+          result <- findWorkFiles $ defaultFileOptions & addDirOpt subdir
 
           let expected = []
 
@@ -47,7 +47,7 @@ filesTests =
             writeFile (subdir </> "second.wmd") ""
             writeFile (subdir </> "other.md") ""
 
-            result <- findWorkFiles $ FileOptions dir "wmd"
+            result <- findWorkFiles $ defaultFileOptions & addDirOpt dir
 
             let expected =
                     [ dir </> "first.wmd"

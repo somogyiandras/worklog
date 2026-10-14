@@ -4,9 +4,9 @@ module Worklog.Attachment
 (
   Attachment(..),
   AttachmentKind(..),
-  IncomingDocType,
-  OutgoingDocType,
-  InternalDocType,
+  IncomingDocType(..),
+  OutgoingDocType(..),
+  InternalDocType(..),
   newAttachment
 )
 where
@@ -58,13 +58,13 @@ data Attachment = Attachment
   {
     attachmentKind :: AttachmentKind,
     attachmentPath :: Maybe RelativePath,
-    attachmentIds :: Maybe [DocumentID],
+    attachmentIds :: [DocumentID],
     attachmentMimeType :: Maybe MimeType,
     attachmentSubject :: DocumentSubjet
   }
   deriving (Eq, Show)
 
-newAttachment :: AttachmentKind -> Maybe RelativePath -> Maybe [DocumentID] -> DocumentSubjet -> Attachment
+newAttachment :: AttachmentKind -> Maybe RelativePath -> [DocumentID] -> DocumentSubjet -> Attachment
 newAttachment akind mpath maI sub = Attachment akind mpath maI mimetype sub where
   mimetype = case mpath of
     Nothing -> Nothing

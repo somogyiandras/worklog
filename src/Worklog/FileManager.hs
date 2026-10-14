@@ -18,7 +18,7 @@ where
 
 import System.Directory
 import System.FilePath
-import Control.Monad (filterM)
+import Control.Monad (filterM, foldM)
 
 -- ToDo: [FilePath] and [[String]
 data FileOptions = FileOptions
@@ -68,18 +68,17 @@ findWorkFiles fileopt =
       isFile <- doesFileExist path
       if isDir
         then do
-          downDirs <- absListDirs path
-          downFiles <- absListFiles path
+          (downDirs, downFiles) <- absListDirsFiles path
           go (downDirs ++ downFiles ++ paths) acc
         else
-          if isFile && (path .? ('.':(workingFileExtension fileopt)))
+          if isFile && (path .? ('.':workingFileExtension fileopt))
             then
               let acc' = path : acc
                in go paths acc'
             else
               go paths acc
 
-
+-- todo: maybe delete
 listDirsRecursively :: FilePath -> IO [FilePath]
 listDirsRecursively dir =
   do
@@ -98,7 +97,7 @@ listDirsRecursively dir =
           else go paths
 
 
-
+-- todo: merge these two functions
 absListDirs :: FilePath -> IO [FilePath]
 absListDirs wd = do
   awd <- makeAbsolute wd
@@ -110,6 +109,24 @@ absListFiles wd = do
   awd <- makeAbsolute wd
   pathList <- listDirectory awd
   filterM doesFileExist (map (awd </>) pathList)
+
+absListDirsFiles :: FilePath -> IO ([FilePath], [FilePath])
+absListDirsFiles wd = do
+  awd <- makeAbsolute wd
+  pathList <- listDirectory awd
+  splitDirsFiles (map (awd </>) pathList)
+
+splitDirsFiles :: [FilePath] -> IO ([FilePath], [FilePath])
+splitDirsFiles =
+  foldM step ([], [])
+  where
+    step (dirs, files) path = do
+      isDir <- doesDirectoryExist path
+      if isDir
+        then return (path : dirs, files)
+        else return (dirs, path : files)
+
+  
 
 absDirList :: FilePath -> IO [FilePath]
 absDirList wd = do

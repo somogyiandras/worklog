@@ -2,7 +2,7 @@ with-compiler: ghc-9.12.2
 
 packages: .
 
-index-state: 2026-09-19T06:02:44Z
+index-state: 2026-10-13T12:28:58Z
 
 documentation: False
 haddock-executables: True

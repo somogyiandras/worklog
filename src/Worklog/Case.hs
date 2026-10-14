@@ -159,6 +159,7 @@ removeFlag flag cas = cas {caseFlags = Set.delete flag (caseFlags cas)}
 -- The summary field currently will be implemented as Pandoc Block.
 data Case = Case
   { 
+  -- todo: The metadata from the workfile must be preserved
     caseTitle :: String,
     caseStatus :: Status,
     caseDeadline :: Deadline,
@@ -182,6 +183,7 @@ getCaseTitle = caseTitle
 -- no deadline and empty summary.
 -- It is useable only to create a new case, cannot
 -- change parameters after.
+-- This function is for tests only. In the public API it will be deleted.
 newCase :: String -> Case
 newCase title = Case
   { caseTitle = title,
