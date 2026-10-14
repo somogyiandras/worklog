@@ -39,6 +39,23 @@
   For example: create letter based on selected parts of the workfile and using user created templates.
   The address, and parts of the letter is from the workfile.
 
+## Documentation roadmap
+
+The following documentation does not yet exist in a maintained, complete form.
+These tasks are separate from editing existing Haddock comments.
+
+- [ ] Document the workfile format, including YAML metadata, fenced blocks, and examples using fictional case data.
+- [ ] Specify the required metadata fields and how invalid or missing values are reported.
+- [ ] Document the parser's public API, validation rules, and error handling once implemented.
+- [ ] Describe the Case, Todo, Task, and Attachment domain model and its invariants.
+- [ ] Document the application-state schema, format version, and backward-compatibility policy once implemented.
+- [ ] Write a CLI reference for all commands, flags, defaults, exit codes, and stdin/stdout behaviour.
+- [ ] Provide a user guide with a complete, anonymized workfile-to-report workflow.
+- [ ] Document report generation and Pandoc template/defaults integration.
+- [ ] Add developer instructions for building, testing, and generating Haddock on Linux and Windows.
+- [ ] Document the release process and the project's supported platforms.
+- [ ] Record the policy for keeping real case information and identifying details out of the repository.
+
 # Step by step list to reach Version 1.0 goals
 
 ## Current milestone: first usable command-line pipeline
