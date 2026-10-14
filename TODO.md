@@ -112,7 +112,7 @@ parsing into this module.
   - [x] extension: `wmd`
 - [x] Decide one canonical CLI representation for the extension (`wmd`); the scanner may
       accept a leading dot as a convenience, but internally normalize it.
-- [ ] Return paths in deterministic order.
+- [ ] Return paths in deterministic order (sort discovered paths before returning).
 - [x] Keep the source path outside `Case`; path is application/index state, not a domain
       attribute of a case.
 - [x] Add focused tests for extension matching and recursive discovery.
@@ -125,7 +125,8 @@ the repository. Do not commit real workfiles containing case data.
 
 - [ ] Create `Worklog.Parser`.
 - [ ] Define a parser API which reports the source file in parse errors.
-- [ ] Use Pandoc to read the Markdown workfile; `pandoc` is already a library dependency.
+- [x] Introduce a Pandoc-based reader for Markdown workfiles (`Worklog.Reader`).
+- [ ] Propagate Pandoc read failures with the affected path rather than returning an empty document.
 - [ ] For the first parser milestone extract only the data required by the current CLI:
   - [ ] case title
   - [ ] case status: `OnDesk`, `Deferred`, `Archived`
@@ -137,8 +138,8 @@ the repository. Do not commit real workfiles containing case data.
 - [ ] Extract Todo items from their structured Pandoc representation.
 - [ ] Define the Task extraction rule after reviewing the supplied workfile; currently Task
       is still primarily represented as text.
-- [ ] Convert parsed values into domain values using the public domain API instead of
-      exposing the `Case` constructor.
+- [ ] Design a validated, restricted `Case` construction boundary for the parser.
+      Do not expose unrestricted case creation in the public domain API.
 - [ ] Decide and test parser behaviour for invalid or missing mandatory metadata.
 - [ ] Add anonymized parser fixtures and parser tests only after the format is fixed.
 
@@ -218,7 +219,9 @@ is the preferred dependency for this interface.
 
 - [ ] Create `Worklog.CLI`.
 - [ ] Model commands and options as Haskell data types before executing IO.
-- [ ] Add `optparse-applicative` to the executable dependencies.
+- [x] Add `optparse-applicative` to the executable dependencies.
+- [x] Add preliminary `--dir` and `--ext` options to the executable.
+- [ ] Move CLI parsing to `Worklog.CLI` and implement the planned subcommands.
 - [ ] Implement `list` options:
   - [ ] `-d DIR`, `--directory=DIR`, default `.`
   - [ ] `--extension=EXT`, default `wmd`
@@ -312,7 +315,8 @@ usable command-line pipeline:
 
 ## Immediate next implementation step
 
-Implement **Step 0 domain API corrections**, then **Step 1 recursive workfile discovery**.
-These steps do not depend on the still-to-be-supplied real/anonymized workfile structure.
-After that, provide an anonymized workfile and implement the parser against the actual
-Markdown/Pandoc structure instead of guessing its syntax.
+Complete the remaining **Step 1** requirement for deterministic file ordering and verify
+recursive discovery tests. Then continue **Step 2** by defining validated extraction of
+title, status and deadline from Pandoc metadata. `Worklog.Reader` already introduces
+Markdown reading and title extraction, but the full `Case` parser is not yet implemented.
+Keep private workfiles out of the repository; use only fictional, anonymized fixtures.
