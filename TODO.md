@@ -6,14 +6,15 @@
 
 - [ ] Input formats: Markdown
 - [ ] Output formats: Markdown, HTML
-- [ ] CLI, Command Line Interface
+- [ ] CLI, Command Line Interface, limited functionality 
 - [ ] List workfiles in order (deadline, rank)
 - [ ] Filter workfiles (status, deadline)
 - [ ] Create report
 
 ## Further development goals
 
-- [ ] TUI, Terminal User Interface
+### CLI application
+
 - [ ] Open workfiles in Vim/Neovim
 - [ ] Create, list, modify, delete session files
 
@@ -38,6 +39,12 @@
 
   For example: create letter based on selected parts of the workfile and using user created templates.
   The address, and parts of the letter is from the workfile.
+
+
+### TUI, Terminal User Interface
+
+The same functionality as the CLI application
+
 
 # Step by step list to reach Version 1.0 goals
 
