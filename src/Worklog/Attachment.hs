@@ -1,5 +1,4 @@
--- | The Attachment type describes a document related to the case.
--- The document's minimal 
+-- | Documents and other files associated with a case.
 module Worklog.Attachment
 (
   Attachment(..),
@@ -13,9 +12,7 @@ where
 
 import Text.Pandoc.MIME
 
--- | A Todo can be Urgent, which means that it must be executed
--- as soon as possible, today, or tomorrow.
--- NotSoUrgent Todos can postpone for a while.
+-- | Classifies attachments by their role in a case.
 data AttachmentKind
   = Picture
   | Incoming IncomingDocType
@@ -52,8 +49,8 @@ type DocumentSubjet = String
 newtype RelativePath = RelativePath FilePath
   deriving (Eq, Show)
 
--- | Very simple type, Urgency and a Summary type to hold
--- the todos matter.
+-- | Stores an attachment's classification, optional location, identifiers,
+-- inferred MIME type, and subject.
 data Attachment = Attachment
   {
     attachmentKind :: AttachmentKind,

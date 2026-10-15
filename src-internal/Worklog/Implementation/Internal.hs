@@ -1,6 +1,4 @@
--- | The internal implementations
--- This modul exports the types and functions to handle the
--- hidden implementations.
+-- | Shared internal abstractions used by the Worklog domain modules.
 --
 module Worklog.Implementation.Internal
 ( 
@@ -27,17 +25,12 @@ class HasSummary a where
   appendSummary a s = a `setSummary` (getSummary a <> s) 
   {-# MINIMAL setSummary, getSummary #-}
 
--- | The Summary type is used by more types in the application.
--- It is a placeholder of a longer text attribute of the types.
--- Its internal implementation is hidden from the types. Generally
--- the parser and the renderer types need the functions to handle
--- the Summary values.
+-- | Shared summary text whose implementation is hidden from callers.
+-- Parser and renderer modules use these operations without depending
+-- on the representation.
 --
--- Currently the internal representation is String.
--- Todo: Use Text or Pandoc [Block]
--- Todo: This module can contain some usefull functions
--- to work with Summary in a modul which cannot use the
--- internal representation.
+-- The current implementation uses 'String'. Future versions may use
+-- 'Text' or Pandoc blocks.
 newtype Summary = Summary String
   deriving (Eq, Show, Semigroup, Monoid)
 
