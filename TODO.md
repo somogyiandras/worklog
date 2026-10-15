@@ -13,38 +13,60 @@
 
 ## Further development goals
 
-### CLI application
+CLI/TUI application
 
-- [ ] Open workfiles in Vim/Neovim
-- [ ] Create, list, modify, delete session files
+Desired funcionality:
 
-  (Session files are created and used in Vim)
-
-- [ ] Other workfile input formats (docx)
-- [ ] Other output formats
-- [ ] Session or project support:
-
-  Create and handle projects/sessions which connect the workfile to other files.
-  For example for one workfile the project contains the related files (images, letters,
-  pdf, code, etc.)
-
-  - [ ] Show "project worktree"
+- [ ] Workfiles:
+  - [ ] Other workfile input formats (docx)
+  - [ ] Custom workfiles
+  - [ ] Open workfiles in editor/custom program
   - [ ] Preview files
-  - [ ] Open project in defined application (Vim session)
+
+- [ ] Attachments:
+
+  Attachments are documents related to the case. The workfile can contain link to the attachment or some id of it.
+  If the copy of the document is available, the application will hold the workfile and the attachments together.
+
+  - [ ] Open, move, archive the attachment
+  - [ ] The letter/report is linked to the attachment
+
+
+- [ ] Letters:
+
+  Letters are documents related to the case, are created by a template based uppon the case/workfile content.
+  For example one template creates an invitation based on the content of the workfile, and another template creates
+  an order.
+
+  - [ ] Create letter (and links to the workfile as attachment)
+  - [ ] Edit, delete, archive letter
+  - [ ] Change format of the letter (with pandoc integration)
+  
+- [ ] Reports:
+
+  Reports are pre defined documents as letters, but the content of the report based on the selected workfiles.
+
+  - [ ] Custom report
+  - [ ] Custom scheme (report style, colors)
+
+- [ ] Projects:
+  
+  Projects are related workfiles with all the attachments, letters connected to them.
+
+  - [ ] Create, list, modify, delete projects
+  - [ ] Show "project worktree"
+  - [ ] Open project
+
+    One cardinal funcionality of the `worklog` app is open the workfile in the editor. If the editor is suitable for
+    opening more files, then opening a project means open the workfiles in the project, or with customization `worklog`
+    open a pre defined and saved session for this project (as in vim -S project.vim)
+
+  - [ ] Create report for the project, the report template saved with the project
+
+- [ ] Other output formats
 
 - [ ] Pandoc integration
 - [ ] Configuration options
-- [ ] Custom workfiles
-- [ ] Option to create additional documents based on workfile content
-
-  For example: create letter based on selected parts of the workfile and using user created templates.
-  The address, and parts of the letter is from the workfile.
-
-
-### TUI, Terminal User Interface
-
-The same functionality as the CLI application
-
 
 # Step by step list to reach Version 1.0 goals
 
@@ -306,3 +328,9 @@ Implement **Step 0 domain API corrections**, then **Step 1 recursive workfile di
 These steps do not depend on the still-to-be-supplied real/anonymized workfile structure.
 After that, provide an anonymized workfile and implement the parser against the actual
 Markdown/Pandoc structure instead of guessing its syntax.
+
+# Other todos
+
+This part is a notes part. Anything, ideas related to the future work.
+
+- Template folder for the letters, reports must be part of the project
