@@ -7,8 +7,7 @@ import Worklog.FileManager
 import Worklog.Case
 import Worklog.Reader
 import Options.Applicative
-import Data.Maybe (fromMaybe)
-import System.Directory (makeRelativeToCurrentDirectory)
+import Data.Text qualified as T
 
 main :: IO ()
 main = do
@@ -18,14 +17,13 @@ main = do
 
   options <- execParser opts
   files <- findWorkFiles options
-  panDocs <- traverse getDoc files
-  mapM_ (putStrLn . (fromMaybe "No title!" . getTitle )) panDocs 
+  docs <- traverse readFromMD files
+  let
+    titles = map (either (const "No title!") id . getTitleFromDoc) docs 
+    statuses = map (either (const "No Status") show . getStatusFromDoc) docs 
+  mapM_ putStrLn titles
+  mapM_ putStrLn statuses
 
-  {-
-  mapM_
-    (\ (panDoc, path) -> putStrLn (fromMaybe "No title!" (getTitle panDoc) <> " | " <> path))
-    (zip panDocs files)
-  -}
 fileOptions :: Parser FileOptions
 fileOptions =
   FileOptions

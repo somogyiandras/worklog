@@ -37,9 +37,11 @@ library
                     , text ^>= 2.1.2 
                     , containers < 0.8
                     , pandoc >=3.12
+                    , pandoc-types >= 1.23 && < 1.24
                     , worklog:internals
                     , directory >=1.2.3 && <1.4
                     , filepath >=1.1 && <1.6
+                    , parsec
                     --, mtl ==2.3.1
     hs-source-dirs:   src
 
@@ -61,7 +63,19 @@ executable worklog
                     , time < 1.16
                     , optparse-applicative >= 0.19 && < 0.20
                     , directory >=1.2.3 && <1.4
-    hs-source-dirs:   app
+                    , text ^>= 2.1.2 
+    hs-source-dirs:   cliapp
+
+executable worklog-server
+    import:           common-settings
+    main-is:          Main.hs
+    -- other-modules:
+    -- other-extensions:
+    build-depends:
+                      base >=4.16 && < 4.22
+                    , worklog
+                    , text ^>= 2.1.2 
+    hs-source-dirs:   wuiapp
 
 test-suite worklog-test
     import:           common-settings

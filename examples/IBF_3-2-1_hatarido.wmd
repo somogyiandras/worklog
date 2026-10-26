@@ -1,0 +1,445 @@
+---
+title: PAE-HA6794 sz. határozat 3./ bekezdésének 2-1 pontjában előírt feladat határidejének módosítása
+author: Somogyi András
+date: 2025.07.10.
+ :vim ro
+...
+
+# Vezetői összefoglaló
+
+::: {.vezetoi-osszefogalalo}
+Az IBF-et lezáró határozatban az OAH 2025. december 15. napja
+határidővel előírta bizonyos hermetizáló armatúrák kiváltását és tömör
+zárásuk ellenőrzésének kialakítását. A tömör zárás ellenőrzést korábban,
+határidőn belül teljesítették.
+
+Az Ügyfél 2025. július 9. napján kérte a teljesítési határidő módosítását
+2029. június 30. napjára. A kérelemben leírták, hogy a gyártót természeti
+katasztrófa akadályozza, és az armatúrák leszállítása késik jövő nyárig.
+A kérelem és a hiánypótlási felhívás teljesítéseként megküldött
+dokumentumok nem alapozták meg a jogszabályban előírt, a határidő
+módosításához szükséges követelményeket, mert nem igazolták, hogy
+a késlekedés oka az Ügyfélen kívül álló ok.
+
+Az OAH 2025. december 11. napján a PAE-HA08076 (OAHAFO/291-4/2025) számon
+kiadott határozattal a határidő módosítására vonatkozó kérelmet
+elutasította.
+
+Másik, hivatalból indított eljárásban vizsgálja az OAH a késedelem okait,
+és a kötelezés teljesítésére rendelkezésre álló új határidő meghatározását.
+
+:::
+
+
+# Előzmény
+
+Az Ügyfél az atomenergiáról szóló 1996. évi CXVI. törvény (a továbbiakban:
+Atv.) 9. § (3) bekezdés és a nukleáris létesítmények nukleáris biztonsági
+követelményeiről és az ezzel összefüggő hatósági tevékenységről szóló
+118/2011. (VII.11.) Kormányrendelet (a továbbiakban: Korm. rend.) 34. §-a
+alapján, Időszakos Biztonsági Felülvizsgálat keretében elemezte, értékelte
+a Paksi Atomerőmű nukleáris biztonságát, a nukleáris biztonsági
+követelmények teljesítését, a kockázat mértékét. Az értékelés
+eredményeképpen elkészített IBJ-t az OAH-nak benyújtotta. Az IBJ formailag
+megfelelt az OAH által kiadott A1.39. számú útmutatónak.
+
+::: {.quote #eloiras}
+(10,20,30,40)UV(68,70) és (10,20,30,40)VX(35,67) hermetizáló armatúrákat ki
+kell váltani, tömör zárás ellenőrzést ki kell alakítani.
+
+Határidő: 2025.12.15.
+
+Indokolás:
+
+A (10,20,30,40)UV(68,70) és (10,20,30,40)VX(35,67) hermetizáló armatúrák
+funkcióromlás miatti kiváltását és tömör zárás ellenőrzésének
+megvalósítását az NBSZ 3.4.6.0100. e) és 3.4.6.1700 pontok alapján írtam
+elő.
+<origin>PAE-HA6794 3./ 2-1</origin>
+::::
+
+A státusz alapján 2019. év első félévében kiépítették az ellenőrző
+csonkokat. Erre vonatkozóan azt az információt találtam, hogy HA5524 számon
+volt erre átalakítási engedély, amit 2014. december 31-ig meghosszabbított
+a HA5762 számú határozat. A határozatok nincsenek a VBJ megfelelő
+fejezetében (6.1.4.) megemlítve.
+
+## Ezen ügyhöz kapcsolódó ügyek:
+
+PAE rendelkezik a 2. és 3. blokki hermetizáló armatúrák cseréjére
+átalakítási engedéllyel, amely 2029. augusztus 1-ig hatályos. Az ÁMD-ben
+már leírták a késést, a határozatban az IBF határidőre történt
+figyelemfelhívás. A 2. és 3. blokk kapcsán tájékoztatást nyújtottak be
+arról, hogy az ÁMD-ben leírtaktól eltérően a falátvezetéseket nem cserélik
+ki. A tájékoztatás elfogadása aláírás alatt. Szakmailag elfogadható.
+
+Az 1. és 4. blokk vonatkozásában PAE rendelkezik engedéllyel, amelynek
+hatálya 2025. december 15. Az engedélyben szerepel, hogy ennek módosítása
+előtt szükséges az IBF feladat határidejének módosítása, jelenleg PAE
+beadta mindkét határidő módosítására vonatkozó kérelmét.
+
+# Beadvány
+
+~~~
+Beadvány:       3113-H189187/2025, 189187/MO/2025
+Ügyirat:        OAHAFO/291-1/2025
+Tárgy:          10,20,30,40UV(68,70) és 10,20,30,40VX(35,67)
+                hermetizáló armatúrák kiváltási határidejének módosítása
+                PAE-HA6794 sz. határozat 3./ bekezdésének 2-1 pontjában
+                előírt feladat határidejének módosítása
+Ügyintéző:      Licker-Szabó Ágota, Tinnyei Sándor
+Beérkezés:      2025.07.09.
+Határidő:       120 nap, 2025.11.05. hiánypótlás után: 2025.12.05.
+Felhívás:       2025.09.29 (83. nap) PAE-VE8032 OAHAFO/291-2/2025 (WID=14128 2025.08.26.)
+Teljesítés:     2025.10.30.(37 nap hátra) 3113-H192550/2025 OAHAFO/291-3/2025
+Elutasítás:     2025.12.11. PAE-HA08076 OAHAFO/291-4/2025 (WID=18672 2025.11.07.)
+Határidő alap:  Atv. 12/B. § (6) h) ???
+Kiegészítés:    2026.08.18. PAE-HA08244 OAHAFO/308-1/2026 (WID=32857 2026.07.27.)
+Hivatalbóli eljárás: 2025.12.17. PAE-VE08084 OAHAFO/435-1/2025; OAHAFO/42/2026 (WID=19668 2025.11.20.)
+~~~
+
+Kezelni a VBJ fejezetet
+
+---
+docs:
+- filename:     "3113-H189187_2025 kisérő levél.pdf"
+  description:  "Kérelem"
+- filename:     "00189187_BEADVÁNY.PDF"
+  description:  "Beadvány"
+...
+
+A határidő az Atv. 12/B. § (6) bekezdés h) pontja alapján 120 nap.
+
+Az MVM Paksi Atomerőmű Zrt. Időszakos Biztonsági Felülvizsgálatának (IBF)
+hatósági értékelése és lezárása tárgyában hozott PAE-HA6794 számú határozat
+3./ bekezdésének 2-1 pontjában előírt (10,20,30,40)UV(68,70) és
+(10,20,30,40)VX(35,67) hermetizáló armatúrák kiváltására és a tömör zárás
+ellenőrzésének kialakítására adott 2025.12.15. határidő hosszabbítását
+kérik.
+
+## A kérelem megfelelősége
+
+::: boss :::
+<cap>2025.07.31. Farkas Péter telefonon</cap>
+Egyetértettünk abban, hogy nem evidens a hosszabbítás elfogadása.
+A hosszabbítás ellen és mellett kell érveket felsorakoztatni, valamint
+a státuszra kell diát készíteni az ügyről.
+::::
+
+::: quote :::
+(4) A teljesítési határidő lejárta előtt a kötelezett meghatározott
+cselekmény teljesítésére annak igazolásával kérhet halasztást az
+atomenergia-felügyeleti szervtől, hogy rajta kívül álló ok lehetetlenné
+teszi a határidőre való teljesítést.
+
+(5) Meghatározott cselekmény teljesítési határideje egy alkalommal
+meghosszabbítható, ha a kötelezett igazolja, hogy rajta kívül álló ok
+lehetetlenné teszi a határidőre való teljesítést, és elemzéssel igazolja,
+hogy a meghatározott cselekmény végrehajtásának késedelme nem csökkenti
+a nukleáris biztonság, a védettség és a biztosítéki intézkedések szintjét.
+<origin>Atv. 15/A.</origin>
+::::
+
+* A Kérelemmel benyújtott dokumentumok nem tartalmazzák a nukleáris
+  biztonság szintjét meghatározó elemzést, csak egy egy mondatos
+  nyilatkozatot, hogy nem csökken a nukleáris biztonság szintje.
+
+* A gyártó telephelyét érintő természeti katasztrófa nem róható fel az
+  Engedélyesnek, azonban a Beadványban leírtak alapján a gyártás még 2024.
+  év őszén nem kezdődött meg. Jelenlegi ismeretek alapján jövő augusztusban
+  befejeződik a gyártás. Ez alapján, gyors számolás alapján szerintem nem
+  lett volna kész 2025-ben az összes alkatrész az eredeti szerződés
+  szerint.
+
+  Kérdés, hogy a szerződéskötéskor ismert volt-e, hogy csak a főjavítások
+  alatt kívánnak átalakítani.
+  kezdődött meg, és mi volt a szerződés alapján a határidő a gyártás
+  befejezésére. A késedelmes, elhúzódó szerződéskötés felróható az
+  Engedélyesnek.
+
+* A 2024. évi IBJ I. jelentésben (OAH/, és a Beadványban leírt 
+
+::: rule :::
+Elemzéssel igazolja, hogy a késedelem nem befolyásolja a nukleáris
+biztonság szintjét.
+
+::: justification :::
+Megállapítottam, hogy a Kérelem és a Kérelemhez mellékelt 189187/MO/2025
+számú beadvány nem tartalmaz az IBF Határozat rendelkező részének 3.
+pontjában foglalt táblázat 2-1 pontjában előírt teljesítési határidő
+elhalasztásának nukleáris biztonság szintjére gyakorolt hatására vonatkozó
+elemzést, valamint nem igazolja teljeskörűen az Ügyfél felelősségi körén
+kívül eső, a határidőben történő teljesítést lehetetlenné tévő ok
+fennállását.
+
+Az Atv. 15/A. § (4) és (5) bekezdései szerint ha a kötelezett a határidő
+lejárta előtt igazolja, hogy rajta kívül álló ok lehetetlenné teszi a
+határidőre való teljesítést, és elemzéssel igazolja, hogy a meghatározott
+cselekmény végrehajtásának késedelme nem csökkenti a nukleáris biztonság, a
+védettség és a biztosítéki intézkedések szintjét akkor a teljesítés
+halasztását kérheti. Sem a Kérelem, sem pedig az annak mellékletét képező
+189187/MO/2025 számú beadvány (a továbbiakban: Beadvány) nem tartalmazott
+elemzést, ennek hiányában a Kérelem nem bírálható el. A hiányzó dokumentum
+pótlása érdekében írtam elő a [rendelkező rész 1. pontját]{.ul}.
+:::
+::::::
+
+::: rule :::
+Igazolja, hogy a késedelmes teljesítést az Ügyféltől független gyártási
+folyamat okozta.
+
+::: justification :::
+A Beadványban az Ügyfél
+tájékoztatást adott arról, hogy 2024. év januárjában befejeződött a minden
+blokkon elvégzett helyszíni felmérés és anyagvizsgálat. A kiviteli tervek
+zsűrizése és elfogadása után 2024. február 13. napján műszaki egyeztetés
+keretében a következő döntéseket hozták:
+
+- A VX rendszeri átalakításokat a nagyleállások alatt végzik el, hogy *„ne
+  kelljen a kisleállások alatti biztonsági rendszerváltás csúszásával
+  számolni.”*
+
+- Az UV rendszeri átalakításokat szintén vagy nagyleállások alatt, vagy
+  olyan kisleálláson végzik el, ami téli időszakra esik, *„ezzel könnyítve
+  a leállt blokki box hőmérséklet tartását.”*
+
+A fenti tájékoztatással azonos tartalmú tájékoztatást adott az Ügyfél
+a 2024. május 16. napján megküldött 3113-H179168/2024 iktatószámú „2024.
+évi I. jelentés IBJ feladatok teljesítéséről” tárgyú beadványában.
+
+A Beadványban az Ügyfél tájékoztatott arról, hogy a hermetizáló armatúrák
+gyártására szerződött beszállító a gyártás megkezdése előtt, 2024.
+szeptember 23. napján bejelentette, hogy a telephelyét érintő árvíz vis
+major helyzetet eredményezett, ezért a gyártást határidőben elvégezni nem
+tudja. A szerelvények gyártását 2026. év augusztusára vállalják.
+
+A megadott információk alapján nem dönthető el, hogy az átalakítás
+határidőre való teljesítésének csúszása kizárólag a gyártó alvállalkozó
+telephelyét érintő vis major következménye. Az Ügyfélen kívül álló ok
+fennállásának tisztázásához szükséges az eredeti gyártási szerződésben
+foglalt határidők és garanciák ismerete, a szerződés megkötésének ideje,
+illetve, hogy a szerződés szerinti eredeti ütemterv szerint legyártott
+alkatrészek beszerelésére elegendő idő állt-e rendelkezésre.
+
+Az OAH 2024. október 11. napján PAE-HA07859 számon adta ki a 2. és 3.
+blokkra vonatkozóan a hermetizáló armatúrák cseréjére jogosító átalakítási
+engedélyt, és 2025. május 8. napján PAE-HA07944 számon adott engedélyt a
+kérdéses hermetizáló armatúrák átalakítására az 1. és 4. blokkokra
+vonatkozóan. A 2. és 3. blokkokra vonatkozó engedélykérelem benyújtásakor
+még nem volt ismert a gyártást befolyásoló árvíz ténye, az engedélyezési
+dokumentáció azonban már a teljesítési határidőn túlmutató
+átalakítás-tervezetet mutatott be.
+
+A Kérelemhez mellékelt dokumentumok alapján nem állapítható meg
+egyértelműen, hogy kizárólag a gyártásban előállt elmaradás okozhatta az
+átalakítás jelentős csúszását, ennek tisztázása érdekében írtam elő a
+[rendelkező rész 2. pontját]{.ul}.
+:::
+::::::
+
+::: rule :::
+Elemzéssel igazolja a tervezett ütemterv szerinti ütemezés
+szükségszerűségét. Az elemzésben indokolja meg az alternatív ütemtervek
+használatának elvetését a nukleáris biztonság szempontjából.
+
+::: justification :::
+A Kérelemben szereplő 2029. június 30. határidő nukleáris biztonságra
+gyakorolt hatása nincs megindokolva.
+
+A VX és UV rendszeri átalakítások vonatkozásában a Beadványban szereplő,
+fentebb idézett indokolások nem tartalmaznak nukleáris biztonsággal
+kapcsolatos elemzést vagy mérnöki megfontolást.
+
+Az IBF Határozatban szereplő előírást és annak határidejét a nukleáris
+biztonsági hatóság a nukleáris biztonságra vonatkozó követelmények és
+előírások alapján fogalmazta meg, a határidő módosítás indokolásának ennek
+megfelelően szintén a nukleáris biztonságra vonatkozó követelményeket és
+elemzéseket kell figyelembe vennie.
+
+A nukleáris biztonság figyelembevételének céljából írtam elő a [rendelkező
+rész 3. pontját]{.ul}.
+:::
+::::::
+
+# Hiánypótlás teljesítése
+
+~~~
+Beadvány:       3113-H192550/2025, 192550/MO/2025
+Ügyirat:        OAHAFO/291-3/2025
+Tárgy:          A PAE-VE08032 végzésben előírt hiánypótlás teljesítése
+Ügyintéző:      Licker-Szabó Ágota, Papp Márton
+Beérkezés:      2025.10.30.
+Határidő:       37 nap, 2025.12.05.
+~~~
+
+IBJ 2.4.2.10. A hermetikus tér izoláló rendszere című rész 
+2.4.2.10.3.8. A rendszeren végrehajtott IEP értékelése alrészben szerepel,
+hogy
+
+::: quote :::
+Kritikusnak tekinthetőek a (10,20,30,40)UV(68,70) és (10,20,30,40)VX(35,67)
+rendszerek hermetizáló armatúrái. Mindkét hűtőrendszer előremenő és
+visszatérő vezetékeibe épített hermetizáló armatúrák rossz állapota már
+kívülről is látható. A tömörségellenőrzés során több alkalommal további
+intézkedéssel kerültek a MUT-ok lezárásra azok magas, a mérőberendezéssel
+már nem kimérhető értékű szivárgása miatt. Ajánlott
+a (10,20,30,40)VX(35,67) rendszer (folyamatos, iszappal történő eltömődése,
+mérőcsonk és rendszer átjárhatósági problémája végett) funkció
+ellátásának/tömörzárásának folyamatos ellenőrzése.
+<origin>IBJ 2.4.2.10.3.8. A rendszeren végrehajtott IEP értékelése</origin>
+::::
+
+A javító intézkedések:
+
+::: quote :::
+2.4.2.10. A hermetikus tér izoláló rendszere  
+A (10,20,30,40)UV(68,70) és (10,20,30,40)VX(35,67) rendszerek hermetizáló
+armatúráinak rossz állapota már kívülről is látható. A tömörségellenőrzés
+során több alkalommal további intézkedéssel kerültek a MUT-ok lezárásra
+azok magas, a mérőberendezéssel már nem kimérhető értékű szivárgása miatt.
+A (10,20,30,40)VX(35,67) rendszer (folyamatos, iszappal történő eltömődése,
+mérőcsonk és rendszer átjárhatósági problémája végett) funkció
+ellátásának/tömörzárásának folyamatos ellenőrzését/ellenőrizhetőségét meg
+kell valósítani.  
+Feladat: A fenti rendszereken a hermetizáló berendezéseket ki kell váltani.
+Kockázat: alacsony, mert a hermetizáló rendszer egészét tekintve
+a megfelelés ezekkel a hibákkal is igazolt.  
+Határidő: 2025.12.15.
+<origin>IBJ 2.6.1. Az elvégzett felülvizsgálat során azonosított javító
+intézkedések és azok ütemezése</origin>
+::::
+
+## VBJ 6.1.4. fejezet
+
+A fejezetben a hatósági előírások táblázat hiányos, 2009-es az utolsó,
+a most kiadott engedélyeken kívül.
+
+::: todo :::
+TASK: VBJ Kezelni a VBJ fejezetet
+:::::
+
+::: boss :::
+<cap>2025.11.03. Farkas Péter</cap>
+Az ügymenet gyorsítása érdekében el kell készíteni az elutasító
+határozatot, és majd a jogászok és a vezetőség jelzi, ha nem ért egyet.
+
+<cap>2025.11.04. Juhász Zoltán Gyula</cap>
+Elutasító határozatot kell készíteni.
+
+<cap>2025.11.19. Farkas Péter</cap>
+Elő kell készíteni a kötelezéssel kapcsolatos hivatalbóli eljárást
+:::::
+
+A hivatalbóli eljárás ---> 113_IBF/113_3-2-1_hivatalbol.wmd
+
+# Státusz összefoglaló
+
+## Részletes összefoglaló
+
+### IBF feladat határidő módosítás
+
+*A részletes összefoglaló a két átalakításra vonatkozó kérelmet nem, vagy
+csak részleteiben tartalmazza, azokkal később szükség lesz kiegészítésre*
+
+Az OAH által az MVM Paksi Atomerőmű Zrt. részére (a továbbiakban: Ügyfél)
+2019. január 19. napján PAE-HA6794 számon „Az MVM Paksi Atomerőmű Zrt.
+Időszakos Biztonsági Felülvizsgálatának (IBF) hatósági értékelése és
+lezárása” tárgyában kiadott határozat (OAH-2017-03363-0028/2018) (a
+továbbiakban: IBF Határozat) 3./ 2-1 pontja előírja, hogy
+a *„(10,20,30,40)UV(68,70) és (10,20,30,40)VX(35,67) hermetizáló
+armatúrákat ki kell váltani, tömör zárás ellenőrzést ki kell alakítani.”*
+2025.12.15-ig (a továbbiakban: Kötelezés)
+
+Az Ügyfél 2025. július 9. napján 3113-H189187/2025 iktatószámon benyújtott
+határidő módosítására irányuló kérelmében (a továbbiakban: Kérelem)
+előadta, hogy a Kötelezés teljesítése rajta kívül álló ok miatt nem
+lehetséges határidőben, és nyilatkozik, hogy a Kötelezés végrehajtásának
+késedelme nem csökkenti a nukleáris biztonság, a védettség és a biztosítéki
+intézkedések szintjét.  A Kötelezés teljesítésének kérelmezett határideje
+2029. június 30.
+
+Az 1996. évi CXVI. törvény az atomenergiáról (a továbbiakban: Atv.) 15/A.
+§ (4) és (5) bekezdései szerint ha a kötelezett a határidő lejárta előtt
+igazolja, hogy rajta kívül álló ok lehetetlenné teszi a határidőre való
+teljesítést, és elemzéssel igazolja, hogy a meghatározott cselekmény
+végrehajtásának késedelme nem csökkenti a nukleáris biztonság, a védettség
+és a biztosítéki intézkedések szintjét. A Kérelem nem tartalmazta ezt az
+elemzést.
+
+A Kérelem röviden összefoglalja, hogy az IBF Határozat hatályba lépése óta
+eltelt időben milyen tevékenységeket végzett az Ügyfél a Kötelezés
+teljesítése érdekében. Ez alapján a kiviteli tervek zsűrije 2024. év elején
+befejeződött.
+
+A 179178/MO/2024 számú „2024. évi I. jelentés IBJ feladatok teljesítéséről”
+című beadvány (OAH/35-36/2023) 1. számú mellékletben további információk
+találhatóak a Kötelezés teljesítéséről. Ez alapján már ekkor feltételezték
+a határidő csúszását. Az indokok között az szerepelt, hogy a VX rendszeri
+átalakításokat csak hosszú főjavítás alatt lehet elvégezni, az UV rendszeri
+átalakításokat pedig téli időszakban. A mellékletben nem található
+információ arra vonatkozóan, hogy ekkor a gyártóval megtörtént-e
+a szerződéskötés. A tényállás teljes körű tisztázása szükséges, mivel ha
+2024\. januárjában már ismert volt a teljesítés csúszása, akkor ez
+a kötelezettnek róható fel, és nem rajta kívül álló okoknak. A hosszú
+főjavítások, illetve a téli munkavégzés indokoltságára elemzés benyújtása
+tudomásom szerint nem történt, a Kérelemben közölt indokolás nem nukleáris
+biztonsági kockázat alapú, hanem egyrészt lehetséges csúszásra, illetve
+a hűtés könnyebbségére való hivatkozáson alapul.
+
+### Átalakításra vonatkozó eljárások
+
+Az OAH 2024. október 11. napján PAE-HA07859 számon adta ki a 2. és 3.
+blokkra vonatkozó átalakítási engedélyt 2029. augusztus 1. hatályossággal.
+A döntésben az OAH felhívta a figyelmet az IBF Határozatban előírt
+határidőre. Az Ügyfél 2025. május 6. napján tájékoztatást nyújtott be az
+engedélyezett tervektől való eltérésre, miszerint az armatúrákat igen,
+a falátvezetéseket nem kívánják cserélni. A Kötelezés nem nevesíti
+a falátvezetéseket, és erre vonatkozó NBSZ követelményről jelenleg nincs
+tudomásunk.
+
+A tájékoztatás alapján szakmailag az eltérés elfogadható
+(OAHAFO/204-/2025), nem szükséges az engedély visszavonása és új engedély
+kiadása.
+
+Az OAH 2025. május 8-án PAE-HA07944 számon adott engedélyt a kérdéses
+hermetizáló armatúrák átalakítására az 1. és 4. blokkon. Az ÁMD-ben leírtak
+szerint 2027–2029 években tervezik az átalakítás végrehajtását, az engedély
+hatálya azonban figyelembe vette az IBF Határozatban előírt 2025. december
+15-i határidőt, és azonosan határozta meg az átalakítási engedély hatályát.
+Az átalakítási engedélyben figyelemfelhívásként szerepel, hogy az
+átalakítási engedély határidejének módosítása előtt szükséges a Kötelezés
+határidejének módosítása.
+
+Az Ügyfél 2025. július 9. napján benyújtotta az átalakítási engedély
+hatályának módosítására irányuló kérelmét (OAHAFO/30-3/2025).
+
+### Vélemény
+
+Véleményem szerint a fenti indokolások nem alapozzák meg megfelelően
+a három és fél éves határidő módosítást. Az 2024. évi I. IBJ státusz
+szerint 2023. év végén még tartható volt a határidő, úgy, hogy akkor még
+nem voltak legyártva az alkatrészek. A 2. és 3. blokkra vonatkozóan
+az átalakítási engedélykérelmet 2024. augusztusában nyújtották be, ahol
+a fenti indokokra való hivatkozás már megjelent. A vis major helyzetre 2024. év
+szeptemberében derült fény, és a halasztási kérelem 2025. júliusában került
+beadásra.
+
+Véleményem szerint az indokolás – egyrészt hiányos – másrészt teljes
+mértékben nem igazolható, hogy a kötelezetten kívül álló okok miatt
+szükséges a halasztás. A kért határidő igazolatlanul sok, szervezéssel
+hamarabb teljesíthető. A kért határidő ráadásul a következő Időszakos
+Biztonsági Felülvizsgálat után esik, mivel az NBSZ R. 40. § (1) bekezdése
+szerin *„Az Időszakos Biztonsági Felülvizsgálatot a nukleáris biztonsági
+hatóság határozattal zárja le, amelyet […] az előző felülvizsgálatot lezáró
+határozat kiadásától számított tíz év elteltével kell meghozni.”*
+(Konkrétan 2029. január 16.)
+
+
+# Határidő túllépés miatti határozat kiegészítés
+
+A határozat aláírása előtt az ügyintézési határidő letelt, ez
+a határozatban nem szerepel. Ezért kiegészítjük a határozatot és a díj
+megfizetéséről is intézkedünk.
+
+
+

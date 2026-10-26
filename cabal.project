@@ -1,5 +1,8 @@
 with-compiler: ghc-9.12.2
 
+multi-repl: True
+
+
 packages: .
 
 index-state: 2026-10-13T12:28:58Z
@@ -9,3 +12,10 @@ haddock-executables: True
 haddock-hyperlink-source: True
 
 haddock-output-dir: doc
+
+-- for development
+
+-- program-options
+--  ghc-options: +RTS -A64m -RTS
+
+optimization: False
