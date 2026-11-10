@@ -2,7 +2,10 @@
 module Worklog.Case
   ( -- * Case
     Case,
+    CaseDraft(..),
     newCase,
+    makeCase,
+    CaseError,
 
     -- ** Read only parameters
     getCaseTitle,
@@ -51,6 +54,7 @@ import Worklog.Attachment
 import Data.Time.Calendar
 import Data.Set (Set)
 import qualified Data.Set as Set
+import Data.Text (Text)
 
 -- | Indicates whether a case requires attention.
 -- Currently, every non-archived case is considered to need attention.
@@ -161,13 +165,29 @@ data Case = Case
     caseFlags :: Set CaseFlag,
     caseTodos :: [Todo],
     caseTasks :: [Task],
-    caseAttachments :: [Attachment]
+    caseAttachments :: [Attachment],
+    caseKeywords :: [Text]
   }
   deriving (Eq, Show)
 
 instance HasSummary Case where
   getSummary = caseSummary
   setSummary cas s = cas {caseSummary = s}
+
+data CaseDraft = Draft
+  { 
+  -- todo: The metadata from the workfile must be preserved
+    draftTitle :: String,
+    draftStatus :: Status,
+    draftDeadline :: Deadline,
+    draftSummary :: Summary,
+    draftFlags :: Set CaseFlag,
+    draftTodos :: [Todo],
+    draftTasks :: [Task],
+    draftAttachments :: [Attachment],
+    draftKeywords :: [Text]
+  }
+  deriving (Eq, Show)
 
 -- | Returns the case title without exposing a setter.
 getCaseTitle :: Case -> String
@@ -187,6 +207,11 @@ newCase title = Case
     caseTasks = [],
     caseAttachments = []
   }
+
+data CaseError = SomeError
+
+makeCase :: CaseDraft -> Either CaseError Case
+makeCase = undefined
 
 -- ToDo: ?set a lista helyett a todo és a task esetén?
 -- nem számít a sorrend, azonban a tárolni kell valahol

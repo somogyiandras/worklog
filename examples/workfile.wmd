@@ -1,17 +1,29 @@
 ---
-title: Paksi Atomerőmű Zrt. 2026. évi II. negyedéves jelentése
+title: Review of the quaterly report of client
 author: Somogyi András
 date: 2026.08.10.
+# Status information:
+# no info in YAML           -> OnDesk
+# closed: date, or anything -> Archived
+# deferred: date            -> Deferred date
+deferred: 2026.08.15. Until answer arrive
+# the parsed status will be: Deferred 2026 08 15
+registers:                  # any ID like info of the case
+- OAHAFO/318/2026           # It is a list
+- 3113-H199920/2026
+
+keywords: [rendszeres jelentés,KHM]
+
 ...
 
 ~~~
 Időszak:        2026. év II. negyedév
 Beadvány:       3113-H199920/2026, 199920/MO/2026
-Ügyirat:        OAHAFO/318-1/2026
+Ügyirat:        OAHAFO/318/2026
 Ügyintéző:      Hernádi László, Kató Balázs
 Beérkezés:      2026.08.05.
 Határidő:       60 nap, 2026.10.01. (KHM alapján)
-Felhívás:       
+Felhívás:       SIGN!
 Értékelés:      
 
 KHM-Beadvány:   3113-H197421/2026, 197421/MO/2026
@@ -22,7 +34,11 @@ Beérkezés:      2025.08.03.
 
 ::: todo :::
 ToDo: weblapot elkészíteni, feladatokat kiosztani
+
+Kiosztást a Notes rendszerben.
 :::::
+
+A feladatokat kiosztottam. WAIT!
 
 # Értékelés
 
@@ -80,3 +96,14 @@ ToDo: weblapot elkészíteni, feladatokat kiosztani
 
 ## Értékelések
 
+::: todo :::
+~~~
+Todo!:      Az értékeléseket         
+          ellenőrizni.
+~~~
+A weblapra is felrakni az értékeléseket
+:::::
+
+::: task :::
+Az értékeléseket ellenőrizni.
+:::::

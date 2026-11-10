@@ -10,6 +10,7 @@
 - [ ] List workfiles in order (deadline, rank)
 - [ ] Filter workfiles (status, deadline)
 - [ ] Create report
+- [ ] Date parsing in custom format (must be an option)
 
 ## Further development goals
 
@@ -22,6 +23,7 @@ Desired funcionality:
   - [ ] Custom workfiles
   - [ ] Open workfiles in editor/custom program
   - [ ] Preview files
+  - [ ] Search in workfiles (metadata as keywords, registers, Tasks, Todos)
 
 - [ ] Attachments:
 
@@ -141,7 +143,7 @@ parsing into this module.
   - [x] extension: `wmd`
 - [x] Decide one canonical CLI representation for the extension (`wmd`); the scanner may
       accept a leading dot as a convenience, but internally normalize it.
-- [ ] Return paths in deterministic order (sort discovered paths before returning).
+- [x] Return paths in deterministic order (sort discovered paths before returning).
 - [x] Keep the source path outside `Case`; path is application/index state, not a domain
       attribute of a case.
 - [x] Add focused tests for extension matching and recursive discovery.
@@ -152,13 +154,13 @@ parsing into this module.
 The exact extraction rules must be based on a real/anonymized workfile supplied outside
 the repository. Do not commit real workfiles containing case data.
 
-- [ ] Create `Worklog.Parser`.
+- [x] Create `Worklog.Reader`.
 - [ ] Define a parser API which reports the source file in parse errors.
 - [x] Introduce a Pandoc-based reader for Markdown workfiles (`Worklog.Reader`).
 - [ ] Propagate Pandoc read failures with the affected path rather than returning an empty document.
 - [ ] For the first parser milestone extract only the data required by the current CLI:
-  - [ ] case title
-  - [ ] case status: `OnDesk`, `Deferred`, `Archived`
+  - [x] case title
+  - [x] case status: `OnDesk`, `Deferred`, `Archived`
   - [ ] case deadline
   - [ ] `Todo` items
   - [ ] `Task` items

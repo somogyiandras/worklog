@@ -1,7 +1,6 @@
 -- | Filesystem utilities for discovering workfiles recursively.
 module Worklog.FileManager
   (
-    listDirsRecursively,
     findWorkFiles,
     checkExtension,
     checkName,
@@ -17,6 +16,7 @@ where
 import System.Directory
 import System.FilePath
 import Control.Monad (filterM, foldM)
+import Data.List (sort)
 
 -- ToDo: [FilePath] and [[String]
 data FileOptions = FileOptions
@@ -57,7 +57,8 @@ findWorkFiles :: FileOptions -> IO [FilePath]
 findWorkFiles fileopt =
   do
     start <- absDirList $ workingDirectory fileopt
-    go start []
+    listWorkFiles <- go start []
+    return $ sort listWorkFiles
   where
     go :: [FilePath] -> [FilePath] -> IO [FilePath]
     go [] acc = return acc
@@ -76,26 +77,6 @@ findWorkFiles fileopt =
             else
               go paths acc
 
--- todo: maybe delete
-listDirsRecursively :: FilePath -> IO [FilePath]
-listDirsRecursively dir =
-  do
-    wd <- absListDirs dir
-    go wd where
-      go :: [FilePath] -> IO [FilePath]
-      go [] = return []
-      go (path:paths) = do
-        isDir <- doesDirectoryExist path
-        if isDir
-          then do 
-            down <- absListDirs path
-            paths' <- go down
-            paths'' <- go paths
-            return (path : paths' ++ paths'')
-          else go paths
-
-
--- todo: merge these two functions
 absListDirs :: FilePath -> IO [FilePath]
 absListDirs wd = do
   awd <- makeAbsolute wd
@@ -123,8 +104,6 @@ splitDirsFiles =
       if isDir
         then return (path : dirs, files)
         else return (dirs, path : files)
-
-  
 
 absDirList :: FilePath -> IO [FilePath]
 absDirList wd = do

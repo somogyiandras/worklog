@@ -1,76 +1,667 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Worklog.Reader.html"><span class="hs-identifier">Worklog.Reader</span></a></span><span>
-</span><span id="line-2"></span><span>  </span><span class="hs-special">(</span><span>
-</span><span id="line-3"></span><span>    </span><span class="annot"><a href="Worklog.Reader.html#getTitle"><span class="hs-identifier">getTitle</span></a></span><span class="hs-special">,</span><span>
-</span><span id="line-4"></span><span>    </span><span class="annot"><a href="Worklog.Reader.html#getDoc"><span class="hs-identifier">getDoc</span></a></span><span>
-</span><span id="line-5"></span><span>  </span><span class="hs-special">)</span><span>
-</span><span id="line-6"></span><span class="hs-keyword">where</span><span>
-</span><span id="line-7"></span><span>
-</span><span id="line-8"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Worklog.Case.html"><span class="hs-identifier">Worklog.Case</span></a></span><span>
-</span><span id="line-9"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Text.Pandoc</span></span><span>
-</span><span id="line-10"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Text.Pandoc.Shared</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">stringifyInlines</span></span><span class="hs-special">)</span><span>
-</span><span id="line-11"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Control.Monad.IO.Class</span></span><span>
-</span><span id="line-12"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.Text</span></span><span> </span><span class="hs-keyword">qualified</span><span> </span><span class="hs-keyword">as</span><span> </span><span class="annot"><span class="hs-identifier">T</span></span><span>
-</span><span id="line-13"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.Text.IO</span></span><span> </span><span class="hs-keyword">qualified</span><span> </span><span class="hs-keyword">as</span><span> </span><span class="annot"><span class="hs-identifier">TIO</span></span><span>
-</span><span id="line-14"></span><span>
-</span><span id="line-15"></span><span class="annot"><a href="Worklog.Reader.html#pandocOptions"><span class="hs-identifier hs-type">pandocOptions</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">ReaderOptions</span></span><span>
-</span><span id="line-16"></span><span id="pandocOptions"><span class="annot"><span class="annottext">pandocOptions :: ReaderOptions
-</span><a href="Worklog.Reader.html#pandocOptions"><span class="hs-identifier hs-var hs-var">pandocOptions</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">ReaderOptions
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-pragma">{-# LANGUAGE OverloadedStrings #-}</span><span>
+</span><span id="line-2"></span><span class="hs-comment">-- | Read the workfile and collect all the information neccessary to create</span><span>
+</span><span id="line-3"></span><span class="hs-comment">-- Case.</span><span>
+</span><span id="line-4"></span><span class="hs-comment">-- </span><span>
+</span><span id="line-5"></span><span>
+</span><span id="line-6"></span><span class="hs-keyword">module</span><span> </span><span class="annot"><a href="Worklog.Reader.html"><span class="hs-identifier">Worklog.Reader</span></a></span><span>
+</span><span id="line-7"></span><span>  </span><span class="hs-special">(</span><span>
+</span><span id="line-8"></span><span>
+</span><span id="line-9"></span><span>    </span><span class="annot"><a href="Worklog.Reader.html#Doc"><span class="hs-identifier">Doc</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-10"></span><span>    </span><span class="annot"><span class="hs-comment">-- * Workfile readers</span></span><span>
+</span><span id="line-11"></span><span>    </span><span class="annot"><a href="Worklog.Reader.html#readFromMD"><span class="hs-identifier">readFromMD</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-12"></span><span>
+</span><span id="line-13"></span><span>    </span><span class="annot"><span class="hs-comment">-- * Collecting informations from the workfile</span></span><span>
+</span><span id="line-14"></span><span>    </span><span class="annot"><a href="Worklog.Reader.html#CollectedBlocks"><span class="hs-identifier">CollectedBlocks</span></a></span><span class="hs-special">(</span><span class="hs-glyph">..</span><span class="hs-special">)</span><span class="hs-special">,</span><span>
+</span><span id="line-15"></span><span>
+</span><span id="line-16"></span><span>    </span><span class="annot"><span class="hs-comment">-- ** - from meta</span></span><span>
+</span><span id="line-17"></span><span>    </span><span class="annot"><a href="Worklog.Reader.html#extractTitleFromMeta"><span class="hs-identifier">extractTitleFromMeta</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-18"></span><span>    </span><span class="annot"><a href="Worklog.Reader.html#parseMetaForStatus"><span class="hs-identifier">parseMetaForStatus</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-19"></span><span>    </span><span class="annot"><a href="Worklog.Reader.html#extractKeyWordsFromMeta"><span class="hs-identifier">extractKeyWordsFromMeta</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-20"></span><span>
+</span><span id="line-21"></span><span>    </span><span class="annot"><span class="hs-comment">-- ** - from text</span></span><span>
+</span><span id="line-22"></span><span>    </span><span class="annot"><a href="Worklog.Reader.html#extractFlagsFromText"><span class="hs-identifier">extractFlagsFromText</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-23"></span><span>
+</span><span id="line-24"></span><span>    </span><span class="annot"><span class="hs-comment">-- ** from Pandoc AST</span></span><span>
+</span><span id="line-25"></span><span>    </span><span class="annot"><a href="Worklog.Reader.html#collectFromAst"><span class="hs-identifier">collectFromAst</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-26"></span><span>
+</span><span id="line-27"></span><span>    </span><span class="annot"><span class="hs-comment">-- * Post-processing collected information</span></span><span>
+</span><span id="line-28"></span><span>    </span><span class="annot"><a href="Worklog.Reader.html#validateDraft"><span class="hs-identifier">validateDraft</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-29"></span><span>
+</span><span id="line-30"></span><span>    </span><span class="annot"><span class="hs-comment">-- * Utility functions</span></span><span>
+</span><span id="line-31"></span><span>    </span><span class="annot"><a href="Worklog.Reader.html#textifyBlock"><span class="hs-identifier">textifyBlock</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-32"></span><span>    </span><span class="annot"><a href="Worklog.Reader.html#textifyBlocks"><span class="hs-identifier">textifyBlocks</span></a></span><span class="hs-special">,</span><span>
+</span><span id="line-33"></span><span>  </span><span class="hs-special">)</span><span>
+</span><span id="line-34"></span><span class="hs-keyword">where</span><span>
+</span><span id="line-35"></span><span>
+</span><span id="line-36"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Worklog.Case.html"><span class="hs-identifier">Worklog.Case</span></a></span><span>
+</span><span id="line-37"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><a href="Worklog.Todo.html"><span class="hs-identifier">Worklog.Todo</span></a></span><span>
+</span><span id="line-38"></span><span class="hs-comment">-- import Worklog.Task</span><span>
+</span><span id="line-39"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Worklog.Implementation.Internal</span></span><span>
+</span><span id="line-40"></span><span>
+</span><span id="line-41"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Text.Pandoc</span></span><span>
+</span><span id="line-42"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Text.Pandoc.Shared</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">stringify</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">stringifyInlines</span></span><span class="hs-special">)</span><span>
+</span><span id="line-43"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Text.Pandoc.UTF8</span></span><span> </span><span class="hs-keyword">qualified</span><span> </span><span class="hs-keyword">as</span><span> </span><span class="annot"><span class="hs-identifier">U8</span></span><span>
+</span><span id="line-44"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Text.Pandoc.Walk</span></span><span>
+</span><span id="line-45"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Control.Monad.IO.Class</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">liftIO</span></span><span class="hs-special">)</span><span>
+</span><span id="line-46"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Text.Parsec</span></span><span>
+</span><span id="line-47"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.Text</span></span><span> </span><span class="hs-keyword">qualified</span><span> </span><span class="hs-keyword">as</span><span> </span><span class="annot"><span class="hs-identifier">T</span></span><span>
+</span><span id="line-48"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.Text</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">Text</span></span><span class="hs-special">)</span><span>
+</span><span id="line-49"></span><span class="hs-comment">-- import Data.Text.IO qualified as TIO</span><span>
+</span><span id="line-50"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.Time.Calendar</span></span><span>
+</span><span id="line-51"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.Set</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">Set</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">fromList</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">empty</span></span><span class="hs-special">)</span><span>
+</span><span id="line-52"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.Either</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">fromRight</span></span><span class="hs-special">)</span><span>
+</span><span id="line-53"></span><span class="hs-comment">-- import Data.Set qualified as Set</span><span>
+</span><span id="line-54"></span><span class="hs-comment">-- import Data.Maybe (maybe)</span><span>
+</span><span id="line-55"></span><span class="hs-comment">-- import Data.Functor (($&gt;))</span><span>
+</span><span id="line-56"></span><span class="hs-comment">-- import Control.Arrow (arr, (&amp;&amp;&amp;))</span><span>
+</span><span id="line-57"></span><span>
+</span><span id="line-58"></span><span class="hs-keyword">type</span><span> </span><span id="Doc"><span class="annot"><a href="Worklog.Reader.html#Doc"><span class="hs-identifier hs-var">Doc</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Pandoc</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Text</span></span><span class="hs-special">)</span><span>
+</span><span id="line-59"></span><span>
+</span><span id="line-60"></span><span class="hs-keyword">data</span><span> </span><span id="ParsingErrors"><span class="annot"><a href="Worklog.Reader.html#ParsingErrors"><span class="hs-identifier hs-var">ParsingErrors</span></a></span></span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-61"></span><span>    </span><span id="DocumentHasNoTitle"><span class="annot"><a href="Worklog.Reader.html#DocumentHasNoTitle"><span class="hs-identifier hs-var">DocumentHasNoTitle</span></a></span></span><span>
+</span><span id="line-62"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span id="ErrorInDeferredDate"><span class="annot"><a href="Worklog.Reader.html#ErrorInDeferredDate"><span class="hs-identifier hs-var">ErrorInDeferredDate</span></a></span></span><span>
+</span><span id="line-63"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679141675"><span id="local-6989586621679141680"><span class="annot"><span class="annottext">ParsingErrors -&gt; ParsingErrors -&gt; Bool
+(ParsingErrors -&gt; ParsingErrors -&gt; Bool)
+-&gt; (ParsingErrors -&gt; ParsingErrors -&gt; Bool) -&gt; Eq ParsingErrors
+forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
+$c== :: ParsingErrors -&gt; ParsingErrors -&gt; Bool
+== :: ParsingErrors -&gt; ParsingErrors -&gt; Bool
+$c/= :: ParsingErrors -&gt; ParsingErrors -&gt; Bool
+/= :: ParsingErrors -&gt; ParsingErrors -&gt; Bool
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679141685"><span id="local-6989586621679141687"><span id="local-6989586621679141691"><span class="annot"><span class="annottext">Int -&gt; ParsingErrors -&gt; ShowS
+[ParsingErrors] -&gt; ShowS
+ParsingErrors -&gt; String
+(Int -&gt; ParsingErrors -&gt; ShowS)
+-&gt; (ParsingErrors -&gt; String)
+-&gt; ([ParsingErrors] -&gt; ShowS)
+-&gt; Show ParsingErrors
+forall a.
+(Int -&gt; a -&gt; ShowS) -&gt; (a -&gt; String) -&gt; ([a] -&gt; ShowS) -&gt; Show a
+$cshowsPrec :: Int -&gt; ParsingErrors -&gt; ShowS
+showsPrec :: Int -&gt; ParsingErrors -&gt; ShowS
+$cshow :: ParsingErrors -&gt; String
+show :: ParsingErrors -&gt; String
+$cshowList :: [ParsingErrors] -&gt; ShowS
+showList :: [ParsingErrors] -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-64"></span><span>
+</span><span id="line-65"></span><span class="hs-comment">-- From GHC.Utils.Misc, but flipped</span><span>
+</span><span id="line-66"></span><span id="local-6989586621679141483"><span class="annot"><a href="Worklog.Reader.html#filterByList"><span class="hs-identifier hs-type">filterByList</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="#local-6989586621679141483"><span class="hs-identifier hs-type">a</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="#local-6989586621679141483"><span class="hs-identifier hs-type">a</span></a></span><span class="hs-special">]</span></span><span>
+</span><span id="line-67"></span><span id="filterByList"><span class="annot"><span class="annottext">filterByList :: forall a. [a] -&gt; [Bool] -&gt; [a]
+</span><a href="Worklog.Reader.html#filterByList"><span class="hs-identifier hs-var hs-var">filterByList</span></a></span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679141696"><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679141696"><span class="hs-identifier hs-var">x</span></a></span></span><span> </span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span> </span><span id="local-6989586621679141697"><span class="annot"><span class="annottext">[a]
+</span><a href="#local-6989586621679141697"><span class="hs-identifier hs-var">xs</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Bool
+</span><span class="hs-identifier hs-var">True</span></span><span> </span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span> </span><span id="local-6989586621679141698"><span class="annot"><span class="annottext">[Bool]
+</span><a href="#local-6989586621679141698"><span class="hs-identifier hs-var">bs</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">a
+</span><a href="#local-6989586621679141696"><span class="hs-identifier hs-var">x</span></a></span><span> </span><span class="annot"><span class="annottext">a -&gt; [a] -&gt; [a]
+forall a. a -&gt; [a] -&gt; [a]
+</span><span class="hs-glyph hs-var">:</span></span><span> </span><span class="annot"><span class="annottext">[a] -&gt; [Bool] -&gt; [a]
+forall a. [a] -&gt; [Bool] -&gt; [a]
+</span><a href="Worklog.Reader.html#filterByList"><span class="hs-identifier hs-var">filterByList</span></a></span><span> </span><span class="annot"><span class="annottext">[a]
+</span><a href="#local-6989586621679141697"><span class="hs-identifier hs-var">xs</span></a></span><span> </span><span class="annot"><span class="annottext">[Bool]
+</span><a href="#local-6989586621679141698"><span class="hs-identifier hs-var">bs</span></a></span><span>
+</span><span id="line-68"></span><span class="annot"><a href="Worklog.Reader.html#filterByList"><span class="hs-identifier hs-var">filterByList</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">a
+</span><span class="hs-identifier">_</span></span><span> </span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span> </span><span id="local-6989586621679141699"><span class="annot"><span class="annottext">[a]
+</span><a href="#local-6989586621679141699"><span class="hs-identifier hs-var">xs</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Bool
+</span><span class="hs-identifier hs-var">False</span></span><span> </span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span> </span><span id="local-6989586621679141700"><span class="annot"><span class="annottext">[Bool]
+</span><a href="#local-6989586621679141700"><span class="hs-identifier hs-var">bs</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[a] -&gt; [Bool] -&gt; [a]
+forall a. [a] -&gt; [Bool] -&gt; [a]
+</span><a href="Worklog.Reader.html#filterByList"><span class="hs-identifier hs-var">filterByList</span></a></span><span> </span><span class="annot"><span class="annottext">[a]
+</span><a href="#local-6989586621679141699"><span class="hs-identifier hs-var">xs</span></a></span><span> </span><span class="annot"><span class="annottext">[Bool]
+</span><a href="#local-6989586621679141700"><span class="hs-identifier hs-var">bs</span></a></span><span>
+</span><span id="line-69"></span><span class="annot"><a href="Worklog.Reader.html#filterByList"><span class="hs-identifier hs-var">filterByList</span></a></span><span> </span><span class="annot"><span class="annottext">[a]
+</span><span class="hs-identifier">_</span></span><span> </span><span class="annot"><span class="annottext">[Bool]
+</span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span>
+</span><span id="line-70"></span><span>
+</span><span id="line-71"></span><span class="annot"><a href="Worklog.Reader.html#pandocReaderOptions"><span class="hs-identifier hs-type">pandocReaderOptions</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">ReaderOptions</span></span><span>
+</span><span id="line-72"></span><span id="pandocReaderOptions"><span class="annot"><span class="annottext">pandocReaderOptions :: ReaderOptions
+</span><a href="Worklog.Reader.html#pandocReaderOptions"><span class="hs-identifier hs-var hs-var">pandocReaderOptions</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">ReaderOptions
 forall a. Default a =&gt; a
 </span><span class="hs-identifier hs-var">def</span></span><span> </span><span class="hs-special">{</span><span> </span><span class="annot"><span class="hs-identifier hs-var">readerExtensions</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="hs-identifier hs-type">pandocExtensions</span></span><span> </span><span class="hs-special">}</span><span>
-</span><span id="line-17"></span><span>
-</span><span id="line-18"></span><span>
-</span><span id="line-19"></span><span class="annot"><a href="Worklog.Reader.html#getTitle"><span class="hs-identifier hs-type">getTitle</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Pandoc</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Maybe</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">String</span></span><span>
-</span><span id="line-20"></span><span id="getTitle"><span class="annot"><span class="annottext">getTitle :: Pandoc -&gt; Maybe String
-</span><a href="Worklog.Reader.html#getTitle"><span class="hs-identifier hs-var hs-var">getTitle</span></a></span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Pandoc</span></span><span> </span><span id="local-6989586621679137758"><span class="annot"><span class="annottext">Meta
-</span><a href="#local-6989586621679137758"><span class="hs-identifier hs-var">meta</span></a></span></span><span> </span><span class="annot"><span class="annottext">[Block]
-</span><span class="hs-identifier">_</span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span>
-</span><span id="line-21"></span><span>  </span><span class="hs-keyword">case</span><span>  </span><span class="annot"><span class="annottext">Meta -&gt; [Inline]
+</span><span id="line-73"></span><span>
+</span><span id="line-74"></span><span class="hs-comment">-- | Returns the title based on the meta values of the pandoc transformed workfile</span><span>
+</span><span id="line-75"></span><span class="hs-comment">-- There is no error if the title is empty</span><span>
+</span><span id="line-76"></span><span class="annot"><a href="Worklog.Reader.html#extractTitleFromMeta"><span class="hs-identifier hs-type">extractTitleFromMeta</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Reader.html#Doc"><span class="hs-identifier hs-type">Doc</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Text</span></span><span>
+</span><span id="line-77"></span><span id="extractTitleFromMeta"><span class="annot"><span class="annottext">extractTitleFromMeta :: Doc -&gt; Text
+</span><a href="Worklog.Reader.html#extractTitleFromMeta"><span class="hs-identifier hs-var hs-var">extractTitleFromMeta</span></a></span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Pandoc</span></span><span> </span><span id="local-6989586621679141706"><span class="annot"><span class="annottext">Meta
+</span><a href="#local-6989586621679141706"><span class="hs-identifier hs-var">meta</span></a></span></span><span> </span><span class="annot"><span class="annottext">[Block]
+</span><span class="hs-identifier">_</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span class="hs-identifier">_</span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Inline] -&gt; Text
+forall (t :: * -&gt; *). Foldable t =&gt; t Inline -&gt; Text
+</span><span class="hs-identifier hs-var">stringifyInlines</span></span><span> </span><span class="annot"><span class="annottext">([Inline] -&gt; Text) -&gt; [Inline] -&gt; Text
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Meta -&gt; [Inline]
 </span><span class="hs-identifier hs-var">docTitle</span></span><span> </span><span class="annot"><span class="annottext">Meta
-</span><a href="#local-6989586621679137758"><span class="hs-identifier hs-var">meta</span></a></span><span> </span><span class="hs-keyword">of</span><span>
-</span><span id="line-22"></span><span>    </span><span class="hs-special">[</span><span class="hs-special">]</span><span>  </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Maybe String
-forall a. Maybe a
-</span><span class="hs-identifier hs-var">Nothing</span></span><span>
-</span><span id="line-23"></span><span>    </span><span id="local-6989586621679137760"><span class="annot"><span class="annottext">[Inline]
-</span><a href="#local-6989586621679137760"><span class="hs-identifier hs-var">inlines</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">String -&gt; Maybe String
-forall a. a -&gt; Maybe a
-</span><span class="hs-identifier hs-var">Just</span></span><span> </span><span class="annot"><span class="annottext">(String -&gt; Maybe String) -&gt; String -&gt; Maybe String
+</span><a href="#local-6989586621679141706"><span class="hs-identifier hs-var">meta</span></a></span><span>
+</span><span id="line-78"></span><span>
+</span><span id="line-79"></span><span class="hs-comment">-- | Status information is metadata field.</span><span>
+</span><span id="line-80"></span><span class="hs-comment">-- key = &quot;closed&quot; value = _ means Archived 'Status' value, the case is closed</span><span>
+</span><span id="line-81"></span><span class="hs-comment">-- key = &quot;deferred&quot; value = date in yyyy.mm.dd. format, where the separator</span><span>
+</span><span id="line-82"></span><span class="hs-comment">-- can be '.', '/' or '-'. The last separator is optional. Then the case is deferred</span><span>
+</span><span id="line-83"></span><span class="hs-comment">-- untill the given date.</span><span>
+</span><span id="line-84"></span><span class="hs-comment">-- If there is no key values of the above, then the 'Status' is OnDesk</span><span>
+</span><span id="line-85"></span><span class="hs-comment">-- There can be parsing error in the date, then return Left ParsingError</span><span>
+</span><span id="line-86"></span><span class="annot"><a href="Worklog.Reader.html#parseMetaForStatus"><span class="hs-identifier hs-type">parseMetaForStatus</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Reader.html#Doc"><span class="hs-identifier hs-type">Doc</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Either</span></span><span> </span><span class="annot"><a href="Worklog.Reader.html#ParsingErrors"><span class="hs-identifier hs-type">ParsingErrors</span></a></span><span> </span><span class="annot"><a href="Worklog.Case.html#Status"><span class="hs-identifier hs-type">Status</span></a></span><span>
+</span><span id="line-87"></span><span id="parseMetaForStatus"><span class="annot"><span class="annottext">parseMetaForStatus :: Doc -&gt; Either ParsingErrors Status
+</span><a href="Worklog.Reader.html#parseMetaForStatus"><span class="hs-identifier hs-var hs-var">parseMetaForStatus</span></a></span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Pandoc</span></span><span> </span><span id="local-6989586621679141710"><span class="annot"><span class="annottext">Meta
+</span><a href="#local-6989586621679141710"><span class="hs-identifier hs-var">meta</span></a></span></span><span> </span><span class="annot"><span class="annottext">[Block]
+</span><span class="hs-identifier">_</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span class="hs-identifier">_</span></span><span class="hs-special">)</span><span>
+</span><span id="line-88"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Just</span></span><span> </span><span class="annot"><span class="annottext">MetaValue
+</span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; Meta -&gt; Maybe MetaValue
+</span><span class="hs-identifier hs-var">lookupMeta</span></span><span> </span><span class="annot"><span class="annottext">Text
+</span><span class="hs-string">&quot;closed&quot;</span></span><span> </span><span class="annot"><span class="annottext">Meta
+</span><a href="#local-6989586621679141710"><span class="hs-identifier hs-var">meta</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Status -&gt; Either ParsingErrors Status
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="annot"><span class="annottext">Status
+</span><a href="Worklog.Case.html#Archived"><span class="hs-identifier hs-var">Archived</span></a></span><span>
+</span><span id="line-89"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Just</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">MetaInlines</span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679141714"><span class="annot"><span class="annottext">Inline
+</span><a href="#local-6989586621679141714"><span class="hs-identifier hs-var">dateString</span></a></span></span><span class="annot"><span class="hs-glyph hs-type">:</span></span><span class="annot"><span class="annottext">[Inline]
+</span><span class="hs-identifier">_</span></span><span class="hs-special">)</span><span class="hs-special">)</span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">Text -&gt; Meta -&gt; Maybe MetaValue
+</span><span class="hs-identifier hs-var">lookupMeta</span></span><span> </span><span class="annot"><span class="annottext">Text
+</span><span class="hs-string">&quot;deferred&quot;</span></span><span> </span><span class="annot"><span class="annottext">Meta
+</span><a href="#local-6989586621679141710"><span class="hs-identifier hs-var">meta</span></a></span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-90"></span><span>    </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="annottext">Parsec Text () (Integer, Int, Int)
+-&gt; String -&gt; Text -&gt; Either ParseError (Integer, Int, Int)
+forall s t a.
+Stream s Identity t =&gt;
+Parsec s () a -&gt; String -&gt; s -&gt; Either ParseError a
+</span><span class="hs-identifier hs-var">parse</span></span><span> </span><span class="annot"><span class="annottext">Parsec Text () (Integer, Int, Int)
+forall s (m :: * -&gt; *) u.
+Stream s m Char =&gt;
+ParsecT s u m (Integer, Int, Int)
+</span><a href="#local-6989586621679141716"><span class="hs-identifier hs-var">dateParser</span></a></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;&quot;</span></span><span> </span><span class="annot"><span class="annottext">(Text -&gt; Either ParseError (Integer, Int, Int))
+-&gt; Text -&gt; Either ParseError (Integer, Int, Int)
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Inline -&gt; Text
+forall a. Walkable Inline a =&gt; a -&gt; Text
+</span><span class="hs-identifier hs-var">stringify</span></span><span> </span><span class="annot"><span class="annottext">Inline
+</span><a href="#local-6989586621679141714"><span class="hs-identifier hs-var">dateString</span></a></span><span> </span><span class="hs-keyword">of</span><span>
+</span><span id="line-91"></span><span>      </span><span class="annot"><span class="hs-identifier hs-type">Left</span></span><span> </span><span class="annot"><span class="annottext">ParseError
+</span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">ParsingErrors -&gt; Either ParsingErrors Status
+forall a b. a -&gt; Either a b
+</span><span class="hs-identifier hs-var">Left</span></span><span> </span><span class="annot"><span class="annottext">ParsingErrors
+</span><a href="Worklog.Reader.html#ErrorInDeferredDate"><span class="hs-identifier hs-var">ErrorInDeferredDate</span></a></span><span>
+</span><span id="line-92"></span><span>      </span><span class="annot"><span class="hs-identifier hs-type">Right</span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679141717"><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679141717"><span class="hs-identifier hs-var">year</span></a></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679141718"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679141718"><span class="hs-identifier hs-var">month</span></a></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679141719"><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679141719"><span class="hs-identifier hs-var">day</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Status -&gt; Either ParsingErrors Status
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="annot"><span class="annottext">(Status -&gt; Either ParsingErrors Status)
+-&gt; Status -&gt; Either ParsingErrors Status
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Day -&gt; Status
+</span><a href="Worklog.Case.html#Deferred"><span class="hs-identifier hs-var">Deferred</span></a></span><span> </span><span class="annot"><span class="annottext">(Day -&gt; Status) -&gt; Day -&gt; Status
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Integer -&gt; Int -&gt; Int -&gt; Day
+</span><span class="hs-identifier hs-var">fromGregorian</span></span><span> </span><span class="annot"><span class="annottext">Integer
+</span><a href="#local-6989586621679141717"><span class="hs-identifier hs-var">year</span></a></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679141718"><span class="hs-identifier hs-var">month</span></a></span><span> </span><span class="annot"><span class="annottext">Int
+</span><a href="#local-6989586621679141719"><span class="hs-identifier hs-var">day</span></a></span><span>
+</span><span id="line-93"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Bool
+</span><span class="hs-identifier hs-var">otherwise</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Status -&gt; Either ParsingErrors Status
+forall a b. b -&gt; Either a b
+</span><span class="hs-identifier hs-var">Right</span></span><span> </span><span class="annot"><span class="annottext">Status
+</span><a href="Worklog.Case.html#OnDesk"><span class="hs-identifier hs-var">OnDesk</span></a></span><span>
+</span><span id="line-94"></span><span>  </span><span class="hs-keyword">where</span><span>
+</span><span id="line-95"></span><span>    </span><span id="local-6989586621679141510"><span id="local-6989586621679141511"><span id="local-6989586621679141512"><span id="local-6989586621679141513"><span class="annot"><a href="#local-6989586621679141723"><span class="hs-identifier hs-type">number</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Read</span></span><span> </span><span class="annot"><a href="#local-6989586621679141510"><span class="hs-identifier hs-type">b</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Stream</span></span><span> </span><span class="annot"><a href="#local-6989586621679141511"><span class="hs-identifier hs-type">s</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679141512"><span class="hs-identifier hs-type">m</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Char</span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">ParsecT</span></span><span> </span><span class="annot"><a href="#local-6989586621679141511"><span class="hs-identifier hs-type">s</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679141513"><span class="hs-identifier hs-type">u</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679141512"><span class="hs-identifier hs-type">m</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679141510"><span class="hs-identifier hs-type">b</span></a></span></span></span></span></span><span>
+</span><span id="line-96"></span><span>    </span><span id="local-6989586621679141723"><span class="annot"><span class="annottext">number :: forall b s (m :: * -&gt; *) u.
+(Read b, Stream s m Char) =&gt;
+ParsecT s u m b
+</span><a href="#local-6989586621679141723"><span class="hs-identifier hs-var hs-var">number</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">String -&gt; b
+forall a. Read a =&gt; String -&gt; a
+</span><span class="hs-identifier hs-var">read</span></span><span> </span><span class="annot"><span class="annottext">(String -&gt; b) -&gt; ParsecT s u m String -&gt; ParsecT s u m b
+forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
+</span><span class="hs-operator hs-var">&lt;$&gt;</span></span><span> </span><span class="annot"><span class="annottext">ParsecT s u m Char -&gt; ParsecT s u m String
+forall s u (m :: * -&gt; *) a. ParsecT s u m a -&gt; ParsecT s u m [a]
+</span><span class="hs-identifier hs-var">many1</span></span><span> </span><span class="annot"><span class="annottext">ParsecT s u m Char
+forall s (m :: * -&gt; *) u. Stream s m Char =&gt; ParsecT s u m Char
+</span><span class="hs-identifier hs-var">digit</span></span><span>
+</span><span id="line-97"></span><span>
+</span><span id="line-98"></span><span>    </span><span id="local-6989586621679141504"><span id="local-6989586621679141505"><span id="local-6989586621679141506"><span class="annot"><a href="#local-6989586621679141716"><span class="hs-identifier hs-type">dateParser</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Stream</span></span><span> </span><span class="annot"><a href="#local-6989586621679141504"><span class="hs-identifier hs-type">s</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679141505"><span class="hs-identifier hs-type">m</span></a></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Char</span></span><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">ParsecT</span></span><span> </span><span class="annot"><a href="#local-6989586621679141504"><span class="hs-identifier hs-type">s</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679141506"><span class="hs-identifier hs-type">u</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679141505"><span class="hs-identifier hs-type">m</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Integer</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">)</span></span></span></span><span>
+</span><span id="line-99"></span><span>    </span><span id="local-6989586621679141716"><span class="annot"><span class="annottext">dateParser :: forall s (m :: * -&gt; *) u.
+Stream s m Char =&gt;
+ParsecT s u m (Integer, Int, Int)
+</span><a href="#local-6989586621679141716"><span class="hs-identifier hs-var hs-var">dateParser</span></a></span></span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-100"></span><span>      </span><span class="hs-special">(</span><span class="hs-special">,</span><span class="hs-special">,</span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">(Integer -&gt; Int -&gt; Int -&gt; (Integer, Int, Int))
+-&gt; ParsecT s u m Integer
+-&gt; ParsecT s u m (Int -&gt; Int -&gt; (Integer, Int, Int))
+forall (f :: * -&gt; *) a b. Functor f =&gt; (a -&gt; b) -&gt; f a -&gt; f b
+</span><span class="hs-operator hs-var">&lt;$&gt;</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">ParsecT s u m Integer
+forall b s (m :: * -&gt; *) u.
+(Read b, Stream s m Char) =&gt;
+ParsecT s u m b
+</span><a href="#local-6989586621679141723"><span class="hs-identifier hs-var">number</span></a></span><span> </span><span class="annot"><span class="annottext">ParsecT s u m Integer
+-&gt; ParsecT s u m Char -&gt; ParsecT s u m Integer
+forall a b. ParsecT s u m a -&gt; ParsecT s u m b -&gt; ParsecT s u m a
+forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
+</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">String -&gt; ParsecT s u m Char
+forall s (m :: * -&gt; *) u.
+Stream s m Char =&gt;
+String -&gt; ParsecT s u m Char
+</span><span class="hs-identifier hs-var">oneOf</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;.-/&quot;</span></span><span class="hs-special">)</span><span>
+</span><span id="line-101"></span><span>           </span><span class="annot"><span class="annottext">ParsecT s u m (Int -&gt; Int -&gt; (Integer, Int, Int))
+-&gt; ParsecT s u m Int -&gt; ParsecT s u m (Int -&gt; (Integer, Int, Int))
+forall a b.
+ParsecT s u m (a -&gt; b) -&gt; ParsecT s u m a -&gt; ParsecT s u m b
+forall (f :: * -&gt; *) a b. Applicative f =&gt; f (a -&gt; b) -&gt; f a -&gt; f b
+</span><span class="hs-operator hs-var">&lt;*&gt;</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">ParsecT s u m Int
+forall b s (m :: * -&gt; *) u.
+(Read b, Stream s m Char) =&gt;
+ParsecT s u m b
+</span><a href="#local-6989586621679141723"><span class="hs-identifier hs-var">number</span></a></span><span> </span><span class="annot"><span class="annottext">ParsecT s u m Int -&gt; ParsecT s u m Char -&gt; ParsecT s u m Int
+forall a b. ParsecT s u m a -&gt; ParsecT s u m b -&gt; ParsecT s u m a
+forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
+</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">String -&gt; ParsecT s u m Char
+forall s (m :: * -&gt; *) u.
+Stream s m Char =&gt;
+String -&gt; ParsecT s u m Char
+</span><span class="hs-identifier hs-var">oneOf</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;.-/&quot;</span></span><span class="hs-special">)</span><span>
+</span><span id="line-102"></span><span>           </span><span class="annot"><span class="annottext">ParsecT s u m (Int -&gt; (Integer, Int, Int))
+-&gt; ParsecT s u m Int -&gt; ParsecT s u m (Integer, Int, Int)
+forall a b.
+ParsecT s u m (a -&gt; b) -&gt; ParsecT s u m a -&gt; ParsecT s u m b
+forall (f :: * -&gt; *) a b. Applicative f =&gt; f (a -&gt; b) -&gt; f a -&gt; f b
+</span><span class="hs-operator hs-var">&lt;*&gt;</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">ParsecT s u m Int
+forall b s (m :: * -&gt; *) u.
+(Read b, Stream s m Char) =&gt;
+ParsecT s u m b
+</span><a href="#local-6989586621679141723"><span class="hs-identifier hs-var">number</span></a></span><span> </span><span class="annot"><span class="annottext">ParsecT s u m Int -&gt; ParsecT s u m () -&gt; ParsecT s u m Int
+forall a b. ParsecT s u m a -&gt; ParsecT s u m b -&gt; ParsecT s u m a
+forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
+</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">ParsecT s u m Char -&gt; ParsecT s u m ()
+forall s (m :: * -&gt; *) t u a.
+Stream s m t =&gt;
+ParsecT s u m a -&gt; ParsecT s u m ()
+</span><span class="hs-identifier hs-var">optional</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">String -&gt; ParsecT s u m Char
+forall s (m :: * -&gt; *) u.
+Stream s m Char =&gt;
+String -&gt; ParsecT s u m Char
+</span><span class="hs-identifier hs-var">oneOf</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;.-/&quot;</span></span><span class="hs-special">)</span><span class="hs-special">)</span><span>
+</span><span id="line-103"></span><span>           </span><span class="annot"><span class="annottext">ParsecT s u m (Integer, Int, Int)
+-&gt; ParsecT s u m () -&gt; ParsecT s u m (Integer, Int, Int)
+forall a b. ParsecT s u m a -&gt; ParsecT s u m b -&gt; ParsecT s u m a
+forall (f :: * -&gt; *) a b. Applicative f =&gt; f a -&gt; f b -&gt; f a
+</span><span class="hs-operator hs-var">&lt;*</span></span><span> </span><span class="annot"><span class="annottext">ParsecT s u m ()
+forall s (m :: * -&gt; *) t u.
+(Stream s m t, Show t) =&gt;
+ParsecT s u m ()
+</span><span class="hs-identifier hs-var">eof</span></span><span>
+</span><span id="line-104"></span><span>
+</span><span id="line-105"></span><span class="hs-comment">-- | Flag information is boolean. Flag is true, if the raw text of the workfile</span><span>
+</span><span id="line-106"></span><span class="hs-comment">-- contains the corresponding text at least once. There is no error, flags can be empty.</span><span>
+</span><span id="line-107"></span><span class="annot"><a href="Worklog.Reader.html#extractFlagsFromText"><span class="hs-identifier hs-type">extractFlagsFromText</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Reader.html#Doc"><span class="hs-identifier hs-type">Doc</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Set</span></span><span> </span><span class="annot"><a href="Worklog.Case.html#CaseFlag"><span class="hs-identifier hs-type">CaseFlag</span></a></span><span>
+</span><span id="line-108"></span><span id="extractFlagsFromText"><span class="annot"><span class="annottext">extractFlagsFromText :: Doc -&gt; Set CaseFlag
+</span><a href="Worklog.Reader.html#extractFlagsFromText"><span class="hs-identifier hs-var hs-var">extractFlagsFromText</span></a></span></span><span> </span><span id="local-6989586621679141762"><span class="annot"><span class="annottext">Doc
+</span><a href="#local-6989586621679141762"><span class="hs-identifier hs-var">doc</span></a></span></span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-109"></span><span>  </span><span class="hs-keyword">let</span><span>
+</span><span id="line-110"></span><span>    </span><span id="local-6989586621679141763"><span class="annot"><span class="annottext">scansResult :: [Bool]
+</span><a href="#local-6989586621679141763"><span class="hs-identifier hs-var hs-var">scansResult</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">((Doc -&gt; Bool) -&gt; Bool) -&gt; [Doc -&gt; Bool] -&gt; [Bool]
+forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
+</span><span class="hs-identifier hs-var">map</span></span><span> </span><span class="hs-special">(</span><span> </span><span class="annot"><span class="annottext">(Doc -&gt; Bool) -&gt; Doc -&gt; Bool
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Doc
+</span><a href="#local-6989586621679141762"><span class="hs-identifier hs-var">doc</span></a></span><span class="hs-special">)</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Doc -&gt; Bool
+forall {a}. (a, Text) -&gt; Bool
+</span><a href="#local-6989586621679141764"><span class="hs-identifier hs-var">scanWaiting</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Doc -&gt; Bool
+forall {a}. (a, Text) -&gt; Bool
+</span><a href="#local-6989586621679141765"><span class="hs-identifier hs-var">scanManager</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Doc -&gt; Bool
+forall {a}. (a, Text) -&gt; Bool
+</span><a href="#local-6989586621679141766"><span class="hs-identifier hs-var">scanPending</span></a></span><span class="hs-special">]</span><span>
+</span><span id="line-111"></span><span>    </span><span id="local-6989586621679141767"><span class="annot"><span class="annottext">flagsFound :: [CaseFlag]
+</span><a href="#local-6989586621679141767"><span class="hs-identifier hs-var hs-var">flagsFound</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">CaseFlag
+</span><a href="Worklog.Case.html#Waiting"><span class="hs-identifier hs-var">Waiting</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">CaseFlag
+</span><a href="Worklog.Case.html#NeedsManager"><span class="hs-identifier hs-var">NeedsManager</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">CaseFlag
+</span><a href="Worklog.Case.html#ApprovalPending"><span class="hs-identifier hs-var">ApprovalPending</span></a></span><span class="hs-special">]</span><span> </span><span class="annot"><span class="annottext">[CaseFlag] -&gt; [Bool] -&gt; [CaseFlag]
+forall a. [a] -&gt; [Bool] -&gt; [a]
+</span><a href="Worklog.Reader.html#filterByList"><span class="hs-operator hs-var">`filterByList`</span></a></span><span> </span><span class="annot"><span class="annottext">[Bool]
+</span><a href="#local-6989586621679141763"><span class="hs-identifier hs-var">scansResult</span></a></span><span>
+</span><span id="line-112"></span><span>  </span><span class="hs-keyword">in</span><span> </span><span class="annot"><span class="annottext">[CaseFlag] -&gt; Set CaseFlag
+forall a. Ord a =&gt; [a] -&gt; Set a
+</span><span class="hs-identifier hs-var">fromList</span></span><span> </span><span class="annot"><span class="annottext">[CaseFlag]
+</span><a href="#local-6989586621679141767"><span class="hs-identifier hs-var">flagsFound</span></a></span><span>
+</span><span id="line-113"></span><span>  </span><span class="hs-keyword">where</span><span>
+</span><span id="line-114"></span><span>    </span><span id="local-6989586621679141764"><span class="annot"><span class="annottext">scanWaiting :: (a, Text) -&gt; Bool
+</span><a href="#local-6989586621679141764"><span class="hs-identifier hs-var hs-var">scanWaiting</span></a></span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">a
+</span><span class="hs-identifier">_</span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679141772"><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679141772"><span class="hs-identifier hs-var">text</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span class="hs-string">&quot;WAIT!&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Text -&gt; Bool
+</span><span class="hs-operator hs-var">`T.isInfixOf`</span></span><span> </span><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679141772"><span class="hs-identifier hs-var">text</span></a></span><span>
+</span><span id="line-115"></span><span>    </span><span id="local-6989586621679141765"><span class="annot"><span class="annottext">scanManager :: (a, Text) -&gt; Bool
+</span><a href="#local-6989586621679141765"><span class="hs-identifier hs-var hs-var">scanManager</span></a></span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">a
+</span><span class="hs-identifier">_</span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679141775"><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679141775"><span class="hs-identifier hs-var">text</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span class="hs-string">&quot;BOSS!&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Text -&gt; Bool
+</span><span class="hs-operator hs-var">`T.isInfixOf`</span></span><span> </span><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679141775"><span class="hs-identifier hs-var">text</span></a></span><span>
+</span><span id="line-116"></span><span>    </span><span id="local-6989586621679141766"><span class="annot"><span class="annottext">scanPending :: (a, Text) -&gt; Bool
+</span><a href="#local-6989586621679141766"><span class="hs-identifier hs-var hs-var">scanPending</span></a></span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">a
+</span><span class="hs-identifier">_</span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679141777"><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679141777"><span class="hs-identifier hs-var">text</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span class="hs-string">&quot;SIGN!&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; Text -&gt; Bool
+</span><span class="hs-operator hs-var">`T.isInfixOf`</span></span><span> </span><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679141777"><span class="hs-identifier hs-var">text</span></a></span><span>
+</span><span id="line-117"></span><span>
+</span><span id="line-118"></span><span class="hs-comment">-- | The metadata block can contain a keywords key, with an array value.</span><span>
+</span><span id="line-119"></span><span class="hs-comment">-- Theese are the case keywords.</span><span>
+</span><span id="line-120"></span><span class="annot"><a href="Worklog.Reader.html#extractKeyWordsFromMeta"><span class="hs-identifier hs-type">extractKeyWordsFromMeta</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Reader.html#Doc"><span class="hs-identifier hs-type">Doc</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Text</span></span><span class="hs-special">]</span><span>
+</span><span id="line-121"></span><span id="extractKeyWordsFromMeta"><span class="annot"><span class="annottext">extractKeyWordsFromMeta :: Doc -&gt; [Text]
+</span><a href="Worklog.Reader.html#extractKeyWordsFromMeta"><span class="hs-identifier hs-var hs-var">extractKeyWordsFromMeta</span></a></span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Pandoc</span></span><span> </span><span id="local-6989586621679141778"><span class="annot"><span class="annottext">Meta
+</span><a href="#local-6989586621679141778"><span class="hs-identifier hs-var">meta</span></a></span></span><span> </span><span class="annot"><span class="annottext">[Block]
+</span><span class="hs-identifier">_</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span class="hs-identifier">_</span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-122"></span><span>  </span><span class="annot"><span class="annottext">[Text] -&gt; (MetaValue -&gt; [Text]) -&gt; Maybe MetaValue -&gt; [Text]
+forall b a. b -&gt; (a -&gt; b) -&gt; Maybe a -&gt; b
+</span><span class="hs-identifier hs-var">maybe</span></span><span>
+</span><span id="line-123"></span><span>    </span><span class="hs-special">[</span><span class="hs-special">]</span><span>
+</span><span id="line-124"></span><span>    </span><span class="annot"><span class="annottext">MetaValue -&gt; [Text]
+</span><a href="#local-6989586621679141780"><span class="hs-identifier hs-var">getKeyWords</span></a></span><span> </span><span class="annot"><span class="annottext">(Maybe MetaValue -&gt; [Text]) -&gt; Maybe MetaValue -&gt; [Text]
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span>
+</span><span id="line-125"></span><span>    </span><span class="annot"><span class="annottext">Text -&gt; Meta -&gt; Maybe MetaValue
+</span><span class="hs-identifier hs-var">lookupMeta</span></span><span> </span><span class="annot"><span class="annottext">Text
+</span><span class="hs-string">&quot;keywords&quot;</span></span><span> </span><span class="annot"><span class="annottext">Meta
+</span><a href="#local-6989586621679141778"><span class="hs-identifier hs-var">meta</span></a></span><span>
+</span><span id="line-126"></span><span>    </span><span class="hs-keyword">where</span><span>
+</span><span id="line-127"></span><span>      </span><span id="local-6989586621679141780"><span class="annot"><span class="annottext">getKeyWords :: MetaValue -&gt; [Text]
+</span><a href="#local-6989586621679141780"><span class="hs-identifier hs-var hs-var">getKeyWords</span></a></span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">MetaList</span></span><span> </span><span id="local-6989586621679141784"><span class="annot"><span class="annottext">[MetaValue]
+</span><a href="#local-6989586621679141784"><span class="hs-identifier hs-var">ks</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(MetaValue -&gt; Text) -&gt; [MetaValue] -&gt; [Text]
+forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
+</span><span class="hs-identifier hs-var">map</span></span><span> </span><span class="annot"><span class="annottext">MetaValue -&gt; Text
+forall a. Walkable Inline a =&gt; a -&gt; Text
+</span><span class="hs-identifier hs-var">stringify</span></span><span> </span><span class="annot"><span class="annottext">[MetaValue]
+</span><a href="#local-6989586621679141784"><span class="hs-identifier hs-var">ks</span></a></span><span>
+</span><span id="line-128"></span><span>      </span><span class="annot"><a href="#local-6989586621679141780"><span class="hs-identifier hs-var">getKeyWords</span></a></span><span> </span><span class="annot"><span class="annottext">MetaValue
+</span><span class="hs-identifier">_</span></span><span>             </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span>
+</span><span id="line-129"></span><span>
+</span><span id="line-130"></span><span>
+</span><span id="line-131"></span><span class="hs-comment">-- | The structure holds the collectable items (normally classified Para, Div).</span><span>
+</span><span id="line-132"></span><span class="hs-comment">-- To use it as a result in Text.Pandoc.Walk.query it is an instance of Monoid.</span><span>
+</span><span id="line-133"></span><span class="hs-keyword">data</span><span> </span><span id="CollectedBlocks"><span class="annot"><a href="Worklog.Reader.html#CollectedBlocks"><span class="hs-identifier hs-var">CollectedBlocks</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Collected"><span class="annot"><a href="Worklog.Reader.html#Collected"><span class="hs-identifier hs-var">Collected</span></a></span></span><span>
+</span><span id="line-134"></span><span>  </span><span class="hs-special">{</span><span> </span><span id="collectedTodos"><span class="annot"><span class="annottext">CollectedBlocks -&gt; [[Block]]
+</span><a href="Worklog.Reader.html#collectedTodos"><span class="hs-identifier hs-var hs-var">collectedTodos</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Block</span></span><span class="hs-special">]</span><span class="hs-special">]</span><span>
+</span><span id="line-135"></span><span>  </span><span class="hs-special">,</span><span> </span><span id="collectedTasks"><span class="annot"><span class="annottext">CollectedBlocks -&gt; [[Block]]
+</span><a href="Worklog.Reader.html#collectedTasks"><span class="hs-identifier hs-var hs-var">collectedTasks</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Block</span></span><span class="hs-special">]</span><span class="hs-special">]</span><span>
+</span><span id="line-136"></span><span>  </span><span class="hs-special">}</span><span>
+</span><span id="line-137"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679141789"><span id="local-6989586621679141797"><span id="local-6989586621679141801"><span class="annot"><span class="annottext">Int -&gt; CollectedBlocks -&gt; ShowS
+[CollectedBlocks] -&gt; ShowS
+CollectedBlocks -&gt; String
+(Int -&gt; CollectedBlocks -&gt; ShowS)
+-&gt; (CollectedBlocks -&gt; String)
+-&gt; ([CollectedBlocks] -&gt; ShowS)
+-&gt; Show CollectedBlocks
+forall a.
+(Int -&gt; a -&gt; ShowS) -&gt; (a -&gt; String) -&gt; ([a] -&gt; ShowS) -&gt; Show a
+$cshowsPrec :: Int -&gt; CollectedBlocks -&gt; ShowS
+showsPrec :: Int -&gt; CollectedBlocks -&gt; ShowS
+$cshow :: CollectedBlocks -&gt; String
+show :: CollectedBlocks -&gt; String
+$cshowList :: [CollectedBlocks] -&gt; ShowS
+showList :: [CollectedBlocks] -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
+</span><span id="line-138"></span><span>
+</span><span id="line-139"></span><span class="hs-keyword">instance</span><span> </span><span id="local-6989586621679141807"><span id="local-6989586621679141811"><span class="annot"><span class="hs-identifier hs-type">Semigroup</span></span><span> </span><span class="annot"><a href="Worklog.Reader.html#CollectedBlocks"><span class="hs-identifier hs-type">CollectedBlocks</span></a></span></span></span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-140"></span><span>  </span><span id="local-6989586621679141819"><span class="annot"><span class="annottext">&lt;&gt; :: CollectedBlocks -&gt; CollectedBlocks -&gt; CollectedBlocks
+</span><span class="hs-operator hs-var hs-var hs-var">(&lt;&gt;)</span></span></span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Worklog.Reader.html#Collected"><span class="hs-identifier hs-type">Collected</span></a></span><span> </span><span id="local-6989586621679141820"><span class="annot"><span class="annottext">[[Block]]
+</span><a href="#local-6989586621679141820"><span class="hs-identifier hs-var">todos1</span></a></span></span><span> </span><span id="local-6989586621679141821"><span class="annot"><span class="annottext">[[Block]]
+</span><a href="#local-6989586621679141821"><span class="hs-identifier hs-var">tasks1</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Worklog.Reader.html#Collected"><span class="hs-identifier hs-type">Collected</span></a></span><span> </span><span id="local-6989586621679141822"><span class="annot"><span class="annottext">[[Block]]
+</span><a href="#local-6989586621679141822"><span class="hs-identifier hs-var">todos2</span></a></span></span><span> </span><span id="local-6989586621679141823"><span class="annot"><span class="annottext">[[Block]]
+</span><a href="#local-6989586621679141823"><span class="hs-identifier hs-var">tasks2</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[[Block]] -&gt; [[Block]] -&gt; CollectedBlocks
+</span><a href="Worklog.Reader.html#Collected"><span class="hs-identifier hs-var">Collected</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">[[Block]]
+</span><a href="#local-6989586621679141820"><span class="hs-identifier hs-var">todos1</span></a></span><span> </span><span class="annot"><span class="annottext">[[Block]] -&gt; [[Block]] -&gt; [[Block]]
+forall a. Semigroup a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-operator hs-var">&lt;&gt;</span></span><span> </span><span class="annot"><span class="annottext">[[Block]]
+</span><a href="#local-6989586621679141822"><span class="hs-identifier hs-var">todos2</span></a></span><span class="hs-special">)</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">[[Block]]
+</span><a href="#local-6989586621679141821"><span class="hs-identifier hs-var">tasks1</span></a></span><span> </span><span class="annot"><span class="annottext">[[Block]] -&gt; [[Block]] -&gt; [[Block]]
+forall a. Semigroup a =&gt; a -&gt; a -&gt; a
+</span><span class="hs-operator hs-var">&lt;&gt;</span></span><span> </span><span class="annot"><span class="annottext">[[Block]]
+</span><a href="#local-6989586621679141823"><span class="hs-identifier hs-var">tasks2</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-141"></span><span>
+</span><span id="line-142"></span><span class="hs-keyword">instance</span><span> </span><span id="local-6989586621679141828"><span id="local-6989586621679141831"><span class="annot"><span class="hs-identifier hs-type">Monoid</span></span><span> </span><span class="annot"><a href="Worklog.Reader.html#CollectedBlocks"><span class="hs-identifier hs-type">CollectedBlocks</span></a></span></span></span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-143"></span><span>  </span><span id="local-6989586621679141834"><span class="annot"><span class="annottext">mempty :: CollectedBlocks
+</span><span class="hs-identifier hs-var hs-var hs-var">mempty</span></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[[Block]] -&gt; [[Block]] -&gt; CollectedBlocks
+</span><a href="Worklog.Reader.html#Collected"><span class="hs-identifier hs-var">Collected</span></a></span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span>
+</span><span id="line-144"></span><span>
+</span><span id="line-145"></span><span class="hs-comment">-- | 'collectFromAst' walks the pandoc document and collects the blocks, inlines corresponding</span><span>
+</span><span id="line-146"></span><span class="hs-comment">-- the required information.</span><span>
+</span><span id="line-147"></span><span class="annot"><a href="Worklog.Reader.html#collectFromAst"><span class="hs-identifier hs-type">collectFromAst</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Reader.html#Doc"><span class="hs-identifier hs-type">Doc</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Reader.html#CollectedBlocks"><span class="hs-identifier hs-type">CollectedBlocks</span></a></span><span>
+</span><span id="line-148"></span><span id="collectFromAst"><span class="annot"><span class="annottext">collectFromAst :: Doc -&gt; CollectedBlocks
+</span><a href="Worklog.Reader.html#collectFromAst"><span class="hs-identifier hs-var hs-var">collectFromAst</span></a></span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Pandoc</span></span><span> </span><span class="annot"><span class="annottext">Meta
+</span><span class="hs-identifier">_</span></span><span> </span><span id="local-6989586621679141835"><span class="annot"><span class="annottext">[Block]
+</span><a href="#local-6989586621679141835"><span class="hs-identifier hs-var">pd</span></a></span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span class="hs-identifier">_</span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(Block -&gt; CollectedBlocks) -&gt; [Block] -&gt; CollectedBlocks
+forall c. Monoid c =&gt; (Block -&gt; c) -&gt; [Block] -&gt; c
+forall a b c. (Walkable a b, Monoid c) =&gt; (a -&gt; c) -&gt; b -&gt; c
+</span><span class="hs-identifier hs-var">query</span></span><span> </span><span class="annot"><span class="annottext">Block -&gt; CollectedBlocks
+</span><a href="#local-6989586621679141837"><span class="hs-identifier hs-var">collectBlocks</span></a></span><span> </span><span class="annot"><span class="annottext">[Block]
+</span><a href="#local-6989586621679141835"><span class="hs-identifier hs-var">pd</span></a></span><span>
+</span><span id="line-149"></span><span>  </span><span class="hs-keyword">where</span><span>
+</span><span id="line-150"></span><span>    </span><span class="annot"><a href="#local-6989586621679141837"><span class="hs-identifier hs-type">collectBlocks</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Block</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Reader.html#CollectedBlocks"><span class="hs-identifier hs-type">CollectedBlocks</span></a></span><span>
+</span><span id="line-151"></span><span>    </span><span id="local-6989586621679141837"><span class="annot"><span class="annottext">collectBlocks :: Block -&gt; CollectedBlocks
+</span><a href="#local-6989586621679141837"><span class="hs-identifier hs-var hs-var">collectBlocks</span></a></span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Div</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Text
+</span><span class="hs-identifier">_</span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679141839"><span class="annot"><span class="annottext">[Text]
+</span><a href="#local-6989586621679141839"><span class="hs-identifier hs-var">cs</span></a></span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">[(Text, Text)]
+</span><span class="hs-identifier">_</span></span><span class="hs-special">)</span><span> </span><span id="local-6989586621679141840"><span class="annot"><span class="annottext">[Block]
+</span><a href="#local-6989586621679141840"><span class="hs-identifier hs-var">bs</span></a></span></span><span class="hs-special">)</span><span>
+</span><span id="line-152"></span><span>      </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span class="hs-string">&quot;todo&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; [Text] -&gt; Bool
+forall a. Eq a =&gt; a -&gt; [a] -&gt; Bool
+forall (t :: * -&gt; *) a. (Foldable t, Eq a) =&gt; a -&gt; t a -&gt; Bool
+</span><span class="hs-operator hs-var">`elem`</span></span><span> </span><span class="annot"><span class="annottext">[Text]
+</span><a href="#local-6989586621679141839"><span class="hs-identifier hs-var">cs</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[[Block]] -&gt; [[Block]] -&gt; CollectedBlocks
+</span><a href="Worklog.Reader.html#Collected"><span class="hs-identifier hs-var">Collected</span></a></span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">[Block]
+</span><a href="#local-6989586621679141840"><span class="hs-identifier hs-var">bs</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span>
+</span><span id="line-153"></span><span>      </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Text
+</span><span class="hs-string">&quot;task&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; [Text] -&gt; Bool
+forall a. Eq a =&gt; a -&gt; [a] -&gt; Bool
+forall (t :: * -&gt; *) a. (Foldable t, Eq a) =&gt; a -&gt; t a -&gt; Bool
+</span><span class="hs-operator hs-var">`elem`</span></span><span> </span><span class="annot"><span class="annottext">[Text]
+</span><a href="#local-6989586621679141839"><span class="hs-identifier hs-var">cs</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[[Block]] -&gt; [[Block]] -&gt; CollectedBlocks
+</span><a href="Worklog.Reader.html#Collected"><span class="hs-identifier hs-var">Collected</span></a></span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">[Block]
+</span><a href="#local-6989586621679141840"><span class="hs-identifier hs-var">bs</span></a></span><span class="hs-special">]</span><span>
+</span><span id="line-154"></span><span>      </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Bool
+</span><span class="hs-identifier hs-var">otherwise</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">CollectedBlocks
+forall a. Monoid a =&gt; a
+</span><span class="hs-identifier hs-var">mempty</span></span><span>
+</span><span id="line-155"></span><span>    </span><span class="annot"><a href="#local-6989586621679141837"><span class="hs-identifier hs-var">collectBlocks</span></a></span><span> </span><span class="annot"><span class="annottext">Block
+</span><span class="hs-identifier">_</span></span><span>                   </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">CollectedBlocks
+forall a. Monoid a =&gt; a
+</span><span class="hs-identifier hs-var">mempty</span></span><span>
+</span><span id="line-156"></span><span>
+</span><span id="line-157"></span><span class="annot"><a href="Worklog.Reader.html#todoFromPandoc"><span class="hs-identifier hs-type">todoFromPandoc</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Block</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Todo.html#Todo"><span class="hs-identifier hs-type">Todo</span></a></span><span>
+</span><span id="line-158"></span><span id="todoFromPandoc"><span class="annot"><span class="annottext">todoFromPandoc :: [Block] -&gt; Todo
+</span><a href="Worklog.Reader.html#todoFromPandoc"><span class="hs-identifier hs-var hs-var">todoFromPandoc</span></a></span></span><span> </span><span id="local-6989586621679141843"><span class="annot"><span class="annottext">[Block]
+</span><a href="#local-6989586621679141843"><span class="hs-identifier hs-var">blocks</span></a></span></span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-159"></span><span>  </span><span class="hs-keyword">let</span><span>
+</span><span id="line-160"></span><span>    </span><span id="local-6989586621679141844"><span class="annot"><span class="annottext">urgency :: Urgency
+</span><a href="#local-6989586621679141844"><span class="hs-identifier hs-var hs-var">urgency</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Text -&gt; Urgency
+</span><a href="Worklog.Reader.html#parseUrgency"><span class="hs-identifier hs-var">parseUrgency</span></a></span><span> </span><span class="annot"><span class="annottext">(Text -&gt; Urgency) -&gt; Text -&gt; Urgency
+forall a b. (a -&gt; b) -&gt; a -&gt; b
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">[Block] -&gt; Text
+</span><a href="Worklog.Reader.html#textifyBlocks"><span class="hs-identifier hs-var">textifyBlocks</span></a></span><span> </span><span class="annot"><span class="annottext">[Block]
+</span><a href="#local-6989586621679141843"><span class="hs-identifier hs-var">blocks</span></a></span><span>
+</span><span id="line-161"></span><span>  </span><span class="hs-keyword">in</span><span>
+</span><span id="line-162"></span><span>    </span><span class="annot"><span class="annottext">Urgency -&gt; Summary -&gt; Todo
+</span><a href="Worklog.Todo.html#newTodo"><span class="hs-identifier hs-var">newTodo</span></a></span><span> </span><span class="annot"><span class="annottext">Urgency
+</span><a href="#local-6989586621679141844"><span class="hs-identifier hs-var">urgency</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">String -&gt; Summary
+</span><span class="hs-identifier hs-var">mkSummary</span></span><span> </span><span class="annot"><span class="annottext">(String -&gt; Summary) -&gt; String -&gt; Summary
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">Text -&gt; String
 </span><span class="hs-identifier hs-var">T.unpack</span></span><span> </span><span class="annot"><span class="annottext">(Text -&gt; String) -&gt; Text -&gt; String
 forall a b. (a -&gt; b) -&gt; a -&gt; b
-</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">[Inline] -&gt; Text
+</span><span class="hs-operator hs-var">$</span></span><span> </span><span class="annot"><span class="annottext">[Block] -&gt; Text
+</span><a href="Worklog.Reader.html#textifyBlocks"><span class="hs-identifier hs-var">textifyBlocks</span></a></span><span> </span><span class="annot"><span class="annottext">[Block]
+</span><a href="#local-6989586621679141843"><span class="hs-identifier hs-var">blocks</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-163"></span><span>
+</span><span id="line-164"></span><span class="annot"><a href="Worklog.Reader.html#parseUrgency"><span class="hs-identifier hs-type">parseUrgency</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Text</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Todo.html#Urgency"><span class="hs-identifier hs-type">Urgency</span></a></span><span>
+</span><span id="line-165"></span><span id="parseUrgency"><span class="annot"><span class="annottext">parseUrgency :: Text -&gt; Urgency
+</span><a href="Worklog.Reader.html#parseUrgency"><span class="hs-identifier hs-var hs-var">parseUrgency</span></a></span></span><span> </span><span id="local-6989586621679141849"><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679141849"><span class="hs-identifier hs-var">blocks</span></a></span></span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-166"></span><span>  </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="annottext">Parsec Text () String -&gt; String -&gt; Text -&gt; Either ParseError String
+forall s t a.
+Stream s Identity t =&gt;
+Parsec s () a -&gt; String -&gt; s -&gt; Either ParseError a
+</span><span class="hs-identifier hs-var">parse</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">String -&gt; Parsec Text () String
+forall s (m :: * -&gt; *) u.
+Stream s m Char =&gt;
+String -&gt; ParsecT s u m String
+</span><span class="hs-identifier hs-var">string</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;Todo!&quot;</span></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;&quot;</span></span><span> </span><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679141849"><span class="hs-identifier hs-var">blocks</span></a></span><span> </span><span class="hs-keyword">of</span><span>
+</span><span id="line-167"></span><span>    </span><span class="annot"><span class="hs-identifier hs-type">Left</span></span><span> </span><span class="annot"><span class="annottext">ParseError
+</span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Urgency
+</span><a href="Worklog.Todo.html#NotSoUrgent"><span class="hs-identifier hs-var">NotSoUrgent</span></a></span><span>
+</span><span id="line-168"></span><span>    </span><span class="annot"><span class="hs-identifier hs-type">Right</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Urgency
+</span><a href="Worklog.Todo.html#Urgent"><span class="hs-identifier hs-var">Urgent</span></a></span><span>
+</span><span id="line-169"></span><span>
+</span><span id="line-170"></span><span>
+</span><span id="line-171"></span><span class="annot"><span class="hs-comment">-- | Utility function. stringifyInlines of Block.</span></span><span>
+</span><span id="line-172"></span><span class="annot"><a href="Worklog.Reader.html#textifyBlocks"><span class="hs-identifier hs-type">textifyBlocks</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Block</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Text</span></span><span>
+</span><span id="line-173"></span><span id="textifyBlocks"><span class="annot"><span class="annottext">textifyBlocks :: [Block] -&gt; Text
+</span><a href="Worklog.Reader.html#textifyBlocks"><span class="hs-identifier hs-var hs-var">textifyBlocks</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Text] -&gt; Text
+</span><span class="hs-identifier hs-var">T.unlines</span></span><span> </span><span class="annot"><span class="annottext">([Text] -&gt; Text) -&gt; ([Block] -&gt; [Text]) -&gt; [Block] -&gt; Text
+forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
+</span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">(Block -&gt; [Text]) -&gt; [Block] -&gt; [Text]
+forall (t :: * -&gt; *) a b. Foldable t =&gt; (a -&gt; [b]) -&gt; t a -&gt; [b]
+</span><span class="hs-identifier hs-var">concatMap</span></span><span> </span><span class="annot"><span class="annottext">Block -&gt; [Text]
+</span><a href="Worklog.Reader.html#textifyBlock"><span class="hs-identifier hs-var">textifyBlock</span></a></span><span>
+</span><span id="line-174"></span><span>
+</span><span id="line-175"></span><span class="annot"><span class="hs-comment">-- | Utility function. stringify of Block.</span></span><span>
+</span><span id="line-176"></span><span class="annot"><a href="Worklog.Reader.html#textifyBlock"><span class="hs-identifier hs-type">textifyBlock</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Block</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Text</span></span><span class="hs-special">]</span><span>
+</span><span id="line-177"></span><span id="textifyBlock"><span class="annot"><span class="annottext">textifyBlock :: Block -&gt; [Text]
+</span><a href="Worklog.Reader.html#textifyBlock"><span class="hs-identifier hs-var hs-var">textifyBlock</span></a></span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Para</span></span><span> </span><span id="local-6989586621679141856"><span class="annot"><span class="annottext">[Inline]
+</span><a href="#local-6989586621679141856"><span class="hs-identifier hs-var">inlines</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">[Inline] -&gt; Text
 forall (t :: * -&gt; *). Foldable t =&gt; t Inline -&gt; Text
 </span><span class="hs-identifier hs-var">stringifyInlines</span></span><span> </span><span class="annot"><span class="annottext">[Inline]
-</span><a href="#local-6989586621679137760"><span class="hs-identifier hs-var">inlines</span></a></span><span>
-</span><span id="line-24"></span><span>
-</span><span id="line-25"></span><span class="annot"><a href="Worklog.Reader.html#getDoc"><span class="hs-identifier hs-type">getDoc</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">FilePath</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Pandoc</span></span><span>
-</span><span id="line-26"></span><span id="getDoc"><span class="annot"><span class="annottext">getDoc :: String -&gt; IO Pandoc
-</span><a href="Worklog.Reader.html#getDoc"><span class="hs-identifier hs-var hs-var">getDoc</span></a></span></span><span> </span><span id="local-6989586621679137763"><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679137763"><span class="hs-identifier hs-var">path</span></a></span></span><span> </span><span class="hs-glyph">=</span><span>
-</span><span id="line-27"></span><span>  </span><span class="hs-keyword">do</span><span>
-</span><span id="line-28"></span><span>    </span><span id="local-6989586621679137764"><span class="annot"><a href="#local-6989586621679137764"><span class="hs-identifier hs-var">contents</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">String -&gt; IO String
-</span><span class="hs-identifier hs-var">readFile</span></span><span> </span><span class="annot"><span class="annottext">String
-</span><a href="#local-6989586621679137763"><span class="hs-identifier hs-var">path</span></a></span><span>
-</span><span id="line-29"></span><span>    </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="hs-identifier hs-type">runPure</span></span><span> </span><span class="annot"><span class="hs-operator hs-type">$</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">readMarkdown</span></span><span> </span><span class="annot"><a href="Worklog.Reader.html#pandocOptions"><span class="hs-identifier hs-type">pandocOptions</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">T.pack</span></span><span> </span><span class="annot"><a href="#local-6989586621679137764"><span class="hs-identifier hs-type">contents</span></a></span><span class="hs-special">)</span><span> </span><span class="hs-keyword">of</span><span>
-</span><span id="line-30"></span><span>      </span><span class="annot"><span class="hs-identifier hs-type">Left</span></span><span> </span><span class="annot"><span class="annottext">PandocError
-</span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">IO Pandoc
+</span><a href="#local-6989586621679141856"><span class="hs-identifier hs-var">inlines</span></a></span><span class="hs-special">]</span><span>
+</span><span id="line-178"></span><span class="annot"><a href="Worklog.Reader.html#textifyBlock"><span class="hs-identifier hs-var">textifyBlock</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Plain</span></span><span> </span><span id="local-6989586621679141858"><span class="annot"><span class="annottext">[Inline]
+</span><a href="#local-6989586621679141858"><span class="hs-identifier hs-var">inlines</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">[Inline] -&gt; Text
+forall (t :: * -&gt; *). Foldable t =&gt; t Inline -&gt; Text
+</span><span class="hs-identifier hs-var">stringifyInlines</span></span><span> </span><span class="annot"><span class="annottext">[Inline]
+</span><a href="#local-6989586621679141858"><span class="hs-identifier hs-var">inlines</span></a></span><span class="hs-special">]</span><span>
+</span><span id="line-179"></span><span class="annot"><a href="Worklog.Reader.html#textifyBlock"><span class="hs-identifier hs-var">textifyBlock</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">CodeBlock</span></span><span> </span><span class="annot"><span class="annottext">(Text, [Text], [(Text, Text)])
+</span><span class="hs-identifier">_</span></span><span> </span><span id="local-6989586621679141860"><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679141860"><span class="hs-identifier hs-var">text</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679141860"><span class="hs-identifier hs-var">text</span></a></span><span class="hs-special">]</span><span>
+</span><span id="line-180"></span><span class="annot"><a href="Worklog.Reader.html#textifyBlock"><span class="hs-identifier hs-var">textifyBlock</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">RawBlock</span></span><span> </span><span class="annot"><span class="annottext">Format
+</span><span class="hs-identifier">_</span></span><span> </span><span id="local-6989586621679141862"><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679141862"><span class="hs-identifier hs-var">text</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679141862"><span class="hs-identifier hs-var">text</span></a></span><span class="hs-special">]</span><span>
+</span><span id="line-181"></span><span class="hs-comment">{-
+ - todo: if requires then handle the other Block constructors
+textifyBlock (LineBlock inliness) = [concatMap (stringifyInlines) inliness]
+textifyBlock (BlockQuote bl) = map extractBlockText bl
+-}</span><span>
+</span><span id="line-186"></span><span class="annot"><a href="Worklog.Reader.html#textifyBlock"><span class="hs-identifier hs-var">textifyBlock</span></a></span><span>  </span><span class="annot"><span class="annottext">Block
+</span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">[</span><span class="hs-special">]</span><span>
+</span><span id="line-187"></span><span>
+</span><span id="line-188"></span><span class="hs-comment">-- | Workfile &#8222;markdown reader&#8221;.</span><span>
+</span><span id="line-189"></span><span class="hs-comment">-- workfile.(w)md -&gt; Pandoc AST</span><span>
+</span><span id="line-190"></span><span class="annot"><a href="Worklog.Reader.html#readFromMD"><span class="hs-identifier hs-type">readFromMD</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">FilePath</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="annot"><a href="Worklog.Reader.html#Doc"><span class="hs-identifier hs-type">Doc</span></a></span><span>
+</span><span id="line-191"></span><span id="readFromMD"><span class="annot"><span class="annottext">readFromMD :: String -&gt; IO Doc
+</span><a href="Worklog.Reader.html#readFromMD"><span class="hs-identifier hs-var hs-var">readFromMD</span></a></span></span><span> </span><span id="local-6989586621679141864"><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679141864"><span class="hs-identifier hs-var">path</span></a></span></span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-192"></span><span>  </span><span class="hs-keyword">do</span><span>
+</span><span id="line-193"></span><span>    </span><span id="local-6989586621679141865"><span class="annot"><a href="#local-6989586621679141865"><span class="hs-identifier hs-var">contents</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">String -&gt; IO Text
+</span><span class="hs-identifier hs-var">U8.readFile</span></span><span> </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679141864"><span class="hs-identifier hs-var">path</span></a></span><span>
+</span><span id="line-194"></span><span>    </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="hs-identifier hs-type">runPure</span></span><span> </span><span class="annot"><span class="hs-operator hs-type">$</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">readMarkdown</span></span><span> </span><span class="annot"><a href="Worklog.Reader.html#pandocReaderOptions"><span class="hs-identifier hs-type">pandocReaderOptions</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679141865"><span class="hs-identifier hs-type">contents</span></a></span><span> </span><span class="hs-keyword">of</span><span>
+</span><span id="line-195"></span><span>      </span><span class="annot"><span class="hs-identifier hs-type">Left</span></span><span> </span><span class="annot"><span class="annottext">PandocError
+</span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">IO Doc
 forall a. Monoid a =&gt; a
 </span><span class="hs-identifier hs-var">mempty</span></span><span>
-</span><span id="line-31"></span><span>      </span><span class="annot"><span class="hs-identifier hs-type">Right</span></span><span> </span><span id="local-6989586621679137769"><span class="annot"><span class="annottext">Pandoc
-</span><a href="#local-6989586621679137769"><span class="hs-identifier hs-var">doc</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Pandoc -&gt; IO Pandoc
+</span><span id="line-196"></span><span>      </span><span class="annot"><span class="hs-identifier hs-type">Right</span></span><span> </span><span id="local-6989586621679141869"><span class="annot"><span class="annottext">Pandoc
+</span><a href="#local-6989586621679141869"><span class="hs-identifier hs-var">doc</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Doc -&gt; IO Doc
 forall a. a -&gt; IO a
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
-</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">Pandoc
-</span><a href="#local-6989586621679137769"><span class="hs-identifier hs-var">doc</span></a></span><span>
-</span><span id="line-32"></span><span>
-</span><span id="line-33"></span><span class="hs-comment">{-
-main :: IO ()
-main = do
-  result &lt;- runIO $ do
-    t &lt;- liftIO $ readFile &quot;examples/workfile.wmd&quot;
-    doc &lt;- readMarkdown pandocOptions (T.pack t)
-    writeNative def doc
-  rst &lt;- handleError result
-  TIO.putStrLn rst
--}</span><span>
-</span><span id="line-43"></span></pre></body></html>
+</span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Pandoc
+</span><a href="#local-6989586621679141869"><span class="hs-identifier hs-var">doc</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Text
+</span><a href="#local-6989586621679141865"><span class="hs-identifier hs-var">contents</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-197"></span><span>
+</span><span id="line-198"></span><span>
+</span><span id="line-199"></span><span class="annot"><a href="Worklog.Reader.html#validateDraft"><span class="hs-identifier hs-type">validateDraft</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><a href="Worklog.Reader.html#Doc"><span class="hs-identifier hs-type">Doc</span></a></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><a href="Worklog.Case.html#CaseDraft"><span class="hs-identifier hs-type">CaseDraft</span></a></span><span>
+</span><span id="line-200"></span><span id="validateDraft"><span class="annot"><span class="annottext">validateDraft :: Doc -&gt; CaseDraft
+</span><a href="Worklog.Reader.html#validateDraft"><span class="hs-identifier hs-var hs-var">validateDraft</span></a></span></span><span> </span><span id="local-6989586621679141870"><span class="annot"><span class="annottext">Doc
+</span><a href="#local-6989586621679141870"><span class="hs-identifier hs-var">doc</span></a></span></span><span> </span><span class="hs-glyph">=</span><span>
+</span><span id="line-201"></span><span>  </span><span class="hs-keyword">let</span><span>
+</span><span id="line-202"></span><span>    </span><span id="local-6989586621679141871"><span class="annot"><span class="annottext">draftTitle :: String
+</span><a href="#local-6989586621679141871"><span class="hs-identifier hs-var hs-var">draftTitle</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Text -&gt; String
+</span><span class="hs-identifier hs-var">T.unpack</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Doc -&gt; Text
+</span><a href="Worklog.Reader.html#extractTitleFromMeta"><span class="hs-identifier hs-var">extractTitleFromMeta</span></a></span><span> </span><span class="annot"><span class="annottext">Doc
+</span><a href="#local-6989586621679141870"><span class="hs-identifier hs-var">doc</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-203"></span><span>    </span><span id="local-6989586621679141872"><span class="annot"><span class="annottext">draftStatus :: Status
+</span><a href="#local-6989586621679141872"><span class="hs-identifier hs-var hs-var">draftStatus</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">case</span><span> </span><span class="annot"><span class="annottext">Doc -&gt; Either ParsingErrors Status
+</span><a href="Worklog.Reader.html#parseMetaForStatus"><span class="hs-identifier hs-var">parseMetaForStatus</span></a></span><span> </span><span class="annot"><span class="annottext">Doc
+</span><a href="#local-6989586621679141870"><span class="hs-identifier hs-var">doc</span></a></span><span> </span><span class="hs-keyword">of</span><span>
+</span><span id="line-204"></span><span>      </span><span class="annot"><span class="hs-identifier hs-type">Right</span></span><span> </span><span id="local-6989586621679141873"><span class="annot"><span class="annottext">Status
+</span><a href="#local-6989586621679141873"><span class="hs-identifier hs-var">s</span></a></span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Status
+</span><a href="#local-6989586621679141873"><span class="hs-identifier hs-var">s</span></a></span><span>
+</span><span id="line-205"></span><span>      </span><span class="hs-comment">-- todo: handle errors</span><span>
+</span><span id="line-206"></span><span>      </span><span class="annot"><span class="hs-identifier hs-type">Left</span></span><span> </span><span class="annot"><span class="annottext">ParsingErrors
+</span><span class="hs-identifier">_</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="annottext">Status
+</span><a href="Worklog.Case.html#OnDesk"><span class="hs-identifier hs-var">OnDesk</span></a></span><span>
+</span><span id="line-207"></span><span>    </span><span id="local-6989586621679141874"><span class="annot"><span class="annottext">collected :: CollectedBlocks
+</span><a href="#local-6989586621679141874"><span class="hs-identifier hs-var hs-var">collected</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Doc -&gt; CollectedBlocks
+</span><a href="Worklog.Reader.html#collectFromAst"><span class="hs-identifier hs-var">collectFromAst</span></a></span><span> </span><span class="annot"><span class="annottext">Doc
+</span><a href="#local-6989586621679141870"><span class="hs-identifier hs-var">doc</span></a></span><span>
+</span><span id="line-208"></span><span>    </span><span id="local-6989586621679141875"><span class="annot"><span class="annottext">draftTodos :: [Todo]
+</span><a href="#local-6989586621679141875"><span class="hs-identifier hs-var hs-var">draftTodos</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">([Block] -&gt; Todo) -&gt; [[Block]] -&gt; [Todo]
+forall a b. (a -&gt; b) -&gt; [a] -&gt; [b]
+</span><span class="hs-identifier hs-var">map</span></span><span> </span><span class="annot"><span class="annottext">[Block] -&gt; Todo
+</span><a href="Worklog.Reader.html#todoFromPandoc"><span class="hs-identifier hs-var">todoFromPandoc</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">CollectedBlocks -&gt; [[Block]]
+</span><a href="Worklog.Reader.html#collectedTodos"><span class="hs-identifier hs-var">collectedTodos</span></a></span><span> </span><span class="annot"><span class="annottext">CollectedBlocks
+</span><a href="#local-6989586621679141874"><span class="hs-identifier hs-var">collected</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-209"></span><span>    </span><span id="local-6989586621679141876"><span class="annot"><span class="annottext">draftKeywords :: [Text]
+</span><a href="#local-6989586621679141876"><span class="hs-identifier hs-var hs-var">draftKeywords</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Doc -&gt; [Text]
+</span><a href="Worklog.Reader.html#extractKeyWordsFromMeta"><span class="hs-identifier hs-var">extractKeyWordsFromMeta</span></a></span><span> </span><span class="annot"><span class="annottext">Doc
+</span><a href="#local-6989586621679141870"><span class="hs-identifier hs-var">doc</span></a></span><span>
+</span><span id="line-210"></span><span>    </span><span id="local-6989586621679141877"><span class="annot"><span class="annottext">draftFlags :: Set CaseFlag
+</span><a href="#local-6989586621679141877"><span class="hs-identifier hs-var hs-var">draftFlags</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Doc -&gt; Set CaseFlag
+</span><a href="Worklog.Reader.html#extractFlagsFromText"><span class="hs-identifier hs-var">extractFlagsFromText</span></a></span><span> </span><span class="annot"><span class="annottext">Doc
+</span><a href="#local-6989586621679141870"><span class="hs-identifier hs-var">doc</span></a></span><span>
+</span><span id="line-211"></span><span>
+</span><span id="line-212"></span><span>  </span><span class="hs-keyword">in</span><span>
+</span><span id="line-213"></span><span>    </span><span class="annot"><span class="annottext">String
+-&gt; Status
+-&gt; Deadline
+-&gt; Summary
+-&gt; Set CaseFlag
+-&gt; [Todo]
+-&gt; [Task]
+-&gt; [Attachment]
+-&gt; [Text]
+-&gt; CaseDraft
+</span><a href="Worklog.Case.html#Draft"><span class="hs-identifier hs-var">Draft</span></a></span><span>
+</span><span id="line-214"></span><span>      </span><span class="annot"><span class="annottext">String
+</span><a href="#local-6989586621679141871"><span class="hs-identifier hs-var">draftTitle</span></a></span><span>
+</span><span id="line-215"></span><span>      </span><span class="annot"><span class="annottext">Status
+</span><a href="#local-6989586621679141872"><span class="hs-identifier hs-var">draftStatus</span></a></span><span>
+</span><span id="line-216"></span><span>      </span><span class="annot"><span class="annottext">Deadline
+</span><a href="Worklog.Case.html#NoDeadline"><span class="hs-identifier hs-var">NoDeadline</span></a></span><span>
+</span><span id="line-217"></span><span>      </span><span class="annot"><span class="annottext">Summary
+</span><span class="hs-identifier hs-var">emptySummary</span></span><span>
+</span><span id="line-218"></span><span>      </span><span class="annot"><span class="annottext">Set CaseFlag
+</span><a href="#local-6989586621679141877"><span class="hs-identifier hs-var">draftFlags</span></a></span><span>
+</span><span id="line-219"></span><span>      </span><span class="annot"><span class="annottext">[Todo]
+</span><a href="#local-6989586621679141875"><span class="hs-identifier hs-var">draftTodos</span></a></span><span>
+</span><span id="line-220"></span><span>      </span><span class="hs-special">[</span><span class="hs-special">]</span><span>
+</span><span id="line-221"></span><span>      </span><span class="hs-special">[</span><span class="hs-special">]</span><span>
+</span><span id="line-222"></span><span>      </span><span class="annot"><span class="annottext">[Text]
+</span><a href="#local-6989586621679141876"><span class="hs-identifier hs-var">draftKeywords</span></a></span><span>
+</span><span id="line-223"></span><span>
+</span><span id="line-224"></span><span class="annot"><a href="Worklog.Reader.html#main"><span class="hs-identifier hs-type">main</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">IO</span></span><span> </span><span class="hs-special">(</span><span class="hs-special">)</span><span>
+</span><span id="line-225"></span><span id="main"><span class="annot"><span class="annottext">main :: IO ()
+</span><a href="Worklog.Reader.html#main"><span class="hs-identifier hs-var hs-var">main</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-keyword">do</span><span>
+</span><span id="line-226"></span><span>  </span><span id="local-6989586621679141882"><span class="annot"><a href="#local-6989586621679141882"><span class="hs-identifier hs-var">doc</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">String -&gt; IO Doc
+</span><a href="Worklog.Reader.html#readFromMD"><span class="hs-identifier hs-var">readFromMD</span></a></span><span> </span><span class="annot"><span class="annottext">String
+</span><span class="hs-string">&quot;examples/workfile.wmd&quot;</span></span><span>
+</span><span id="line-227"></span><span>  </span><span class="annot"><span class="hs-identifier hs-type">print</span></span><span> </span><span class="annot"><span class="hs-operator hs-type">$</span></span><span> </span><span class="annot"><a href="Worklog.Reader.html#validateDraft"><span class="hs-identifier hs-type">validateDraft</span></a></span><span> </span><span class="annot"><a href="#local-6989586621679141882"><span class="hs-identifier hs-type">doc</span></a></span><span>
+</span><span id="line-228"></span><span>
+</span><span id="line-229"></span></pre></body></html>
