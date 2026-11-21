@@ -6,7 +6,7 @@ date: 2026.08.10.
 # no info in YAML           -> OnDesk
 # closed: date, or anything -> Archived
 # deferred: date            -> Deferred date
-deferred: 2026.08.15. Until answer arrive
+deferred: 2026-13-15        # Until answer arrive
 # the parsed status will be: Deferred 2026 08 15
 registers:                  # any ID like info of the case
 - OAHAFO/318/2026           # It is a list
@@ -16,13 +16,13 @@ keywords: [rendszeres jelentés,KHM]
 
 ...
 
-~~~
+::: {#case .card}
 Időszak:        2026. év II. negyedév
 Beadvány:       3113-H199920/2026, 199920/MO/2026
 Ügyirat:        OAHAFO/318/2026
 Ügyintéző:      Hernádi László, Kató Balázs
 Beérkezés:      2026.08.05.
-Határidő:       60 nap, 2026.10.01. (KHM alapján)
+Határidő:       60 nap, [2026.10-01]{.deadline} (KHM alapján)
 Felhívás:       SIGN!
 Értékelés:      
 
@@ -30,7 +30,31 @@ KHM-Beadvány:   3113-H197421/2026, 197421/MO/2026
 KHM-Ügyirat:    OAHAFO/318-2/2026
 Ügyintéző:      Jakab Attila, Papp Márton
 Beérkezés:      2025.08.03.
-~~~
+:::
+
+::: {.summary}
+Az IBF-et lezáró határozatban az OAH 2025. december 15. napja
+határidővel előírta bizonyos hermetizáló armatúrák kiváltását és tömör
+zárásuk ellenőrzésének kialakítását. A tömör zárás ellenőrzést korábban,
+határidőn belül teljesítették.
+
+Az Ügyfél 2025. július 9. napján kérte a teljesítési határidő módosítását
+2029. június 30. napjára. A kérelemben leírták, hogy a gyártót természeti
+katasztrófa akadályozza, és az armatúrák leszállítása késik jövő nyárig.
+A kérelem és a hiánypótlási felhívás teljesítéseként megküldött
+dokumentumok nem alapozták meg a jogszabályban előírt, a határidő
+módosításához szükséges követelményeket, mert nem igazolták, hogy
+a késlekedés oka az Ügyfélen kívül álló ok.
+
+Az OAH 2025. december 11. napján a PAE-HA08076 (OAHAFO/291-4/2025) számon
+kiadott határozattal a határidő módosítására vonatkozó kérelmet
+elutasította.
+
+Másik, hivatalból indított eljárásban vizsgálja az OAH a késedelem okait,
+és a kötelezés teljesítésére rendelkezésre álló új határidő meghatározását.
+::: 
+
+$\lamda = 2$
 
 ::: todo :::
 ToDo: weblapot elkészíteni, feladatokat kiosztani
@@ -63,36 +87,6 @@ A feladatokat kiosztottam. WAIT!
 +--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
 | Somogyi András                 |                 |        |          |               |             |                          |
 +--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| Babits Erika                   |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| Dobrocsi Levente               |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| Gali-Mikóczi Szilvia           |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| Harsányi István                |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| Indich Gábor                   |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| Kadosa Balázs                  |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| Koskai-Téger Ramóna            |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| László Zoltán                  |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| HFÖO                           |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| Lukácsi Tamás                  |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| Amberboy-Kiss Virág            |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| Dénes Larissza                 |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| STFO ELO                       |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| NUVNOVEK FNBO Brodmann Ákos    |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
-| NUVNOVEK BEÖ Győrfi-Nagy       |                 |        |          |               |             |                          |
-+--------------------------------+-----------------+--------+----------+---------------+-------------+--------------------------+
 
 ## Értékelések
 
@@ -101,9 +95,16 @@ A feladatokat kiosztottam. WAIT!
 Todo!:      Az értékeléseket         
           ellenőrizni.
 ~~~
-A weblapra is felrakni az értékeléseket
+A weblapra is felrakni az értékeléseket [2026/11/4]{.deadline} napig
 :::::
 
 ::: task :::
 Az értékeléseket ellenőrizni.
 :::::
+
+# Hiánypótlás
+
+::: {.card}
+Beadvány:     1234
+Beérkezett:   2026.11.05
+:::

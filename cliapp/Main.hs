@@ -8,21 +8,17 @@ import Worklog.Case
 import Worklog.Reader
 import Options.Applicative
 import Data.Text qualified as T
+import Data.Either
 
 main :: IO ()
 main = do
-  let cas = newCase "First case"
-  print cas
-  print $ isOnDesk cas
 
   options <- execParser opts
-  files <- findWorkFiles options
-  docs <- traverse readFromMD files
-  let
-    titles = map (either (const "No title!") id . getTitleFromDoc) docs 
-    statuses = map (either (const "No Status") show . getStatusFromDoc) docs 
-  mapM_ putStrLn titles
-  mapM_ putStrLn statuses
+  paths <- findWorkFiles options
+  results <- readWorkFiles paths
+
+  print results
+
 
 fileOptions :: Parser FileOptions
 fileOptions =

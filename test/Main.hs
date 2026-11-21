@@ -5,6 +5,7 @@ import qualified Worklog.CaseSpec as Case
 import qualified Worklog.TodoSpec as Todo
 import qualified Worklog.TaskSpec as Task
 import qualified Worklog.FilesSpec as Files
+import qualified Worklog.ReaderSpec as Reader
 
 main :: IO ()
 main =
@@ -13,5 +14,6 @@ main =
             [ Case.tests,
               Todo.tests,
               Task.tests,
-              Files.tests
+              Files.tests,
+              Reader.tests
             ]

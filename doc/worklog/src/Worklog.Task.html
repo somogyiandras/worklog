@@ -14,7 +14,7 @@
 </span><span id="line-14"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.Time.Calendar</span></span><span>
 </span><span id="line-15"></span><span>
 </span><span id="line-16"></span><span class="hs-keyword">data</span><span> </span><span id="TaskStatus"><span class="annot"><a href="Worklog.Task.html#TaskStatus"><span class="hs-identifier hs-var">TaskStatus</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span id="Active"><span class="annot"><a href="Worklog.Task.html#Active"><span class="hs-identifier hs-var">Active</span></a></span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="Inactive"><span class="annot"><a href="Worklog.Task.html#Inactive"><span class="hs-identifier hs-var">Inactive</span></a></span></span><span> </span><span class="hs-glyph">|</span><span> </span><span id="Deferred"><span class="annot"><a href="Worklog.Task.html#Deferred"><span class="hs-identifier hs-var">Deferred</span></a></span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Day</span></span><span>
-</span><span id="line-17"></span><span>    </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679140821"><span id="local-6989586621679140828"><span class="annot"><span class="annottext">TaskStatus -&gt; TaskStatus -&gt; Bool
+</span><span id="line-17"></span><span>    </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679210084"><span id="local-6989586621679210091"><span class="annot"><span class="annottext">TaskStatus -&gt; TaskStatus -&gt; Bool
 (TaskStatus -&gt; TaskStatus -&gt; Bool)
 -&gt; (TaskStatus -&gt; TaskStatus -&gt; Bool) -&gt; Eq TaskStatus
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
@@ -22,7 +22,7 @@ $c== :: TaskStatus -&gt; TaskStatus -&gt; Bool
 == :: TaskStatus -&gt; TaskStatus -&gt; Bool
 $c/= :: TaskStatus -&gt; TaskStatus -&gt; Bool
 /= :: TaskStatus -&gt; TaskStatus -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679140833"><span id="local-6989586621679140839"><span id="local-6989586621679140843"><span class="annot"><span class="annottext">Int -&gt; TaskStatus -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679210096"><span id="local-6989586621679210102"><span id="local-6989586621679210106"><span class="annot"><span class="annottext">Int -&gt; TaskStatus -&gt; ShowS
 [TaskStatus] -&gt; ShowS
 TaskStatus -&gt; String
 (Int -&gt; TaskStatus -&gt; ShowS)
@@ -46,14 +46,14 @@ showList :: [TaskStatus] -&gt; ShowS
 </span><span id="line-22"></span><span>    </span><span id="taskSummary"><span class="annot"><span class="annottext">Task -&gt; Summary
 </span><a href="Worklog.Task.html#taskSummary"><span class="hs-identifier hs-var hs-var">taskSummary</span></a></span></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Summary</span></span><span>
 </span><span id="line-23"></span><span>  </span><span class="hs-special">}</span><span>
-</span><span id="line-24"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679140851"><span id="local-6989586621679140856"><span class="annot"><span class="annottext">Task -&gt; Task -&gt; Bool
+</span><span id="line-24"></span><span>  </span><span class="hs-keyword">deriving</span><span> </span><span class="hs-special">(</span><span id="local-6989586621679210114"><span id="local-6989586621679210119"><span class="annot"><span class="annottext">Task -&gt; Task -&gt; Bool
 (Task -&gt; Task -&gt; Bool) -&gt; (Task -&gt; Task -&gt; Bool) -&gt; Eq Task
 forall a. (a -&gt; a -&gt; Bool) -&gt; (a -&gt; a -&gt; Bool) -&gt; Eq a
 $c== :: Task -&gt; Task -&gt; Bool
 == :: Task -&gt; Task -&gt; Bool
 $c/= :: Task -&gt; Task -&gt; Bool
 /= :: Task -&gt; Task -&gt; Bool
-</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679140860"><span id="local-6989586621679140866"><span id="local-6989586621679140870"><span class="annot"><span class="annottext">Int -&gt; Task -&gt; ShowS
+</span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var">Eq</span></span></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679210123"><span id="local-6989586621679210129"><span id="local-6989586621679210133"><span class="annot"><span class="annottext">Int -&gt; Task -&gt; ShowS
 [Task] -&gt; ShowS
 Task -&gt; String
 (Int -&gt; Task -&gt; ShowS)
@@ -68,15 +68,15 @@ $cshowList :: [Task] -&gt; ShowS
 showList :: [Task] -&gt; ShowS
 </span><span class="hs-identifier hs-var hs-var hs-var hs-var hs-var hs-var hs-var hs-var">Show</span></span></span></span></span><span class="hs-special">)</span><span>
 </span><span id="line-25"></span><span>
-</span><span id="line-26"></span><span class="hs-keyword">instance</span><span> </span><span id="local-6989586621679140875"><span id="local-6989586621679140879"><span class="annot"><span class="hs-identifier hs-type">HasSummary</span></span><span> </span><span class="annot"><a href="Worklog.Task.html#Task"><span class="hs-identifier hs-type">Task</span></a></span></span></span><span> </span><span class="hs-keyword">where</span><span>
-</span><span id="line-27"></span><span>  </span><span id="local-6989586621679140882"><span class="annot"><span class="annottext">getSummary :: Task -&gt; Summary
-</span><a href="#local-6989586621679140882"><span class="hs-identifier hs-var hs-var hs-var">getSummary</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Task -&gt; Summary
+</span><span id="line-26"></span><span class="hs-keyword">instance</span><span> </span><span id="local-6989586621679210138"><span id="local-6989586621679210142"><span class="annot"><span class="hs-identifier hs-type">HasSummary</span></span><span> </span><span class="annot"><a href="Worklog.Task.html#Task"><span class="hs-identifier hs-type">Task</span></a></span></span></span><span> </span><span class="hs-keyword">where</span><span>
+</span><span id="line-27"></span><span>  </span><span id="local-6989586621679210145"><span class="annot"><span class="annottext">getSummary :: Task -&gt; Summary
+</span><a href="#local-6989586621679210145"><span class="hs-identifier hs-var hs-var hs-var">getSummary</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Task -&gt; Summary
 </span><a href="Worklog.Task.html#taskSummary"><span class="hs-identifier hs-var">taskSummary</span></a></span><span>
-</span><span id="line-28"></span><span>  </span><span id="local-6989586621679140884"><span class="annot"><span class="annottext">setSummary :: Task -&gt; Summary -&gt; Task
-</span><a href="#local-6989586621679140884"><span class="hs-identifier hs-var hs-var hs-var">setSummary</span></a></span></span><span> </span><span id="local-6989586621679140886"><span class="annot"><span class="annottext">Task
-</span><a href="#local-6989586621679140886"><span class="hs-identifier hs-var">task</span></a></span></span><span> </span><span id="local-6989586621679140887"><span class="annot"><span class="annottext">Summary
-</span><a href="#local-6989586621679140887"><span class="hs-identifier hs-var">s</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Task
-</span><a href="#local-6989586621679140886"><span class="hs-identifier hs-var">task</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Task.html#taskSummary"><span class="hs-identifier hs-var">taskSummary</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="#local-6989586621679140887"><span class="hs-identifier hs-type">s</span></a></span><span class="hs-special">}</span><span>
+</span><span id="line-28"></span><span>  </span><span id="local-6989586621679210147"><span class="annot"><span class="annottext">setSummary :: Task -&gt; Summary -&gt; Task
+</span><a href="#local-6989586621679210147"><span class="hs-identifier hs-var hs-var hs-var">setSummary</span></a></span></span><span> </span><span id="local-6989586621679210149"><span class="annot"><span class="annottext">Task
+</span><a href="#local-6989586621679210149"><span class="hs-identifier hs-var">task</span></a></span></span><span> </span><span id="local-6989586621679210150"><span class="annot"><span class="annottext">Summary
+</span><a href="#local-6989586621679210150"><span class="hs-identifier hs-var">s</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Task
+</span><a href="#local-6989586621679210149"><span class="hs-identifier hs-var">task</span></a></span><span> </span><span class="hs-special">{</span><span class="annot"><a href="Worklog.Task.html#taskSummary"><span class="hs-identifier hs-var">taskSummary</span></a></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><a href="#local-6989586621679210150"><span class="hs-identifier hs-type">s</span></a></span><span class="hs-special">}</span><span>
 </span><span id="line-29"></span><span>
 </span><span id="line-30"></span><span class="hs-comment">-- ToDo: change to Maybe Task. Cannot create Task</span><span>
 </span><span id="line-31"></span><span class="hs-comment">-- with emptySummary</span><span>

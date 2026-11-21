@@ -1,3 +1,4 @@
+{-# LANGUAGE RecordWildCards #-}
 -- | Domain types and operations for individual cases.
 module Worklog.Case
   ( -- * Case
@@ -55,6 +56,7 @@ import Data.Time.Calendar
 import Data.Set (Set)
 import qualified Data.Set as Set
 import Data.Text (Text)
+import Data.Maybe (fromMaybe)
 
 -- | Indicates whether a case requires attention.
 -- Currently, every non-archived case is considered to need attention.
@@ -174,20 +176,6 @@ instance HasSummary Case where
   getSummary = caseSummary
   setSummary cas s = cas {caseSummary = s}
 
-data CaseDraft = Draft
-  { 
-  -- todo: The metadata from the workfile must be preserved
-    draftTitle :: String,
-    draftStatus :: Status,
-    draftDeadline :: Deadline,
-    draftSummary :: Summary,
-    draftFlags :: Set CaseFlag,
-    draftTodos :: [Todo],
-    draftTasks :: [Task],
-    draftAttachments :: [Attachment],
-    draftKeywords :: [Text]
-  }
-  deriving (Eq, Show)
 
 -- | Returns the case title without exposing a setter.
 getCaseTitle :: Case -> String
@@ -205,13 +193,46 @@ newCase title = Case
     caseFlags = Set.empty,
     caseTodos = [],
     caseTasks = [],
-    caseAttachments = []
+    caseAttachments = [],
+    caseKeywords = []
   }
 
 data CaseError = SomeError
+  deriving (Eq, Show)
 
+data CaseDraft = Draft
+  { 
+    -- todo: The metadata from the workfile must be preserved
+    draftTitle :: String,
+    draftStatus :: Status,
+    -- todo: Calculate deadline from the case fields (maybe from the meta
+    -- values, or we need other fields (start date, processing time)
+    draftDeadline :: Maybe Deadline,
+    draftSummary :: Summary,
+    draftFlags :: Set CaseFlag,
+    draftTodos :: [Todo],
+    draftTasks :: [Task],
+    draftAttachments :: [Attachment],
+    draftKeywords :: [Text]
+  }
+  deriving (Eq, Show)
+-- | Validate and create a Case value from the draft
+-- There is no error yet which prevents creation of
+-- case from a valid CaseDraft value
 makeCase :: CaseDraft -> Either CaseError Case
-makeCase = undefined
+makeCase Draft {..} = 
+  Right $ Case
+  { 
+    caseTitle = draftTitle,
+    caseStatus = draftStatus,
+    caseDeadline = fromMaybe NoDeadline draftDeadline,
+    caseSummary = draftSummary,
+    caseFlags = draftFlags,
+    caseTodos = draftTodos,
+    caseTasks = draftTasks,
+    caseAttachments = draftAttachments,
+    caseKeywords = draftKeywords
+  }
 
 -- ToDo: ?set a lista helyett a todo és a task esetén?
 -- nem számít a sorrend, azonban a tárolni kell valahol
